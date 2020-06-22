@@ -1,6 +1,6 @@
 package ID316334473.Views;
 
-public class MainView {
+public class MainView extends View {
 	// Constants
 
 	// Fields
@@ -8,6 +8,18 @@ public class MainView {
 	// Properties (Getters and Setters)
 
 	// Constructors
+	public MainView() {
+		super();
+	}
 
 	// Methods
+	@Override
+	protected void buildScene() {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	protected void addEffects() {
+		// TODO Auto-generated method stub
+	}
 }
