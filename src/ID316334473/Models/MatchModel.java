@@ -6,10 +6,19 @@ public abstract class MatchModel {
 	public static final int TIE = 0;
 
 	// Fields
-	protected PlayerModel player0, player1;
 	protected boolean turn; // False = player 0, True = player 1
+	protected PlayerModel player0, player1;
 
 	// Properties (Getters and Setters)
+	
+	public boolean getTurn() {
+		return turn;
+	}
+	
+	private void setTurn(boolean turn) {
+		this.turn = turn;
+	}
+	
 	public PlayerModel getPlayer0() {
 		return player0;
 	}
@@ -36,6 +45,7 @@ public abstract class MatchModel {
 
 	// Constructors
 	public MatchModel(PlayerModel player0, PlayerModel player1) {
+		setTurn(false); // Player 0 begins
 		setPlayer0(player0);
 		setPlayer1(player1);
 	}

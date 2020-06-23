@@ -9,10 +9,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -57,8 +55,10 @@ public class UIHandler {
 	}
 
 	public static void toggleAudio() {
-		mediaPlayer.setMute(isAudioOn);
-		isAudioOn = !isAudioOn;
+		if (mediaPlayer != null) {
+			mediaPlayer.setMute(isAudioOn);
+			isAudioOn = !isAudioOn;
+		}
 	}
 
 	// Methods
@@ -139,40 +139,30 @@ public class UIHandler {
 	}
 
 	public static void setIcon(Stage stage) {
-		stage.getIcons().add(UIHandler.buildImage("Elections.jpg", 0, 0).getImage());
+		stage.getIcons().add(UIHandler.buildImage("Matches.png", 0, 0).getImage());
 	}
 
-	public static StackPane buildBackground(Node node, double width, double height, double fontSize, boolean hasTabs) {
-		ImageView backgroundImage = buildImage("IsraelFlag.PNG", width, height),
+	public static StackPane buildBackground(Node node, double width, double height, double fontSize) {
+		ImageView backgroundImage = buildImage("Arena.jpg", width, height),
 				audioImageView = buildImage("AudioOn.png", 30, 30);
-		Label topLabel = new Label("מדינה אנונימית במזרח התיכון");
-		Label bottomLabel = new Label("מערכת ניהול בחירות בתקופת קורונה");
-		Label fileAComplaintLabel = new Label("מצאת תקלה?");
+		Label topLabel = new Label("Sports Tournament");
+		Label bottomLabel = new Label("The only app to manage sports-related stuff");
 		Label audioLabel = new Label("Audio:");
-		Button fileAComplaintButton = new Button("התלונן עלינו!");
 		StackPane stackPane = new StackPane();
 
 		topLabel.setFont(new Font(fontSize));
 		topLabel.setTextFill(Color.WHITE);
 		bottomLabel.setFont(new Font(fontSize));
 		bottomLabel.setTextFill(Color.WHITE);
-		fileAComplaintLabel.setFont(new Font(15));
-		fileAComplaintLabel.setTextFill(Color.WHITE);
 		audioLabel.setFont(new Font(15));
 		audioLabel.setTextFill(Color.WHITE);
-		fileAComplaintButton.setStyle("-fx-background-radius: 5em; -fx-background-color: Red;");
-		fileAComplaintButton.toFront();
 
 		stackPane.getChildren().addAll(backgroundImage, topLabel, bottomLabel, node);
-		if (node instanceof TabPane) { // Visible only in Tabs
-			stackPane.getChildren().addAll(fileAComplaintLabel, fileAComplaintButton, audioLabel, audioImageView);
-			StackPane.setMargin(fileAComplaintLabel, new Insets(height, 10, height * 1.8, width * 0.92));
-			StackPane.setMargin(fileAComplaintButton, new Insets(height, 10, height * 1.8, width * 0.8));
-			StackPane.setMargin(audioLabel, new Insets(height, width * 0.95, height * 1.8, 10));
-			StackPane.setMargin(audioImageView, new Insets(height, width * 0.88, height * 1.8, 10));
-		}
-		StackPane.setMargin(topLabel, new Insets(hasTabs ? height : height * 0.92, 0, height * 1.8, 0));
-		StackPane.setMargin(bottomLabel, new Insets(hasTabs ? height * 0.95 : height * 0.92, 0, height * 0.08, 0));
+		stackPane.getChildren().addAll(audioLabel, audioImageView);
+		StackPane.setMargin(audioLabel, new Insets(height, width * 0.95, height * 1.9, 10));
+		StackPane.setMargin(audioImageView, new Insets(height, width * 0.88, height * 1.9, 10));
+		StackPane.setMargin(topLabel, new Insets(height * 0.92, 0, height * 1.8, 0));
+		StackPane.setMargin(bottomLabel, new Insets(height * 0.92, 0, height * 0.08, 0));
 
 		return stackPane;
 	}

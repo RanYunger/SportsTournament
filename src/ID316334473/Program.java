@@ -1,6 +1,11 @@
 package ID316334473;
 
-public class Program {
+import ID316334473.Controllers.MainController;
+import ID316334473.Views.MainView;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Program extends Application {
 	// Constants
 
 	// Fields
@@ -10,7 +15,9 @@ public class Program {
 	// Constructors
 
 	// Methods
-	public static void main(String[] args) {
-		System.out.println("THIS IS A PLACE HOLDER");
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		MainView mainView = new MainView();
+		MainController mainController = new MainController(mainView);
 	}
 }
