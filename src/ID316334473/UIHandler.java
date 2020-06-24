@@ -32,7 +32,7 @@ public class UIHandler {
 	private static boolean isAudioOn = true;
 	private static MediaPlayer mediaPlayer;
 	private static Media media;
-
+	
 	// Properties
 	public static MainController getMainController() {
 		return mainController;
@@ -139,12 +139,12 @@ public class UIHandler {
 	}
 
 	public static void setIcon(Stage stage) {
-		stage.getIcons().add(UIHandler.buildImage("Matches.png", 0, 0).getImage());
+		stage.getIcons().add(UIHandler.buildImage("Championships.png", 0, 0).getImage());
 	}
 
-	public static StackPane buildBackground(Node node, double width, double height, double fontSize) {
-		ImageView backgroundImage = buildImage("Arena.jpg", width, height),
-				audioImageView = buildImage("AudioOn.png", 30, 30);
+	public static StackPane buildBackground(String backgroundImageName, Node node, double width, double height, double fontSize) {
+		ImageView backgroundImage = buildImage(backgroundImageName, width, height),
+				audioImageView = buildImage("AudioOn.png", 30, 30), homeImageView = buildImage("Home.png", 30, 30);
 		Label topLabel = new Label("Sports Tournament");
 		Label bottomLabel = new Label("The only app to manage sports-related stuff");
 		Label audioLabel = new Label("Audio:");
@@ -158,9 +158,10 @@ public class UIHandler {
 		audioLabel.setTextFill(Color.WHITE);
 
 		stackPane.getChildren().addAll(backgroundImage, topLabel, bottomLabel, node);
-		stackPane.getChildren().addAll(audioLabel, audioImageView);
+		stackPane.getChildren().addAll(audioLabel, audioImageView, homeImageView);
 		StackPane.setMargin(audioLabel, new Insets(height, width * 0.95, height * 1.9, 10));
 		StackPane.setMargin(audioImageView, new Insets(height, width * 0.88, height * 1.9, 10));
+		StackPane.setMargin(homeImageView, new Insets(height, 10, height * 1.9, width * 0.95));
 		StackPane.setMargin(topLabel, new Insets(height * 0.92, 0, height * 1.8, 0));
 		StackPane.setMargin(bottomLabel, new Insets(height * 0.92, 0, height * 0.08, 0));
 

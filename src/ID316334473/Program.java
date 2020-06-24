@@ -19,5 +19,9 @@ public class Program extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		MainView mainView = new MainView();
 		MainController mainController = new MainController(mainView);
+		
+		UIHandler.setMainView(mainView);
+		UIHandler.setMainController(mainController);
+		mainController.addEventHandlersToGeneralButtons();
 	}
 }

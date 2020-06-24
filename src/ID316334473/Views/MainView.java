@@ -1,10 +1,8 @@
 package ID316334473.Views;
 
 import ID316334473.UIHandler;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -18,17 +16,21 @@ public class MainView extends View {
 
 	// Fields
 	private HBox optionsHBox;
-	private VBox playersVBox, matchesVBox, trophiesVBox;
-	private ImageView audioImageView, playersImageView, matchesImageView, trophiesImageView;
-	private Label playersLabel, matchesLabel, trophiesLabel;
+	private VBox playersVBox, championshipsVBox, trophiesVBox;
+	private ImageView playersImageView, championshipsImageView, trophiesImageView;
+	private Label playersLabel, championshipsLabel, trophiesLabel;
 
 	// Properties (Getters and Setters)
-	public ImageView getAudioImageView() {
-		return audioImageView;
+	public ImageView getPlayersImageView() {
+		return playersImageView;
 	}
 
-	public void setAudioImageView(ImageView audioImageView) {
-		this.audioImageView = audioImageView;
+	public ImageView getChampionshipsImageView() {
+		return championshipsImageView;
+	}
+
+	public ImageView getTrophiesImageView() {
+		return trophiesImageView;
 	}
 
 	// Constructors
@@ -46,23 +48,23 @@ public class MainView extends View {
 
 		optionsHBox = new HBox();
 		playersVBox = new VBox();
-		matchesVBox = new VBox();
+		championshipsVBox = new VBox();
 		trophiesVBox = new VBox();
 		playersImageView = UIHandler.buildImage("Players.png", 300, 300);
-		matchesImageView = UIHandler.buildImage("Matches.png", 300, 300);
+		championshipsImageView = UIHandler.buildImage("Championships.png", 300, 300);
 		trophiesImageView = UIHandler.buildImage("Trophies.png", 300, 300);
 		playersLabel = new Label("Players");
-		matchesLabel = new Label("Matches");
+		championshipsLabel = new Label("Championships");
 		trophiesLabel = new Label("Trophies");
 
 		optionsHBox.setAlignment(Pos.CENTER);
 		playersVBox.setAlignment(Pos.CENTER_LEFT);
-		matchesVBox.setAlignment(Pos.CENTER);
+		championshipsVBox.setAlignment(Pos.CENTER);
 		trophiesVBox.setAlignment(Pos.CENTER_RIGHT);
 		playersLabel.setFont(new Font(viewFontSize));
 		playersLabel.setTextFill(Color.WHITE);
-		matchesLabel.setFont(new Font(viewFontSize));
-		matchesLabel.setTextFill(Color.WHITE);
+		championshipsLabel.setFont(new Font(viewFontSize));
+		championshipsLabel.setTextFill(Color.WHITE);
 		trophiesLabel.setFont(new Font(viewFontSize));
 		trophiesLabel.setTextFill(Color.WHITE);
 
@@ -70,20 +72,21 @@ public class MainView extends View {
 		VBox.setMargin(playersImageView, new Insets(0, 0, 10, 0));
 		VBox.setMargin(playersLabel, new Insets(10, 0, 0, 100));
 
-		matchesVBox.getChildren().addAll(matchesImageView, matchesLabel);
-		VBox.setMargin(matchesImageView, new Insets(0, 0, 10, 0));
-		VBox.setMargin(matchesLabel, new Insets(10, 0, 0, 0));
+		championshipsVBox.getChildren().addAll(championshipsImageView, championshipsLabel);
+		VBox.setMargin(championshipsImageView, new Insets(0, 0, 10, 0));
+		VBox.setMargin(championshipsLabel, new Insets(10, 0, 0, 0));
 
 		trophiesVBox.getChildren().addAll(trophiesImageView, trophiesLabel);
 		VBox.setMargin(trophiesImageView, new Insets(0, 0, 10, 0));
 		VBox.setMargin(trophiesLabel, new Insets(10, 100, 0, 0));
 
-		optionsHBox.getChildren().addAll(playersVBox, matchesVBox, trophiesVBox);
+		optionsHBox.getChildren().addAll(playersVBox, championshipsVBox, trophiesVBox);
 		HBox.setMargin(playersVBox, new Insets(0, 50, 0, 0));
-		HBox.setMargin(matchesVBox, new Insets(0, 50, 0, 50));
+		HBox.setMargin(championshipsVBox, new Insets(0, 50, 0, 50));
 		HBox.setMargin(trophiesVBox, new Insets(0, 0, 0, 50));
 
-		stage.setScene(new Scene(UIHandler.buildBackground(optionsHBox, sceneWidth, sceneHeight, backgroundFontSize),
+		stage.setScene(new Scene(
+				UIHandler.buildBackground("Arena.jpg", optionsHBox, sceneWidth, sceneHeight, backgroundFontSize),
 				sceneWidth, sceneHeight));
 		UIHandler.setGeneralFeatures(stage);
 
@@ -92,20 +95,10 @@ public class MainView extends View {
 
 	@Override
 	protected void addEffects() {
-		Scene scene = stage.getScene();
-		ObservableList<Node> rootNodes = scene.getRoot().getChildrenUnmodifiable();
-		Node currentNode;
+		super.addEffects();
 
-		for (int i = 0; i < rootNodes.size(); i++) {
-			currentNode = rootNodes.get(i);
-			if ((currentNode instanceof ImageView) && ((ImageView) currentNode).getImage().getWidth() == 30) {
-				setAudioImageView((ImageView) currentNode);
-				UIHandler.addAudioToImageView(audioImageView, "Sparkle.mp3");
-			}
-		}
-		
-		UIHandler.addAudioToImageView(playersImageView, "Marching.mp3");
-		UIHandler.addAudioToImageView(matchesImageView, "Whistle.mp3");
-		UIHandler.addAudioToImageView(trophiesImageView, "Sparkle.mp3");
+		UIHandler.addCursorEffectsToNode(playersImageView);
+		UIHandler.addCursorEffectsToNode(championshipsImageView);
+		UIHandler.addCursorEffectsToNode(trophiesImageView);
 	}
 }

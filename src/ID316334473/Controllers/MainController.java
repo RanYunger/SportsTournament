@@ -1,42 +1,66 @@
 package ID316334473.Controllers;
 
 import ID316334473.UIHandler;
+import ID316334473.Views.ChampionshipsView;
 import ID316334473.Views.MainView;
 import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class MainController {
+public class MainController extends Controller {
 	// Constants
 
 	// Fields
-	private MainView mainView;
 
 	// Properties (Getters and Setters)
 	public MainView getMainView() {
-		return mainView;
+		return (MainView) super.getView();
 	}
 
-	private void setMainView(MainView mainView) {
-		this.mainView = mainView;
-	}
-	
 	// Constructors
 	public MainController(MainView mainView) {
-		setMainView(mainView);
+		super(mainView);
 
-		EventHandler<MouseEvent> audioImageViewEventHandler = new EventHandler<MouseEvent>() {
+		EventHandler<MouseEvent> playersImageViewEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				ImageView audioImageView = mainView.getAudioImageView(), newImageView;
+				mainView.close();
+				UIHandler.playAudio("Marching.mp3");
+//
+//				PlayersView playersView = new PlayersView();
+//				PlayersController playersController = new PlayersController(playersView);
+//
+//				playersController.addEventHandlersToGeneralButtons();
+			}
+		};
+		EventHandler<MouseEvent> championshipsImageViewEventHandler = new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mainView.close();
+				UIHandler.playAudio("Whistle.mp3");
 
-				UIHandler.toggleAudio();
-				newImageView = UIHandler.buildImage(UIHandler.isAudioOn() ? "AudioOn.png" : "AudioOff.png", 30, 30);
-				audioImageView.setImage(newImageView.getImage());
+				ChampionshipsView championshipsView = new ChampionshipsView();
+				ChampionshipsController championshipsController = new ChampionshipsController(championshipsView);
+
+				championshipsController.addEventHandlersToGeneralButtons();
+			}
+		};
+		EventHandler<MouseEvent> trophiesImageViewEventHandler = new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				mainView.close();
+				UIHandler.playAudio("Sparkle.mp3");
+//				
+//				TrophiesView trophiesView = new TrophiesView();
+//				TrophiesController trophiesController = new TrophiesController(trophiesView);
+//				
+//				trophiesController.addEventHandlersToGeneralButtons();
 			}
 		};
 
-		mainView.getAudioImageView().setOnMouseClicked(audioImageViewEventHandler);
+		getMainView().getPlayersImageView().setOnMouseClicked(playersImageViewEventHandler);
+		getMainView().getChampionshipsImageView().setOnMouseClicked(championshipsImageViewEventHandler);
+		getMainView().getTrophiesImageView().setOnMouseClicked(trophiesImageViewEventHandler);
+
 	}
 
 	// Methods
