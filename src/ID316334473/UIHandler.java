@@ -3,6 +3,7 @@ package ID316334473;
 import java.io.File;
 
 import ID316334473.Controllers.MainController;
+import ID316334473.Models.PlayerModel;
 import ID316334473.Views.MainView;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -11,6 +12,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -121,15 +124,34 @@ public class UIHandler {
 	public static void showError(String header, String message) {
 		showAlert(AlertType.ERROR, "Error", header, message, "Awww.mp3");
 	}
+	
+	public static TableView<PlayerModel> buildPlayersTableView(){
+		TableView<PlayerModel> tableView = new TableView<PlayerModel>();
+		TableColumn<PlayerModel, Number> playerIDTableColumn, playerScoreTableColumn;
+		TableColumn<PlayerModel, String> playerNameTableColumn;
+		
+		playerIDTableColumn = new TableColumn<PlayerModel, Number>("ID");
+		playerIDTableColumn.setCellValueFactory(cell -> cell.getValue().getObservableID());
+		playerIDTableColumn.setMinWidth(160);
 
-	public static void showError(String header, StackTraceElement[] stackTrace) {
-		StringBuilder fullMessage = new StringBuilder();
+		playerNameTableColumn = new TableColumn<PlayerModel, String>("Name");
+		playerNameTableColumn.setCellValueFactory(cell -> cell.getValue().getObservableName());
+		playerNameTableColumn.setMinWidth(178);
 
-		for (StackTraceElement stackTraceElement : stackTrace) {
-			fullMessage.append(stackTraceElement.toString() + "\n");
+		playerScoreTableColumn = new TableColumn<PlayerModel, Number>("Score");
+		playerScoreTableColumn.setCellValueFactory(cell -> cell.getValue().getObservableScore());
+		playerScoreTableColumn.setMinWidth(160);
+
+		tableView.getColumns().addAll(playerIDTableColumn, playerNameTableColumn, playerScoreTableColumn);
+		for (TableColumn<?, ?> tableColumn : tableView.getColumns()) {
+			tableColumn.setStyle("-fx-alignment: CENTER;");
+			tableColumn.setEditable(false);
+			tableColumn.setReorderable(false);
+			tableColumn.setSortable(false);
+			tableColumn.setResizable(false);
 		}
-
-		showError(header, fullMessage.toString());
+		
+		return tableView;
 	}
 
 	public static void setGeneralFeatures(Stage stage) {

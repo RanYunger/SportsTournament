@@ -12,6 +12,12 @@ public class TrophiesView extends View {
 	// Properties (Getters and Setters)
 
 	// Constructors
+	public TrophiesView() {
+		super();
+		
+		buildScene();
+		addEffects();
+	}
 
 	// Methods
 	@Override
@@ -28,7 +34,6 @@ public class TrophiesView extends View {
 
 	@Override
 	protected void addEffects() {
-		// TODO Auto-generated method stub
-
+		super.addEffects();
 	}
 }

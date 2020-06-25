@@ -4,6 +4,7 @@ public abstract class MatchModel {
 	// Constants
 	public static final int NO_SCORE = -1;
 	public static final int TIE = 0;
+	public static final int MAX_PLAYERS = 8;
 
 	// Fields
 	protected boolean turn; // False = player 0, True = player 1

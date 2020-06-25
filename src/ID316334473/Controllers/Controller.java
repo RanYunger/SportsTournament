@@ -42,6 +42,10 @@ public abstract class Controller {
 		EventHandler<MouseEvent> homeImageViewEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				// TODO: FIX
+				if (view.getClass() != MainView.class)
+					view.close();
+
 				UIHandler.getMainView().getStage().requestFocus();
 			}
 		};
