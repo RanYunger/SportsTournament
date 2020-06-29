@@ -50,9 +50,9 @@ public class MainView extends View {
 		playersVBox = new VBox();
 		championshipsVBox = new VBox();
 		trophiesVBox = new VBox();
-		playersImageView = UIHandler.buildImage("Players.png", 300, 300);
-		championshipsImageView = UIHandler.buildImage("Championships.png", 300, 300);
-		trophiesImageView = UIHandler.buildImage("Trophies.png", 300, 300);
+		playersImageView = UIHandler.buildImage("Players.png", 350, 300);
+		championshipsImageView = UIHandler.buildImage("Championships.png", 350, 300);
+		trophiesImageView = UIHandler.buildImage("Trophies.png", 350, 300);
 		playersLabel = new Label("Players");
 		championshipsLabel = new Label("Championships");
 		trophiesLabel = new Label("Trophies");
@@ -70,7 +70,7 @@ public class MainView extends View {
 
 		playersVBox.getChildren().addAll(playersImageView, playersLabel);
 		VBox.setMargin(playersImageView, new Insets(0, 0, 10, 0));
-		VBox.setMargin(playersLabel, new Insets(10, 0, 0, 100));
+		VBox.setMargin(playersLabel, new Insets(10, 0, 0, 125));
 
 		championshipsVBox.getChildren().addAll(championshipsImageView, championshipsLabel);
 		VBox.setMargin(championshipsImageView, new Insets(0, 0, 10, 0));
@@ -78,7 +78,7 @@ public class MainView extends View {
 
 		trophiesVBox.getChildren().addAll(trophiesImageView, trophiesLabel);
 		VBox.setMargin(trophiesImageView, new Insets(0, 0, 10, 0));
-		VBox.setMargin(trophiesLabel, new Insets(10, 100, 0, 0));
+		VBox.setMargin(trophiesLabel, new Insets(10, 125, 0, 0));
 
 		optionsHBox.getChildren().addAll(playersVBox, championshipsVBox, trophiesVBox);
 		HBox.setMargin(playersVBox, new Insets(0, 50, 0, 0));

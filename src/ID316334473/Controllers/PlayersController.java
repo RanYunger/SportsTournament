@@ -32,10 +32,16 @@ public class PlayersController extends Controller {
 			public void handle(ActionEvent event) {
 				ObservableList<PlayerModel> tennisPlayers = playersView.getTennisPlayers();
 
-				if (tennisPlayers.size() == MatchModel.MAX_PLAYERS)
+				// Validations
+				if (tennisPlayers.size() == MatchModel.MAX_PLAYERS) {
 					UIHandler.showError("There are already 8 tennis players. Better luck next time.");
+					return;
+				}
 
-				AddPlayerController addPlayerController = new AddPlayerController(new AddPlayerView(GameType.Tennis));
+				playersView.disableAllButtons(true);
+				UIHandler.playAudio("Hit.mp3");
+				AddPlayerController addPlayerController = new AddPlayerController(new AddPlayerView(GameType.Tennis),
+						playersView);
 
 				addPlayerController.addEventHandlersToGeneralButtons();
 			}
@@ -44,12 +50,18 @@ public class PlayersController extends Controller {
 
 			@Override
 			public void handle(ActionEvent event) {
-				ObservableList<PlayerModel> BasketballPlayers = playersView.getBasketballPlayers();
+				ObservableList<PlayerModel> basketballPlayers = playersView.getBasketballPlayers();
 
-				if (BasketballPlayers.size() == MatchModel.MAX_PLAYERS)
+				// Validations
+				if (basketballPlayers.size() == MatchModel.MAX_PLAYERS) {
 					UIHandler.showError("There are already 8 basketball players. Better luck next time.");
+					return;
+				}
 
-				AddPlayerController addPlayerController = new AddPlayerController(new AddPlayerView(GameType.Basketball));
+				playersView.disableAllButtons(true);
+				UIHandler.playAudio("Bounce.mp3");
+				AddPlayerController addPlayerController = new AddPlayerController(
+						new AddPlayerView(GameType.Basketball), playersView);
 
 				addPlayerController.addEventHandlersToGeneralButtons();
 			}
@@ -60,15 +72,21 @@ public class PlayersController extends Controller {
 			public void handle(ActionEvent event) {
 				ObservableList<PlayerModel> footballPlayers = playersView.getFootballPlayers();
 
-				if (footballPlayers.size() == MatchModel.MAX_PLAYERS)
+				// Validations
+				if (footballPlayers.size() == MatchModel.MAX_PLAYERS) {
 					UIHandler.showError("There are already 8 football players. Better luck next time.");
-
-				AddPlayerController addPlayerController = new AddPlayerController(new AddPlayerView(GameType.Football));
+					return;
+				}
+				
+				playersView.disableAllButtons(true);
+				UIHandler.playAudio("Kick.mp3");
+				AddPlayerController addPlayerController = new AddPlayerController(new AddPlayerView(GameType.Football),
+						playersView);
 
 				addPlayerController.addEventHandlersToGeneralButtons();
 			}
 		};
-		
+
 		playersView.getAddTennisPlayerButton().setOnAction(addTennisPlayerButtonEventHandler);
 		playersView.getAddBasketballPlayerButton().setOnAction(addBasketballPlayerButtonEventHandler);
 		playersView.getAddFootballPlayerButton().setOnAction(addFootballPlayerButtonEventHandler);

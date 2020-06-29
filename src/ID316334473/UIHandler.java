@@ -6,6 +6,7 @@ import ID316334473.Controllers.MainController;
 import ID316334473.Models.PlayerModel;
 import ID316334473.Views.MainView;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -17,7 +18,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -125,6 +128,7 @@ public class UIHandler {
 		showAlert(AlertType.ERROR, "Error", header, message, "Awww.mp3");
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static TableView<PlayerModel> buildPlayersTableView(){
 		TableView<PlayerModel> tableView = new TableView<PlayerModel>();
 		TableColumn<PlayerModel, Number> playerIDTableColumn, playerScoreTableColumn;
@@ -153,6 +157,11 @@ public class UIHandler {
 		
 		return tableView;
 	}
+	
+	public static Node buildChampionshipHierarchy() {
+		// TODO: COMPLETE
+		return new GridPane();
+	}
 
 	public static void setGeneralFeatures(Stage stage) {
 		setIcon(stage);
@@ -167,24 +176,29 @@ public class UIHandler {
 	public static StackPane buildBackground(String backgroundImageName, Node node, double width, double height, double fontSize) {
 		ImageView backgroundImage = buildImage(backgroundImageName, width, height),
 				audioImageView = buildImage("AudioOn.png", 30, 30), homeImageView = buildImage("Home.png", 30, 30);
+		VBox topVBox = new VBox();
+		Label creatorLabel = new Label("From one of the creators of \"Corona Elections\":");
 		Label topLabel = new Label("Sports Tournament");
 		Label bottomLabel = new Label("The only app to manage sports-related stuff");
-		Label audioLabel = new Label("Audio:");
 		StackPane stackPane = new StackPane();
 
+		topVBox.setAlignment(Pos.CENTER);
+		creatorLabel.setFont(new Font(15));
+		creatorLabel.setTextFill(Color.WHITE);
 		topLabel.setFont(new Font(fontSize));
 		topLabel.setTextFill(Color.WHITE);
 		bottomLabel.setFont(new Font(fontSize));
 		bottomLabel.setTextFill(Color.WHITE);
-		audioLabel.setFont(new Font(15));
-		audioLabel.setTextFill(Color.WHITE);
+		
+		topVBox.getChildren().addAll(creatorLabel, topLabel);
+		VBox.setMargin(creatorLabel, new Insets(10,0,0,0));
+		VBox.setMargin(topLabel, new Insets(0,0,-10,0));
 
-		stackPane.getChildren().addAll(backgroundImage, topLabel, bottomLabel, node);
-		stackPane.getChildren().addAll(audioLabel, audioImageView, homeImageView);
-		StackPane.setMargin(audioLabel, new Insets(height, width * 0.95, height * 1.9, 10));
-		StackPane.setMargin(audioImageView, new Insets(height, width * 0.88, height * 1.9, 10));
+		stackPane.getChildren().addAll(backgroundImage, topVBox, bottomLabel, node);
+		stackPane.getChildren().addAll(audioImageView, homeImageView);
+		StackPane.setMargin(audioImageView, new Insets(height, width * 0.95, height * 1.9, 10));
 		StackPane.setMargin(homeImageView, new Insets(height, 10, height * 1.9, width * 0.95));
-		StackPane.setMargin(topLabel, new Insets(height * 0.92, 0, height * 1.8, 0));
+		StackPane.setMargin(topVBox, new Insets(height * 0.92, 0, height * 1.8, 0));
 		StackPane.setMargin(bottomLabel, new Insets(height * 0.92, 0, height * 0.08, 0));
 
 		return stackPane;

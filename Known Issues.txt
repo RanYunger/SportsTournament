@@ -1,0 +1,4 @@
+1. Fix the Audio button in EACH VIEW (muted in a different form -> should be muted in all forms!)
+2. Design ChampionshipHierarchy (UIHandler) + complete ChampionshipController functionality
+3. Sort players in PlayersView by their score
+4. Design + complete each MatchView

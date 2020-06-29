@@ -5,6 +5,7 @@ import ID316334473.Models.BasketballPlayerModel;
 import ID316334473.Models.FootballPlayerModel;
 import ID316334473.Models.PlayerModel;
 import ID316334473.Models.TennisPlayerModel;
+import ID316334473.Models.TournamentModel.GameType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -31,18 +32,6 @@ public class PlayersView extends View {
 	private TableView<PlayerModel> tennisPlayersTableView, basketballPlayersTableView, footballPlayersTableView;
 
 	// Properties (Getters and Setters)
-	public Button getAddTennisPlayerButton() {
-		return addTennisPlayerButton;
-	}
-
-	public Button getAddBasketballPlayerButton() {
-		return addBasketballPlayerButton;
-	}
-
-	public Button getAddFootballPlayerButton() {
-		return addFootballPlayerButton;
-	}
-
 	public ObservableList<PlayerModel> getTennisPlayers() {
 		return tennisPlayers;
 	}
@@ -53,6 +42,18 @@ public class PlayersView extends View {
 
 	public ObservableList<PlayerModel> getFootballPlayers() {
 		return footballPlayers;
+	}
+	
+	public Button getAddTennisPlayerButton() {
+		return addTennisPlayerButton;
+	}
+
+	public Button getAddBasketballPlayerButton() {
+		return addBasketballPlayerButton;
+	}
+
+	public Button getAddFootballPlayerButton() {
+		return addFootballPlayerButton;
 	}
 
 	public TableView<PlayerModel> getTennisPlayersTableView() {
@@ -118,19 +119,19 @@ public class PlayersView extends View {
 		footballVBox.setAlignment(Pos.CENTER);
 
 		tennisVBox.getChildren().addAll(tennisImageView, addTennisPlayerButton, tennisPlayersTableView);
-		VBox.setMargin(tennisImageView, new Insets(30, 0, 0, 0));
+		VBox.setMargin(tennisImageView, new Insets(90, 0, 0, 0));
 		VBox.setMargin(addTennisPlayerButton, new Insets(10, 0, 10, 0));
-		VBox.setMargin(tennisPlayersTableView, new Insets(10, 0, 50, 0));
+		VBox.setMargin(tennisPlayersTableView, new Insets(10, 0, 90, 0));
 
 		basketballVBox.getChildren().addAll(basketballImageView, addBasketballPlayerButton, basketballPlayersTableView);
-		VBox.setMargin(basketballImageView, new Insets(30, 0, 0, 10));
+		VBox.setMargin(basketballImageView, new Insets(90, 0, 0, 10));
 		VBox.setMargin(addBasketballPlayerButton, new Insets(10, 0, 10, 10));
-		VBox.setMargin(basketballPlayersTableView, new Insets(10, 0, 50, 0));
+		VBox.setMargin(basketballPlayersTableView, new Insets(10, 0, 90, 0));
 
 		footballVBox.getChildren().addAll(footballImageView, addFootballPlayerButton, footballPlayersTableView);
-		VBox.setMargin(footballImageView, new Insets(30, 0, 0, 0));
+		VBox.setMargin(footballImageView, new Insets(90, 0, 0, 0));
 		VBox.setMargin(addFootballPlayerButton, new Insets(10, 0, 10, 0));
-		VBox.setMargin(footballPlayersTableView, new Insets(14, 0, 50, 0));
+		VBox.setMargin(footballPlayersTableView, new Insets(15, 0, 90, 0));
 
 		gridPane.add(tennisVBox, 0, 0);
 		gridPane.add(basketballVBox, 1, 0);
@@ -172,5 +173,27 @@ public class PlayersView extends View {
 		tennisPlayersTableView.setItems(tennisPlayers);
 		basketballPlayersTableView.setItems(basketballPlayers);
 		footballPlayersTableView.setItems(footballPlayers);
+	}
+
+	public void addPlayer(PlayerModel player) {
+		GameType game = player.getGame();
+
+		switch (game) {
+		case Tennis:
+			tennisPlayers.add(player);
+			break;
+		case Basketball:
+			basketballPlayers.add(player);
+			break;
+		case Football:
+			footballPlayers.add(player);
+			break;
+		}
+	}
+	
+	public void disableAllButtons(boolean disabled) {
+		addTennisPlayerButton.setDisable(disabled);
+		addBasketballPlayerButton.setDisable(disabled);
+		addFootballPlayerButton.setDisable(disabled);
 	}
 }

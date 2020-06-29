@@ -22,7 +22,7 @@ public class TrophiesView extends View {
 	// Methods
 	@Override
 	protected void buildScene() {
-		double sceneWidth = 1500, sceneHeight = 700, backgroundFontSize = 50, viewFontSize = 30;
+		double sceneWidth = 1500, sceneHeight = 700, backgroundFontSize = 50;
 		
 		stage.setScene(new Scene(
 				UIHandler.buildBackground("Arena.jpg", new VBox(), sceneWidth, sceneHeight, backgroundFontSize),

@@ -15,7 +15,18 @@ public class ChampionshipsView extends View {
 	private ImageView tennisImageView, basketballImageView, footballImageView;
 
 	// Properties (Getters and Setters)	
-
+	public ImageView getTennisImageView() {
+		return tennisImageView;
+	}
+	
+	public ImageView getBasketballImageView() {
+		return basketballImageView;
+	}
+	
+	public ImageView getFootballImageView() {
+		return footballImageView;
+	}
+	
 	// Constructors
 	public ChampionshipsView() {
 		super();
