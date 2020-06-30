@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-public class ChampionshipsView extends View {
+public class TournamentsView extends WindowView {
 	// Constants
 
 	// Fields
@@ -28,7 +28,7 @@ public class ChampionshipsView extends View {
 	}
 	
 	// Constructors
-	public ChampionshipsView() {
+	public TournamentsView() {
 		super();
 		
 		buildScene();

@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class AddPlayerView extends View {
+public class AddPlayerView extends WindowView {
 	// Constants
 
 	// Fields

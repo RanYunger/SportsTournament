@@ -2,7 +2,7 @@ package ID316334473.Controllers;
 
 import ID316334473.Views.View;
 
-public class TrophiesController extends Controller {
+public class TrophiesController extends WindowController {
 	// Constants
 
 	// Fields

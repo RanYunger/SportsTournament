@@ -4,7 +4,7 @@ import ID316334473.UIHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
-public class TrophiesView extends View {
+public class TrophiesView extends WindowView {
 	// Constants
 
 	// Fields

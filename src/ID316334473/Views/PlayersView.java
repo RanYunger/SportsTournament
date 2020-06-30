@@ -20,7 +20,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class PlayersView extends View {
+public class PlayersView extends WindowView {
 	// Constants
 
 	// Fields

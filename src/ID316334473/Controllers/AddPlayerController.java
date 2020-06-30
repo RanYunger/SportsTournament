@@ -14,7 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 
-public class AddPlayerController extends Controller {
+public class AddPlayerController extends WindowController {
 	// Constants
 
 	// Fields

@@ -20,8 +20,8 @@ public class Program extends Application {
 		MainView mainView = new MainView();
 		MainController mainController = new MainController(mainView);
 		
+		mainController.addEventHandlersToGeneralButtons();
 		UIHandler.setMainView(mainView);
 		UIHandler.setMainController(mainController);
-		mainController.addEventHandlersToGeneralButtons();
 	}
 }

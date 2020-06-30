@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class MainView extends View {
+public class MainView extends WindowView {
 	// Constants
 
 	// Fields

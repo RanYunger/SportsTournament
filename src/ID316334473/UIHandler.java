@@ -18,7 +18,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -38,7 +37,7 @@ public class UIHandler {
 	private static boolean isAudioOn = true;
 	private static MediaPlayer mediaPlayer;
 	private static Media media;
-	
+
 	// Properties
 	public static MainController getMainController() {
 		return mainController;
@@ -127,13 +126,13 @@ public class UIHandler {
 	public static void showError(String header, String message) {
 		showAlert(AlertType.ERROR, "Error", header, message, "Awww.mp3");
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static TableView<PlayerModel> buildPlayersTableView(){
+	public static TableView<PlayerModel> buildPlayersTableView() {
 		TableView<PlayerModel> tableView = new TableView<PlayerModel>();
 		TableColumn<PlayerModel, Number> playerIDTableColumn, playerScoreTableColumn;
 		TableColumn<PlayerModel, String> playerNameTableColumn;
-		
+
 		playerIDTableColumn = new TableColumn<PlayerModel, Number>("ID");
 		playerIDTableColumn.setCellValueFactory(cell -> cell.getValue().getObservableID());
 		playerIDTableColumn.setMinWidth(160);
@@ -154,13 +153,8 @@ public class UIHandler {
 			tableColumn.setSortable(false);
 			tableColumn.setResizable(false);
 		}
-		
+
 		return tableView;
-	}
-	
-	public static Node buildChampionshipHierarchy() {
-		// TODO: COMPLETE
-		return new GridPane();
 	}
 
 	public static void setGeneralFeatures(Stage stage) {
@@ -173,12 +167,14 @@ public class UIHandler {
 		stage.getIcons().add(UIHandler.buildImage("Championships.png", 0, 0).getImage());
 	}
 
-	public static StackPane buildBackground(String backgroundImageName, Node node, double width, double height, double fontSize) {
+	public static StackPane buildBackground(String backgroundImageName, Node node, double width, double height,
+			double fontSize) {
 		ImageView backgroundImage = buildImage(backgroundImageName, width, height),
-				audioImageView = buildImage("AudioOn.png", 30, 30), homeImageView = buildImage("Home.png", 30, 30);
+				audioImageView = buildImage(isAudioOn ? "AudioOn.png" : "AudioOff.png", 30, 30),
+				homeImageView = buildImage("Home.png", 30, 30);
 		VBox topVBox = new VBox();
 		Label creatorLabel = new Label("From one of the creators of \"Corona Elections\":");
-		Label topLabel = new Label("Sports Tournament");
+		Label topLabel = new Label("Sports Tournaments");
 		Label bottomLabel = new Label("The only app to manage sports-related stuff");
 		StackPane stackPane = new StackPane();
 
@@ -189,10 +185,10 @@ public class UIHandler {
 		topLabel.setTextFill(Color.WHITE);
 		bottomLabel.setFont(new Font(fontSize));
 		bottomLabel.setTextFill(Color.WHITE);
-		
+
 		topVBox.getChildren().addAll(creatorLabel, topLabel);
-		VBox.setMargin(creatorLabel, new Insets(10,0,0,0));
-		VBox.setMargin(topLabel, new Insets(0,0,-10,0));
+		VBox.setMargin(creatorLabel, new Insets(10, 0, 0, 0));
+		VBox.setMargin(topLabel, new Insets(0, 0, -10, 0));
 
 		stackPane.getChildren().addAll(backgroundImage, topVBox, bottomLabel, node);
 		stackPane.getChildren().addAll(audioImageView, homeImageView);

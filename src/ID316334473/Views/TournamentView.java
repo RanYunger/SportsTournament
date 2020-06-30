@@ -5,8 +5,9 @@ import ID316334473.Models.PlayerModel;
 import ID316334473.Models.TournamentModel.GameType;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 
-public class ChampionshipView extends View {
+public class TournamentView extends WindowView {
 	// Constants
 
 	// Fields
@@ -31,7 +32,7 @@ public class ChampionshipView extends View {
 	}
 
 	// Constructors
-	public ChampionshipView(GameType game, ObservableList<PlayerModel> players) {
+	public TournamentView(GameType game, ObservableList<PlayerModel> players) {
 		super();
 
 		setGame(game);
@@ -47,8 +48,9 @@ public class ChampionshipView extends View {
 		String gameName = game.name();
 		double sceneWidth = 1500, sceneHeight = 700, backgroundFontSize = 50;
 
-		stage.setScene(new Scene(UIHandler.buildBackground(gameName + "Arena.jpg", UIHandler.buildChampionshipHierarchy(), sceneWidth,
-				sceneHeight, backgroundFontSize), sceneWidth, sceneHeight));
+		stage.setScene(new Scene(UIHandler.buildBackground(gameName + "Arena.jpg",
+				/* UIHandler.buildTournamentBracket(), */ new GridPane(), sceneWidth, sceneHeight, backgroundFontSize),
+				sceneWidth, sceneHeight));
 		UIHandler.setGeneralFeatures(stage);
 
 		stage.show();

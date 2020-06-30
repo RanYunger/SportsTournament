@@ -1,14 +1,14 @@
 package ID316334473.Controllers;
 
 import ID316334473.UIHandler;
-import ID316334473.Views.ChampionshipsView;
+import ID316334473.Views.TournamentsView;
 import ID316334473.Views.MainView;
 import ID316334473.Views.PlayersView;
 import ID316334473.Views.TrophiesView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-public class MainController extends Controller {
+public class MainController extends WindowController {
 	// Constants
 
 	// Fields
@@ -30,7 +30,8 @@ public class MainController extends Controller {
 
 				PlayersView playersView = new PlayersView();
 				PlayersController playersController = new PlayersController(playersView);
-
+				
+				mainView.close();
 				playersController.addEventHandlersToGeneralButtons();
 			}
 		};
@@ -39,9 +40,10 @@ public class MainController extends Controller {
 			public void handle(MouseEvent event) {
 				UIHandler.playAudio("Whistle.mp3");
 
-				ChampionshipsView championshipsView = new ChampionshipsView();
-				ChampionshipsController championshipsController = new ChampionshipsController(championshipsView);
+				TournamentsView championshipsView = new TournamentsView();
+				TournamentsController championshipsController = new TournamentsController(championshipsView);
 
+				mainView.close();
 				championshipsController.addEventHandlersToGeneralButtons();
 			}
 		};
@@ -53,6 +55,7 @@ public class MainController extends Controller {
 				TrophiesView trophiesView = new TrophiesView();
 				TrophiesController trophiesController = new TrophiesController(trophiesView);
 				
+				mainView.close();
 				trophiesController.addEventHandlersToGeneralButtons();
 			}
 		};

@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class PlayersController extends Controller {
+public class PlayersController extends WindowController {
 	// Constants
 
 	// Fields
