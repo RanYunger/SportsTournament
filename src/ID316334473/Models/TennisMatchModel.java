@@ -99,17 +99,22 @@ public class TennisMatchModel extends MatchModel {
 		// Checking whether the match could end
 		currentPlayerSets[currentSet] = score;
 		if (otherPlayerSets[currentSet] != NO_SCORE) { // Both players have played the same
-													   // amount of sets
+														// amount of sets
 			currentPlayerWins = currentPlayerSets[currentSet] > otherPlayerSets[currentSet] ? ++currentPlayerWins
 					: currentPlayerWins;
 			otherPlayerWins = currentPlayerSets[currentSet] < otherPlayerSets[currentSet] ? ++otherPlayerWins
 					: otherPlayerWins;
 			if (((currentSet == MIN_SETS) || (currentSet == MAX_SETS))
-					&& (Math.abs(currentPlayerWins - otherPlayerWins) == MIN_WINS))
-				return Integer.compare(currentPlayerWins, otherPlayerWins) > TIE ? currentPlayer : otherPlayer;
+					&& (Math.abs(currentPlayerWins - otherPlayerWins) == MIN_WINS)) {
+				setWinner(Integer.compare(currentPlayerWins, otherPlayerWins) > TIE ? currentPlayer : otherPlayer);
+
+				return winner;
+			}
 
 			currentSet++;
 		}
+
+		toggleTurn();
 
 		return null; // The match goes on
 	}

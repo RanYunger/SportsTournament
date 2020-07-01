@@ -1,5 +1,6 @@
 package ID316334473.Controllers;
 
+import ID316334473.SearchHandler;
 import ID316334473.UIHandler;
 import ID316334473.ValidPatterns;
 import ID316334473.Models.BasketballPlayerModel;
@@ -46,27 +47,31 @@ public class AddPlayerController extends WindowController {
 					return;
 				}
 				playerID = Integer.parseInt(IDText);
+				if (SearchHandler.getPlayerByID(playerID, addPlayerView.getGame()) != null) {
+					UIHandler.showError("This player already exists. Try a different ID.");
+					return;
+				}
 				if (!playerName.matches(ValidPatterns.PLAYER_FULL_NAME.getPattern())) {
 					UIHandler.showError("Invalid name!", playerNameTextField.getTooltip().getText());
 					return;
 				}
-				
-				switch(game) {
-				case Tennis: 
+
+				switch (game) {
+				case Tennis:
 					player = new TennisPlayerModel(playerID, playerName);
 					break;
 				case Basketball:
 					player = new BasketballPlayerModel(playerID, playerName);
 					break;
-				case Football: 
+				case Football:
 					player = new FootballPlayerModel(playerID, playerName);
 					break;
 				}
-				
+
 				playersView.addPlayer(player);
 				addPlayerView.close();
 				UIHandler.showSuccess(String.format("A new %s player was added successfully!", game.name()));
-				
+
 				playersView.disableAllButtons(false);
 			}
 		};

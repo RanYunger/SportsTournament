@@ -5,7 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
+//An abstract class containing integral components for derivative views
 public abstract class WindowView extends View {
 	// Constants
 
@@ -30,9 +32,15 @@ public abstract class WindowView extends View {
 	}
 
 	// Constructors
+	public WindowView() {
+		super();
+	}
+
+	public WindowView(Stage stage) {
+		super(stage);
+	}
 
 	// Methods
-	@Override
 	protected abstract void buildScene();
 
 	protected void addEffects() {

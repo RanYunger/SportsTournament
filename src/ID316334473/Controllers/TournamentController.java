@@ -9,14 +9,13 @@ public class TournamentController extends WindowController {
 	// Fields
 
 	// Properties (Getters and Setters)
-	public TournamentView getChampionshipView() {
+	public TournamentView getTournamentView() {
 		return (TournamentView) getView();
 	}
 
 	// Constructors
 	public TournamentController(View view) {
 		super(view);
-		// TODO Auto-generated constructor stub
 	}
 
 	// Methods

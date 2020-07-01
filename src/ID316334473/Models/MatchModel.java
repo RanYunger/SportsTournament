@@ -8,18 +8,25 @@ public abstract class MatchModel {
 
 	// Fields
 	protected boolean turn; // False = player 0, True = player 1
-	protected PlayerModel player0, player1;
+	protected PlayerModel player0, player1, winner, loser;
 
 	// Properties (Getters and Setters)
-	
 	public boolean getTurn() {
 		return turn;
 	}
-	
+
 	private void setTurn(boolean turn) {
 		this.turn = turn;
 	}
-	
+
+	protected void toggleTurn() {
+		setTurn(!turn);
+	}
+
+	public PlayerModel[] getPlayers() {
+		return new PlayerModel[] { player0, player1 };
+	}
+
 	public PlayerModel getPlayer0() {
 		return player0;
 	}
@@ -36,6 +43,24 @@ public abstract class MatchModel {
 		this.player1 = player1;
 	}
 
+	public PlayerModel getWinner() {
+		return winner;
+	}
+
+	public void setWinner(PlayerModel winner) {
+		this.winner = winner;
+		if (winner != null)
+			setLoser(winner.equals(player0) ? player1 : player0);
+	}
+
+	public PlayerModel getLoser() {
+		return loser;
+	}
+
+	private void setLoser(PlayerModel loser) {
+		this.loser = loser;
+	}
+
 	public PlayerModel getCurrentPlayer() {
 		return turn ? player1 : player0;
 	}
@@ -49,6 +74,8 @@ public abstract class MatchModel {
 		setTurn(false); // Player 0 begins
 		setPlayer0(player0);
 		setPlayer1(player1);
+		setWinner(null);
+		setLoser(null);
 	}
 
 	// Methods

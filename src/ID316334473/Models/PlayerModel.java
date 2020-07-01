@@ -5,7 +5,7 @@ import ID316334473.Models.TournamentModel.GameType;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public abstract class PlayerModel {
+public abstract class PlayerModel implements Comparable<PlayerModel> {
 	// Constants
 
 	// Fields
@@ -74,6 +74,10 @@ public abstract class PlayerModel {
 	}
 
 	// Methods
+	@Override
+	public int compareTo(PlayerModel other) {
+		return Integer.compare(getNumericID(), other.getNumericID());
+	}
 
 	@Override
 	public boolean equals(Object obj) {

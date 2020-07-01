@@ -1,5 +1,6 @@
 package ID316334473.Views;
 
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 // An abstract class containing integral components for derivative views
@@ -31,6 +32,8 @@ public abstract class View {
 	protected abstract void buildScene();
 	
 	protected abstract void addEffects();
+	
+	protected abstract Node asNode();
 
 	public void close() {
 		stage.close();

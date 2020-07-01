@@ -3,6 +3,7 @@ package ID316334473.Views;
 import ID316334473.UIHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -14,23 +15,23 @@ public class TournamentsView extends WindowView {
 	private HBox optionsHBox;
 	private ImageView tennisImageView, basketballImageView, footballImageView;
 
-	// Properties (Getters and Setters)	
+	// Properties (Getters and Setters)
 	public ImageView getTennisImageView() {
 		return tennisImageView;
 	}
-	
+
 	public ImageView getBasketballImageView() {
 		return basketballImageView;
 	}
-	
+
 	public ImageView getFootballImageView() {
 		return footballImageView;
 	}
-	
+
 	// Constructors
 	public TournamentsView() {
 		super();
-		
+
 		buildScene();
 		addEffects();
 	}
@@ -52,7 +53,8 @@ public class TournamentsView extends WindowView {
 		HBox.setMargin(basketballImageView, new Insets(0, 50, 0, 50));
 		HBox.setMargin(footballImageView, new Insets(0, 0, 0, 60));
 
-		stage.setScene(new Scene(UIHandler.buildBackground("Arena.jpg", optionsHBox, sceneWidth, sceneHeight, backgroundFontSize),
+		stage.setScene(new Scene(
+				UIHandler.buildBackground("Arena.jpg", optionsHBox, sceneWidth, sceneHeight, backgroundFontSize),
 				sceneWidth, sceneHeight));
 		UIHandler.setGeneralFeatures(stage);
 
@@ -62,9 +64,14 @@ public class TournamentsView extends WindowView {
 	@Override
 	protected void addEffects() {
 		super.addEffects();
-		
+
 		UIHandler.addAudioToImageView(tennisImageView, "Hit.mp3");
 		UIHandler.addAudioToImageView(basketballImageView, "Bounce.mp3");
 		UIHandler.addAudioToImageView(footballImageView, "Kick.mp3");
+	}
+
+	@Override
+	protected Node asNode() {
+		return (Node) optionsHBox;
 	}
 }

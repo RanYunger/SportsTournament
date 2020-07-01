@@ -3,14 +3,16 @@ package ID316334473.Views;
 import ID316334473.UIHandler;
 import ID316334473.Models.PlayerModel;
 import ID316334473.Models.TournamentModel.GameType;
+import ID316334473.Views.BracketViews.TournamentBracketView;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 
 public class TournamentView extends WindowView {
 	// Constants
 
 	// Fields
+	private TournamentBracketView tournamentBracketView;
 	private GameType game;
 	private ObservableList<PlayerModel> players;
 
@@ -48,9 +50,10 @@ public class TournamentView extends WindowView {
 		String gameName = game.name();
 		double sceneWidth = 1500, sceneHeight = 700, backgroundFontSize = 50;
 
-		stage.setScene(new Scene(UIHandler.buildBackground(gameName + "Arena.jpg",
-				/* UIHandler.buildTournamentBracket(), */ new GridPane(), sceneWidth, sceneHeight, backgroundFontSize),
-				sceneWidth, sceneHeight));
+		tournamentBracketView = new TournamentBracketView(players);
+
+		stage.setScene(new Scene(UIHandler.buildBackground(gameName + "Arena.jpg", tournamentBracketView.asNode(),
+				sceneWidth, sceneHeight, backgroundFontSize), sceneWidth, sceneHeight));
 		UIHandler.setGeneralFeatures(stage);
 
 		stage.show();
@@ -59,5 +62,10 @@ public class TournamentView extends WindowView {
 	@Override
 	protected void addEffects() {
 		super.addEffects();
+	}
+
+	@Override
+	protected Node asNode() {
+		return (Node) tournamentBracketView.asNode();
 	}
 }

@@ -4,6 +4,7 @@ import ID316334473.UIHandler;
 import ID316334473.Models.TournamentModel.GameType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -128,5 +129,10 @@ public class AddPlayerView extends WindowView {
 	@Override
 	protected void addEffects() {
 		super.addEffects();
+	}
+
+	@Override
+	protected Node asNode() {
+		return (Node) gridPane;
 	}
 }

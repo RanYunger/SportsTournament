@@ -1,6 +1,7 @@
 package ID316334473.Views;
 
 import ID316334473.UIHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
@@ -35,5 +36,11 @@ public class TrophiesView extends WindowView {
 	@Override
 	protected void addEffects() {
 		super.addEffects();
+	}
+
+	@Override
+	protected Node asNode() {
+		// TODO: COMPLETE
+		return null;
 	}
 }

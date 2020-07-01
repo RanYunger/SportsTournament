@@ -164,14 +164,19 @@ public class FootballMatchModel extends MatchModel {
 			if (otherPlayerHalves[currentHalf] != NO_SCORE) { // Both players have played the same amount of halves
 				currentPlayerTotalHalvesScore = getCurrentPlayerTotalHalvesScore();
 				otherPlayerTotalHalvesScore = getOtherPlayerTotalHalvesScore();
-				if (Math.abs(currentPlayerTotalHalvesScore - otherPlayerTotalHalvesScore) != TIE)
-					return Integer.compare(currentPlayerTotalHalvesScore, otherPlayerTotalHalvesScore) > TIE
+				if (Math.abs(currentPlayerTotalHalvesScore - otherPlayerTotalHalvesScore) != TIE) {
+					setWinner(Integer.compare(currentPlayerTotalHalvesScore, otherPlayerTotalHalvesScore) > TIE
 							? currentPlayer
-							: otherPlayer;
+							: otherPlayer);
+
+					return winner;
+				}
 			}
 
 			currentHalf++;
 		}
+		
+		toggleTurn();
 
 		return null; // The match goes on
 	}

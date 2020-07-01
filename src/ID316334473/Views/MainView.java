@@ -3,6 +3,7 @@ package ID316334473.Views;
 import ID316334473.UIHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -100,5 +101,10 @@ public class MainView extends WindowView {
 		UIHandler.addCursorEffectsToNode(playersImageView);
 		UIHandler.addCursorEffectsToNode(championshipsImageView);
 		UIHandler.addCursorEffectsToNode(trophiesImageView);
+	}
+
+	@Override
+	protected Node asNode() {
+		return (Node) optionsHBox;
 	}
 }

@@ -96,13 +96,18 @@ public class BaketballMatchModel extends MatchModel {
 			if (currentQuarter == MAX_QUARTERS) {
 				currentPlayerTotalScore = getCurrentPlayerTotalScore();
 				otherPlayerTotalScore = getOtherPlayerTotalScore();
-				if (Math.abs(currentPlayerTotalScore - otherPlayerTotalScore) != TIE)
-					return Integer.compare(currentPlayerTotalScore, otherPlayerTotalScore) > TIE ? currentPlayer
-							: otherPlayer;
+				if (Math.abs(currentPlayerTotalScore - otherPlayerTotalScore) != TIE) {
+					setWinner(Integer.compare(currentPlayerTotalScore, otherPlayerTotalScore) > TIE ? currentPlayer
+							: otherPlayer);
+
+					return winner;
+				}
 			}
 
 			currentQuarter++;
 		}
+		
+		toggleTurn();
 
 		return null; // The match goes on
 	}

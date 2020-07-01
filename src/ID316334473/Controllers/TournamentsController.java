@@ -1,7 +1,9 @@
 package ID316334473.Controllers;
 
+import ID316334473.SearchHandler;
 import ID316334473.UIHandler;
 import ID316334473.Models.PlayerModel;
+import ID316334473.Models.TournamentModel;
 import ID316334473.Models.TournamentModel.GameType;
 import ID316334473.Views.TournamentView;
 import ID316334473.Views.TournamentsView;
@@ -16,7 +18,7 @@ public class TournamentsController extends WindowController {
 	// Fields
 
 	// Properties (Getters and Setters)
-	public TournamentsView getChampionshipsView() {
+	public TournamentsView getTournamentsView() {
 		return (TournamentsView) getView();
 	}
 
@@ -24,53 +26,69 @@ public class TournamentsController extends WindowController {
 	public TournamentsController(View view) {
 		super(view);
 
-		TournamentsView championshipsView = getChampionshipsView();
+		TournamentsView tournamentsView = getTournamentsView();
 		EventHandler<MouseEvent> addTennisPlayerButtonEventHandler = new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				ObservableList<PlayerModel> players = null;
+				ObservableList<PlayerModel> tennisPlayers = SearchHandler.getTennisPlayers();
 
-				TournamentView championshipView = new TournamentView(GameType.Tennis, players);
-				TournamentController championshipController = new TournamentController(championshipView);
-				
-				UIHandler.playAudio("Hit.mp3");
-				championshipController.addEventHandlersToGeneralButtons();
-				championshipsView.close();
+				// Validations
+				if ((tennisPlayers == null) || (tennisPlayers.size() < TournamentModel.MAX_PARTICIPANTS))
+					UIHandler.showWarning("Make sure to have exactly 8 tennis players!");
+				else {
+					TournamentView tournamentView = new TournamentView(GameType.Tennis, tennisPlayers);
+					TournamentController tournamentController = new TournamentController(tournamentView);
+
+					UIHandler.playAudio("Hit.mp3");
+					tournamentController.addEventHandlersToGeneralButtons();
+					tournamentsView.close();
+				}
 			}
 		};
 		EventHandler<MouseEvent> addBasketballPlayerButtonEventHandler = new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				ObservableList<PlayerModel> players = null;
+				ObservableList<PlayerModel> basketballPlayers = SearchHandler.getBaketballPlayers();
 
-				TournamentView championshipView = new TournamentView(GameType.Basketball, players);
-				TournamentController championshipController = new TournamentController(championshipView);
+				// Validations
+				if ((basketballPlayers == null) || (basketballPlayers.size() < TournamentModel.MAX_PARTICIPANTS))
+					UIHandler.showWarning("Make sure to have exactly 8 basketball players!");
+				else {
+					TournamentView tournamentView = new TournamentView(GameType.Basketball, basketballPlayers);
+					TournamentController tournamentController = new TournamentController(tournamentView);
 
-				UIHandler.playAudio("Bounce.mp3");
-				championshipController.addEventHandlersToGeneralButtons();
-				championshipsView.close();
+					UIHandler.playAudio("Bounce.mp3");
+					tournamentController.addEventHandlersToGeneralButtons();
+					tournamentsView.close();
+				}
 			}
 		};
 		EventHandler<MouseEvent> addFootballPlayerButtonEventHandler = new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				ObservableList<PlayerModel> players = null;
+				ObservableList<PlayerModel> footballPlayers = SearchHandler.getFootballPlayers();
 
-				TournamentView championshipView = new TournamentView(GameType.Football, players);
-				TournamentController championshipController = new TournamentController(championshipView);
-			
-				UIHandler.playAudio("Kick.mp3");
-				championshipController.addEventHandlersToGeneralButtons();
-				championshipsView.close();
+				// Validations
+				if ((footballPlayers == null) || (footballPlayers.size() < TournamentModel.MAX_PARTICIPANTS))
+					UIHandler.showWarning("Make sure to have exactly 8 football players!");
+				else {
+					TournamentView tournamentView = new TournamentView(GameType.Football,
+							SearchHandler.getFootballPlayers());
+					TournamentController tournamentController = new TournamentController(tournamentView);
+
+					UIHandler.playAudio("Kick.mp3");
+					tournamentController.addEventHandlersToGeneralButtons();
+					tournamentsView.close();
+				}
 			}
 		};
 
-		championshipsView.getTennisImageView().setOnMouseClicked(addTennisPlayerButtonEventHandler);
-		championshipsView.getBasketballImageView().setOnMouseClicked(addBasketballPlayerButtonEventHandler);
-		championshipsView.getFootballImageView().setOnMouseClicked(addFootballPlayerButtonEventHandler);
+		tournamentsView.getTennisImageView().setOnMouseClicked(addTennisPlayerButtonEventHandler);
+		tournamentsView.getBasketballImageView().setOnMouseClicked(addBasketballPlayerButtonEventHandler);
+		tournamentsView.getFootballImageView().setOnMouseClicked(addFootballPlayerButtonEventHandler);
 	}
 
 	// Methods

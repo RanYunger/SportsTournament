@@ -1,5 +1,6 @@
 package ID316334473.Views;
 
+import ID316334473.SearchHandler;
 import ID316334473.UIHandler;
 import ID316334473.Models.BasketballPlayerModel;
 import ID316334473.Models.FootballPlayerModel;
@@ -10,13 +11,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -24,7 +24,7 @@ public class PlayersView extends WindowView {
 	// Constants
 
 	// Fields
-	private GridPane gridPane;
+	private HBox hBox;
 	private VBox tennisVBox, basketballVBox, footballVBox;
 	private ImageView tennisImageView, basketballImageView, footballImageView;
 	private Button addTennisPlayerButton, addBasketballPlayerButton, addFootballPlayerButton;
@@ -43,7 +43,7 @@ public class PlayersView extends WindowView {
 	public ObservableList<PlayerModel> getFootballPlayers() {
 		return footballPlayers;
 	}
-	
+
 	public Button getAddTennisPlayerButton() {
 		return addTennisPlayerButton;
 	}
@@ -83,7 +83,7 @@ public class PlayersView extends WindowView {
 	protected void buildScene() {
 		double sceneWidth = 1500, sceneHeight = 700, backgroundFontSize = 50, viewFontSize = 15;
 
-		gridPane = new GridPane();
+		hBox = new HBox();
 		tennisVBox = new VBox();
 		basketballVBox = new VBox();
 		footballVBox = new VBox();
@@ -96,16 +96,6 @@ public class PlayersView extends WindowView {
 		tennisPlayersTableView = UIHandler.buildPlayersTableView();
 		basketballPlayersTableView = UIHandler.buildPlayersTableView();
 		footballPlayersTableView = UIHandler.buildPlayersTableView();
-
-		gridPane.getRowConstraints().add(new RowConstraints());
-		gridPane.getRowConstraints().get(0).setPercentHeight(100);
-
-		gridPane.getColumnConstraints().add(new ColumnConstraints());
-		gridPane.getColumnConstraints().get(0).setPercentWidth(400);
-		gridPane.getColumnConstraints().add(new ColumnConstraints());
-		gridPane.getColumnConstraints().get(1).setPercentWidth(400);
-		gridPane.getColumnConstraints().add(new ColumnConstraints());
-		gridPane.getColumnConstraints().get(2).setPercentWidth(400);
 
 		addTennisPlayerButton.setMinWidth(100);
 		addTennisPlayerButton.setFont(new Font(viewFontSize));
@@ -133,12 +123,10 @@ public class PlayersView extends WindowView {
 		VBox.setMargin(addFootballPlayerButton, new Insets(10, 0, 10, 0));
 		VBox.setMargin(footballPlayersTableView, new Insets(15, 0, 90, 0));
 
-		gridPane.add(tennisVBox, 0, 0);
-		gridPane.add(basketballVBox, 1, 0);
-		gridPane.add(footballVBox, 2, 0);
+		hBox.getChildren().addAll(tennisVBox, basketballVBox, footballVBox);
 
 		stage.setScene(
-				new Scene(UIHandler.buildBackground("Arena.jpg", gridPane, sceneWidth, sceneHeight, backgroundFontSize),
+				new Scene(UIHandler.buildBackground("Arena.jpg", hBox, sceneWidth, sceneHeight, backgroundFontSize),
 						sceneWidth, sceneHeight));
 		UIHandler.setGeneralFeatures(stage);
 
@@ -154,25 +142,47 @@ public class PlayersView extends WindowView {
 		UIHandler.addCursorEffectsToNode(addFootballPlayerButton);
 	}
 
+	@Override
+	protected Node asNode() {
+		return (Node) hBox;
+	}
+
 	public void initPlayers() {
 		tennisPlayers = FXCollections.observableArrayList();
-		tennisPlayers.add(new TennisPlayerModel(123456789, "Maria Sharapova"));
-		tennisPlayers.add(new TennisPlayerModel(123456788, "Serena Williams"));
-		tennisPlayers.add(new TennisPlayerModel(123456787, "Shahar Pe'er"));
+		tennisPlayers.add(new TennisPlayerModel(123456771, "Shahar Pe'er"));
+		tennisPlayers.add(new TennisPlayerModel(123456772, "Serena Williams"));
+		tennisPlayers.add(new TennisPlayerModel(123456773, "Maria Sharapova"));
+		tennisPlayers.add(new TennisPlayerModel(123456774, "Roger Federer"));
+		tennisPlayers.add(new TennisPlayerModel(123456775, "Jimmy Connors"));
+		tennisPlayers.add(new TennisPlayerModel(123456776, "Rafael Nadal"));
+		tennisPlayers.add(new TennisPlayerModel(123456777, "Boris Becker"));
+		tennisPlayers.add(new TennisPlayerModel(123456778, "John Doe")); // For debugging purposes, will be deleted
 
 		basketballPlayers = FXCollections.observableArrayList();
-		basketballPlayers.add(new BasketballPlayerModel(123456786, "Michael Jordan"));
-		basketballPlayers.add(new BasketballPlayerModel(123456785, "Shaquille O'Neal"));
-		basketballPlayers.add(new BasketballPlayerModel(123456784, "Dennis Rodman"));
+		basketballPlayers.add(new BasketballPlayerModel(123456781, "Lebron James"));
+		basketballPlayers.add(new BasketballPlayerModel(123456782, "Shaquille O'Neal"));
+		basketballPlayers.add(new BasketballPlayerModel(123456783, "Michael Jordan"));
+		basketballPlayers.add(new BasketballPlayerModel(123456784, "Kareem Abdul-Jabbar"));
+		basketballPlayers.add(new BasketballPlayerModel(123456785, "Stephen curry"));
+		basketballPlayers.add(new BasketballPlayerModel(123456786, "Kevin Durant"));
+		basketballPlayers.add(new BasketballPlayerModel(123456787, "Magic Johnson"));
 
 		footballPlayers = FXCollections.observableArrayList();
-		footballPlayers.add(new FootballPlayerModel(123456783, "Christiano Ronaldo"));
-		footballPlayers.add(new FootballPlayerModel(123456782, "Lionel Messi"));
-		footballPlayers.add(new FootballPlayerModel(123456781, "Ronaldinio"));
+		footballPlayers.add(new FootballPlayerModel(123456791, "Ronaldinio"));
+		footballPlayers.add(new FootballPlayerModel(123456792, "Lionel Messi"));
+		footballPlayers.add(new FootballPlayerModel(123456793, "Christiano Ronaldo"));
+		footballPlayers.add(new FootballPlayerModel(123456794, "Neymar"));
+		footballPlayers.add(new FootballPlayerModel(123456795, "Diego Maradona"));
+		footballPlayers.add(new FootballPlayerModel(123456796, "Zinedine Zidane"));
+		footballPlayers.add(new FootballPlayerModel(123456797, "Robert Lawandowski"));
 
 		tennisPlayersTableView.setItems(tennisPlayers);
 		basketballPlayersTableView.setItems(basketballPlayers);
 		footballPlayersTableView.setItems(footballPlayers);
+
+		SearchHandler.setTennisPlayers(tennisPlayers);
+		SearchHandler.setBaketballPlayers(basketballPlayers);
+		SearchHandler.setFootballPlayers(footballPlayers);
 	}
 
 	public void addPlayer(PlayerModel player) {
@@ -190,7 +200,7 @@ public class PlayersView extends WindowView {
 			break;
 		}
 	}
-	
+
 	public void disableAllButtons(boolean disabled) {
 		addTennisPlayerButton.setDisable(disabled);
 		addBasketballPlayerButton.setDisable(disabled);

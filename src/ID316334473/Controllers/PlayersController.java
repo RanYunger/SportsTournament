@@ -77,7 +77,7 @@ public class PlayersController extends WindowController {
 					UIHandler.showError("There are already 8 football players. Better luck next time.");
 					return;
 				}
-				
+
 				playersView.disableAllButtons(true);
 				UIHandler.playAudio("Kick.mp3");
 				AddPlayerController addPlayerController = new AddPlayerController(new AddPlayerView(GameType.Football),

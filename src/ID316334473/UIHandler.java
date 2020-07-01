@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -194,6 +195,8 @@ public class UIHandler {
 		stackPane.getChildren().addAll(audioImageView, homeImageView);
 		StackPane.setMargin(audioImageView, new Insets(height, width * 0.95, height * 1.9, 10));
 		StackPane.setMargin(homeImageView, new Insets(height, 10, height * 1.9, width * 0.95));
+		if (node instanceof GridPane) // Preventing the user from jumping back to MainView from AddPlayerView
+			homeImageView.setVisible(false);
 		StackPane.setMargin(topVBox, new Insets(height * 0.92, 0, height * 1.8, 0));
 		StackPane.setMargin(bottomLabel, new Insets(height * 0.92, 0, height * 0.08, 0));
 
