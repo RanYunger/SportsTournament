@@ -1,9 +1,9 @@
 package ID316334473.Controllers;
 
 import ID316334473.UIHandler;
-import ID316334473.Views.TournamentsView;
 import ID316334473.Views.MainView;
 import ID316334473.Views.PlayersView;
+import ID316334473.Views.TournamentsView;
 import ID316334473.Views.TrophiesView;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;

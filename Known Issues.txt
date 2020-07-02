@@ -1,4 +1,3 @@
 1. Build Controllers for BracketViews
-2. Build play button in MatchBracketView + Lines in TournamentBracketView
 3. Sort players in PlayersView by their score (?)
 4. Design + complete each MatchView

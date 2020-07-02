@@ -1,13 +1,14 @@
-package ID316334473.Views.BracketViews;
+package ID316334473.Views;
 
 import ID316334473.UIHandler;
-import ID316334473.Models.BaketballMatchModel;
+import ID316334473.Models.BasketballMatchModel;
 import ID316334473.Models.MatchModel;
 import ID316334473.Models.TennisMatchModel;
 import ID316334473.Models.TournamentModel.GameType;
-import ID316334473.Views.View;
+import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -18,10 +19,12 @@ public class MatchBracketView extends View {
 	// Constants
 
 	// Fields
-	private VBox vBox;
-	private HBox player0HBox, player1HBox;
+	private HBox hBox;
+	private VBox playerStatusesVBox, playerNamesVBox, playerScoresVBox;
 	private ImageView[] playerStatusesImageViews;
 	private TextField[] playerNamesTextFields, playerScoresTextFields;
+	private Button playButton;
+	private Bounds bounds;
 	private MatchModel match;
 
 	// Properties (Getters and Setters)
@@ -51,6 +54,18 @@ public class MatchBracketView extends View {
 				: playerScoresTextFields[0];
 	}
 
+	public Button getPlayButton() {
+		return playButton;
+	}
+
+	public Bounds getBounds() {
+		return bounds;
+	}
+
+	public void setBounds(Bounds bounds) {
+		this.bounds = bounds;
+	}
+
 	// Constructors
 	public MatchBracketView(MatchModel match) {
 		super();
@@ -58,6 +73,7 @@ public class MatchBracketView extends View {
 		setMatch(match);
 
 		buildScene();
+		addEffects();
 	}
 
 	// Methods
@@ -66,13 +82,15 @@ public class MatchBracketView extends View {
 		int length = 2;
 		double fontSize = 15;
 
-		vBox = new VBox();
-		player0HBox = new HBox();
-		player1HBox = new HBox();
+		hBox = new HBox();
+		playerStatusesVBox = new VBox();
+		playerNamesVBox = new VBox();
+		playerScoresVBox = new VBox();
 		playerStatusesImageViews = new ImageView[length];
 		playerNamesTextFields = new TextField[length];
 		playerScoresTextFields = new TextField[length];
-		
+		playButton = new Button("Play!");
+
 		for (int i = 0; i < length; i++) {
 			playerStatusesImageViews[i] = UIHandler.buildImage(match == null ? "Question.png" : getGame(match) + ".png",
 					30, 30);
@@ -89,28 +107,34 @@ public class MatchBracketView extends View {
 			playerScoresTextFields[i].setFont(new Font(fontSize));
 			playerScoresTextFields[i].setMaxWidth(50);
 		}
+		playButton.setMinHeight(61);
+		playButton.setVisible(match != null); // visible only if the match could begin
 
-		player0HBox.getChildren().addAll(playerStatusesImageViews[0], playerNamesTextFields[0],
-				playerScoresTextFields[0]);
-		player1HBox.getChildren().addAll(playerStatusesImageViews[1], playerNamesTextFields[1],
-				playerScoresTextFields[1]);
-		vBox.getChildren().addAll(player0HBox, player1HBox);
+		playerStatusesVBox.getChildren().addAll(playerStatusesImageViews[0], playerStatusesImageViews[1]);
+		playerNamesVBox.getChildren().addAll(playerNamesTextFields[0], playerNamesTextFields[1]);
+		playerScoresVBox.getChildren().addAll(playerScoresTextFields[0], playerScoresTextFields[1]);
+
+		hBox.getChildren().addAll(playerStatusesVBox, playerNamesVBox, playerScoresVBox, playButton);
+
+//		Bounds temp = hBox.localToScene(hBox.getBoundsInLocal());
+
+		setBounds(hBox.localToScene(hBox.getBoundsInLocal()));
 	}
 
 	@Override
 	protected void addEffects() {
-		// TODO Auto-generated method stub
+		UIHandler.addCursorEffectsToNode(playButton);
 	}
 
 	@Override
 	public Node asNode() {
-		return (Node) vBox;
+		return (Node) hBox;
 	}
 
 	private String getGame(MatchModel match) {
 		if (match instanceof TennisMatchModel)
 			return GameType.Tennis.name();
-		if (match instanceof BaketballMatchModel)
+		if (match instanceof BasketballMatchModel)
 			return GameType.Basketball.name();
 
 		return GameType.Football.name();

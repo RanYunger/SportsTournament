@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class BaketballMatchModel extends MatchModel {
+public class BasketballMatchModel extends MatchModel {
 	// Constants
 	public static final int MAX_QUARTERS = 4;
 
@@ -72,7 +72,7 @@ public class BaketballMatchModel extends MatchModel {
 	}
 
 	// Constructors
-	public BaketballMatchModel(PlayerModel player0, PlayerModel player1) {
+	public BasketballMatchModel(PlayerModel player0, PlayerModel player1) {
 		super(player0, player1);
 
 		setCurrentQuarter(TIE);
@@ -120,7 +120,7 @@ public class BaketballMatchModel extends MatchModel {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BaketballMatchModel other = (BaketballMatchModel) obj;
+		BasketballMatchModel other = (BasketballMatchModel) obj;
 		if (!Arrays.equals(player0QuarterScores, other.player0QuarterScores))
 			return false;
 		if (!Arrays.equals(player1QuarterScores, other.player1QuarterScores))

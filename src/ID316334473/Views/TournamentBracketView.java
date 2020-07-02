@@ -1,17 +1,18 @@
-package ID316334473.Views.BracketViews;
+package ID316334473.Views;
 
 import java.util.ArrayList;
 
-import ID316334473.Models.BaketballMatchModel;
+import ID316334473.UIHandler;
+import ID316334473.Models.BasketballMatchModel;
 import ID316334473.Models.FootballMatchModel;
 import ID316334473.Models.MatchModel;
 import ID316334473.Models.PlayerModel;
 import ID316334473.Models.TennisMatchModel;
-import ID316334473.Views.View;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -20,7 +21,8 @@ public class TournamentBracketView extends View {
 
 	// Fields
 	private HBox hBox;
-	private VBox quarterFinalsVBox, semiFinalsVBox, finalsVBox;
+	private VBox quarterFinalsVBox, quarterFinalsArrowsVBox, semiFinalsVBox, finalsVBox, finalsArrowVBox;
+	private ImageView quarterFinalsTopArrowImageView, quarterFinalsBottomArrowImageView, finalsArrowImageView;
 	private MatchBracketView[] quarterFinalsBracketViews, semiFinalsBracketViews;
 	private MatchBracketView finalsBracketView;
 	private ObservableList<PlayerModel> tournamentPlayers;
@@ -76,26 +78,40 @@ public class TournamentBracketView extends View {
 	protected void buildScene() {
 		hBox = new HBox();
 		quarterFinalsVBox = new VBox();
+		quarterFinalsArrowsVBox = new VBox();
 		semiFinalsVBox = new VBox();
 		finalsVBox = new VBox();
+		finalsArrowVBox = new VBox();
+		quarterFinalsTopArrowImageView = UIHandler.buildImage("Arrow.png", 180, 100);
+		quarterFinalsBottomArrowImageView = UIHandler.buildImage("Arrow.png", 180, 100);
+		finalsArrowImageView = UIHandler.buildImage("Arrow.png", 180, 100);
 
 		hBox.setAlignment(Pos.CENTER);
 		quarterFinalsVBox.setAlignment(Pos.CENTER);
+		quarterFinalsArrowsVBox.setAlignment(Pos.CENTER);
 		semiFinalsVBox.setAlignment(Pos.CENTER);
 		finalsVBox.setAlignment(Pos.CENTER);
+		finalsArrowVBox.setAlignment(Pos.CENTER);
 
 		for (int i = 0; i < quarterFinalsBracketViews.length; i++) {
 			quarterFinalsVBox.getChildren().add(quarterFinalsBracketViews[i].asNode());
-			VBox.setMargin(quarterFinalsBracketViews[i].asNode(), new Insets(40));
+			VBox.setMargin(quarterFinalsBracketViews[i].asNode(), new Insets(40, 0, 40, 0));
 		}
 		for (int i = 0; i < semiFinalsBracketViews.length; i++) {
 			semiFinalsVBox.getChildren().add(semiFinalsBracketViews[i].asNode());
-			VBox.setMargin(semiFinalsBracketViews[i].asNode(), new Insets(120));
+			VBox.setMargin(semiFinalsBracketViews[i].asNode(), new Insets(120, 0, 120, 0));
 		}
 		finalsVBox.getChildren().add(finalsBracketView.asNode());
-		VBox.setMargin(finalsBracketView.asNode(), new Insets(40));
+		VBox.setMargin(finalsBracketView.asNode(), new Insets(40, 0, 40, 0));
 
-		hBox.getChildren().addAll(quarterFinalsVBox, semiFinalsVBox, finalsVBox);
+		quarterFinalsArrowsVBox.getChildren().addAll(quarterFinalsTopArrowImageView, quarterFinalsBottomArrowImageView);
+		VBox.setMargin(quarterFinalsTopArrowImageView, new Insets(0, 40, 100, 40));
+		VBox.setMargin(quarterFinalsBottomArrowImageView, new Insets(100, 40, 0, 40));
+		
+		finalsArrowVBox.getChildren().add(finalsArrowImageView);
+		VBox.setMargin(finalsArrowImageView, new Insets(0, 40, 0, 40));
+		
+		hBox.getChildren().addAll(quarterFinalsVBox, quarterFinalsArrowsVBox, semiFinalsVBox, finalsArrowVBox, finalsVBox);
 	}
 
 	private void initQuarterFinals() {
@@ -111,7 +127,7 @@ public class TournamentBracketView extends View {
 				match = new TennisMatchModel(currentPlayer0, currentPlayer1);
 				break;
 			case Basketball:
-				match = new BaketballMatchModel(currentPlayer0, currentPlayer1);
+				match = new BasketballMatchModel(currentPlayer0, currentPlayer1);
 				break;
 			case Football:
 				match = new FootballMatchModel(currentPlayer0, currentPlayer1);
@@ -131,8 +147,7 @@ public class TournamentBracketView extends View {
 
 	@Override
 	protected void addEffects() {
-		// TODO Auto-generated method stub
-
+		// TODO: COMPLETE
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 package ID316334473.Views;
 
 import ID316334473.UIHandler;
+import ID316334473.Controllers.TournamentBracketController;
 import ID316334473.Models.PlayerModel;
 import ID316334473.Models.TournamentModel.GameType;
-import ID316334473.Views.BracketViews.TournamentBracketView;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -33,6 +33,10 @@ public class TournamentView extends WindowView {
 		this.players = players;
 	}
 
+	public TournamentBracketView getTournamentBracketView() {
+		return tournamentBracketView;
+	}
+
 	// Constructors
 	public TournamentView(GameType game, ObservableList<PlayerModel> players) {
 		super();
@@ -51,6 +55,9 @@ public class TournamentView extends WindowView {
 		double sceneWidth = 1500, sceneHeight = 700, backgroundFontSize = 50;
 
 		tournamentBracketView = new TournamentBracketView(players);
+		// The controller is instanced here to connect to the BracketViews/Controllers
+		new TournamentBracketController(tournamentBracketView, tournamentBracketView.getQuarterFinalsBracketViews(),
+				tournamentBracketView.getSemiFinalsBracketViews(), tournamentBracketView.getFinalsBracketView());
 
 		stage.setScene(new Scene(UIHandler.buildBackground(gameName + "Arena.jpg", tournamentBracketView.asNode(),
 				sceneWidth, sceneHeight, backgroundFontSize), sceneWidth, sceneHeight));
