@@ -42,7 +42,7 @@ public class MatchBracketController extends Controller {
 					TennisMatchView tennisMatchView = new TennisMatchView(matchBracketView, (TennisMatchModel) match);
 					TennisMatchController tennisMatchController = new TennisMatchController(tennisMatchView);
 
-					UIHandler.playAudio("RoundOne.mp3");
+					UIHandler.playAudio("Round1.mp3");
 					tennisMatchController.addEventHandlersToGeneralButtons();
 					break;
 				case Basketball:
@@ -53,7 +53,7 @@ public class MatchBracketController extends Controller {
 					BasketballMatchController basketballMatchController = new BasketballMatchController(
 							basketballMatchView);
 
-					UIHandler.playAudio("RoundOne.mp3");
+					UIHandler.playAudio("Round1.mp3");
 					basketballMatchController.addEventHandlersToGeneralButtons();
 					break;
 				case Football:
@@ -63,7 +63,7 @@ public class MatchBracketController extends Controller {
 							(FootballMatchModel) match);
 					FootballMatchController footballMatchController = new FootballMatchController(footballMatchView);
 
-					UIHandler.playAudio("RoundOne.mp3");
+					UIHandler.playAudio("Round1.mp3");
 					footballMatchController.addEventHandlersToGeneralButtons();
 					break;
 				}

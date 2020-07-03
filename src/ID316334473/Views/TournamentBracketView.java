@@ -82,9 +82,9 @@ public class TournamentBracketView extends View {
 		semiFinalsVBox = new VBox();
 		finalsVBox = new VBox();
 		finalsArrowVBox = new VBox();
-		quarterFinalsTopArrowImageView = UIHandler.buildImage("Arrow.png", 180, 100);
-		quarterFinalsBottomArrowImageView = UIHandler.buildImage("Arrow.png", 180, 100);
-		finalsArrowImageView = UIHandler.buildImage("Arrow.png", 180, 100);
+		quarterFinalsTopArrowImageView = UIHandler.buildImage("Arrow.png", 180, 215);
+		quarterFinalsBottomArrowImageView = UIHandler.buildImage("Arrow.png", 180, 215);
+		finalsArrowImageView = UIHandler.buildImage("Arrow.png", 180, 380);
 
 		hBox.setAlignment(Pos.CENTER);
 		quarterFinalsVBox.setAlignment(Pos.CENTER);
@@ -105,13 +105,14 @@ public class TournamentBracketView extends View {
 		VBox.setMargin(finalsBracketView.asNode(), new Insets(40, 0, 40, 0));
 
 		quarterFinalsArrowsVBox.getChildren().addAll(quarterFinalsTopArrowImageView, quarterFinalsBottomArrowImageView);
-		VBox.setMargin(quarterFinalsTopArrowImageView, new Insets(0, 40, 100, 40));
-		VBox.setMargin(quarterFinalsBottomArrowImageView, new Insets(100, 40, 0, 40));
-		
+		VBox.setMargin(quarterFinalsTopArrowImageView, new Insets(0, 40, 35, 40));
+		VBox.setMargin(quarterFinalsBottomArrowImageView, new Insets(35, 40, 0, 40));
+
 		finalsArrowVBox.getChildren().add(finalsArrowImageView);
 		VBox.setMargin(finalsArrowImageView, new Insets(0, 40, 0, 40));
-		
-		hBox.getChildren().addAll(quarterFinalsVBox, quarterFinalsArrowsVBox, semiFinalsVBox, finalsArrowVBox, finalsVBox);
+
+		hBox.getChildren().addAll(quarterFinalsVBox, quarterFinalsArrowsVBox, semiFinalsVBox, finalsArrowVBox,
+				finalsVBox);
 	}
 
 	private void initQuarterFinals() {

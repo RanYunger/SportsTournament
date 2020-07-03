@@ -3,6 +3,7 @@ package ID316334473;
 import java.io.File;
 
 import ID316334473.Controllers.MainController;
+import ID316334473.Models.MatchModel;
 import ID316334473.Models.PlayerModel;
 import ID316334473.Views.MainView;
 import javafx.geometry.Insets;
@@ -16,9 +17,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -156,6 +159,35 @@ public class UIHandler {
 		}
 
 		return tableView;
+	}
+
+	public static HBox buildMatchHBox(MatchModel matchModel) {
+		HBox matchHBox = new HBox();
+		TextField[] playerNamesTextFields = new TextField[2], playerScoresTextFields = new TextField[2];
+		ImageView vsImageView;
+		PlayerModel player0 = matchModel.getPlayer0(), player1 = matchModel.getPlayer1();
+
+		playerNamesTextFields[0] = new TextField(player0.getTextualName());
+		playerNamesTextFields[1] = new TextField(player1.getTextualName());
+		playerScoresTextFields[0] = new TextField("" + player0.getNumericScore());
+		playerScoresTextFields[1] = new TextField("" + player1.getNumericScore());
+		vsImageView = UIHandler.buildImage("Vs.png", 30, 34);
+
+		matchHBox.setAlignment(Pos.CENTER);
+		for (int i = 0; i < playerNamesTextFields.length; i++) {
+			playerNamesTextFields[i].setEditable(false);
+			playerNamesTextFields[i].setAlignment(Pos.CENTER);
+			playerNamesTextFields[i].setMinWidth(150);
+
+			playerScoresTextFields[i].setEditable(false);
+			playerScoresTextFields[i].setAlignment(Pos.CENTER);
+			playerScoresTextFields[i].setMaxWidth(50);
+		}
+
+		matchHBox.getChildren().addAll(playerNamesTextFields[0], playerScoresTextFields[0], vsImageView,
+				playerScoresTextFields[1], playerNamesTextFields[1]);
+
+		return matchHBox;
 	}
 
 	public static void setGeneralFeatures(Stage stage) {

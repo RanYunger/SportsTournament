@@ -1,3 +1,4 @@
-1. Build Controllers for BracketViews
-3. Sort players in PlayersView by their score (?)
-4. Design + complete each MatchView
+0. Fix "Round1.mp3" not playing problem (should work)
+1. Design + complete each MatchView
+2. Sort players in PlayersView by their score (?)
+3. Design TrophiesView

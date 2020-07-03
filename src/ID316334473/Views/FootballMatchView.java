@@ -1,10 +1,7 @@
 package ID316334473.Views;
 
-import ID316334473.UIHandler;
 import ID316334473.Models.FootballMatchModel;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 
 public class FootballMatchView extends MatchView {
 	// Constants
@@ -34,13 +31,8 @@ public class FootballMatchView extends MatchView {
 	// Methods
 	@Override
 	protected void buildScene() {
-		double sceneWidth = 700, sceneHeight = 500, backgroundFontSize = 30;
+		// TODO: COMPLETE
 
-		stage.setScene(new Scene(UIHandler.buildBackground("FootballArena.jpg", new GridPane(), sceneWidth, sceneHeight,
-				backgroundFontSize), sceneWidth, sceneHeight));
-		UIHandler.setGeneralFeatures(stage);
-
-		stage.show();
 	}
 
 	@Override
