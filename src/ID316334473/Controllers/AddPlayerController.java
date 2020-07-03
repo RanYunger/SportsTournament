@@ -70,7 +70,7 @@ public class AddPlayerController extends WindowController {
 
 				playersView.addPlayer(player);
 				addPlayerView.close();
-				UIHandler.showSuccess(String.format("A new %s player was added successfully!", game.name()));
+				UIHandler.showSuccess(String.format("A new %s player was added successfully!", game.name()), true);
 
 				playersView.disableAllButtons(false);
 			}

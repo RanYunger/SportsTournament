@@ -16,8 +16,8 @@ public class TennisMatchView extends MatchView {
 
 	// Fields
 	private GridPane gridPane;
-	private VBox playerScoresTextFieldsVBox;
-	private TextField[] playerRoundScoresTextFields;
+	private VBox playerSetScoreTextFieldsVBox;
+	private TextField[] playerSetScoresTextFields;
 	private TennisMatchModel tennisMatch;
 
 	// Properties (Getters and Setters)
@@ -29,16 +29,16 @@ public class TennisMatchView extends MatchView {
 		this.tennisMatch = tennisMatch;
 	}
 
-	public void setPlayerRoundScoresTextFields(TextField[] playerRoundScoresTextFields) {
-		this.playerRoundScoresTextFields = playerRoundScoresTextFields;
+	public void setPlayerSetScoresTextFields(TextField[] playerRoundScoresTextFields) {
+		this.playerSetScoresTextFields = playerRoundScoresTextFields;
 	}
 
-	public TextField getPlayer0RoundScoreTextField() {
-		return playerRoundScoresTextFields[0];
+	public TextField getPlayer0SetScoreTextField() {
+		return playerSetScoresTextFields[0];
 	}
 
-	public TextField getPlayer1RoundScoreTextField() {
-		return playerRoundScoresTextFields[1];
+	public TextField getPlayer1SetScoreTextField() {
+		return playerSetScoresTextFields[1];
 	}
 
 	// Constructors
@@ -46,7 +46,7 @@ public class TennisMatchView extends MatchView {
 		super(parentView);
 
 		setTennisMatch(tennisMatch);
-		setPlayerRoundScoresTextFields(new TextField[2]);
+		setPlayerSetScoresTextFields(new TextField[2]);
 
 		buildScene();
 		addEffects();
@@ -58,7 +58,7 @@ public class TennisMatchView extends MatchView {
 		double sceneWidth = 700, sceneHeight = 500, backgroundFontSize = 30;
 
 		gridPane = new GridPane();
-		playerScoresTextFieldsVBox = new VBox();
+		playerSetScoreTextFieldsVBox = new VBox();
 
 		gridPane.getRowConstraints().add(new RowConstraints());
 		gridPane.getRowConstraints().get(0).setPercentHeight(30);
@@ -66,20 +66,20 @@ public class TennisMatchView extends MatchView {
 		gridPane.getRowConstraints().get(1).setPercentHeight(70);
 
 		gridPane.setAlignment(Pos.CENTER);
-		playerScoresTextFieldsVBox.setAlignment(Pos.CENTER);
+		playerSetScoreTextFieldsVBox.setAlignment(Pos.CENTER);
 
-		for (int i = 0; i < playerRoundScoresTextFields.length; i++) {
-			playerRoundScoresTextFields[i] = new TextField();
-			playerRoundScoresTextFields[i].setAlignment(Pos.CENTER);
-			playerRoundScoresTextFields[i].setMaxWidth(50);
+		for (int i = 0; i < playerSetScoresTextFields.length; i++) {
+			playerSetScoresTextFields[i] = new TextField();
+			playerSetScoresTextFields[i].setAlignment(Pos.CENTER);
+			playerSetScoresTextFields[i].setMaxWidth(50);
 		}
 
-		playerScoresTextFieldsVBox.getChildren().addAll(playerRoundScoresTextFields[0], playerRoundScoresTextFields[1]);
-		VBox.setMargin(playerRoundScoresTextFields[0], new Insets(0, 0, 70, 0));
-		VBox.setMargin(playerRoundScoresTextFields[1], new Insets(70, 0, 70, 0));
+		playerSetScoreTextFieldsVBox.getChildren().addAll(playerSetScoresTextFields[0], playerSetScoresTextFields[1]);
+		VBox.setMargin(playerSetScoresTextFields[0], new Insets(0, 0, 70, 0));
+		VBox.setMargin(playerSetScoresTextFields[1], new Insets(70, 0, 70, 0));
 
 		gridPane.add(matchHBox, 0, 0);
-		gridPane.add(playerScoresTextFieldsVBox, 0, 1);
+		gridPane.add(playerSetScoreTextFieldsVBox, 0, 1);
 
 		GridPane.setMargin(matchHBox, new Insets(70, 0, 0, 0));
 
@@ -93,7 +93,6 @@ public class TennisMatchView extends MatchView {
 
 	@Override
 	protected Node asNode() {
-		// TODO Auto-generated method stub
-		return null;
+		return (Node) gridPane;
 	}
 }

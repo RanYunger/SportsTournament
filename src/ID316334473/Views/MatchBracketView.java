@@ -3,6 +3,7 @@ package ID316334473.Views;
 import ID316334473.UIHandler;
 import ID316334473.Models.BasketballMatchModel;
 import ID316334473.Models.MatchModel;
+import ID316334473.Models.PlayerModel;
 import ID316334473.Models.TennisMatchModel;
 import ID316334473.Models.TournamentModel.GameType;
 import javafx.geometry.Bounds;
@@ -43,6 +44,15 @@ public class MatchBracketView extends View {
 	public ImageView getLoserImageView() {
 		return getWinnerImageView().equals(playerStatusesImageViews[0]) ? playerStatusesImageViews[1]
 				: playerStatusesImageViews[0];
+	}
+
+	public TextField getWinnerNameTextField() {
+		return match.getWinner().equals(match.getPlayer0()) ? playerNamesTextFields[0] : playerNamesTextFields[1];
+	}
+
+	public TextField getLoserNameTextField() {
+		return getWinnerNameTextField().equals(playerNamesTextFields[0]) ? playerNamesTextFields[1]
+				: playerNamesTextFields[0];
 	}
 
 	public TextField getWinnerScoreTextField() {
@@ -138,5 +148,18 @@ public class MatchBracketView extends View {
 			return GameType.Basketball.name();
 
 		return GameType.Football.name();
+	}
+
+	public void declareMatchResults() {
+		ImageView winnerImageView = getWinnerImageView(), loserImageView = getLoserImageView();
+		TextField winnerScoreTextField = getWinnerScoreTextField(), loserScoreTextField = getLoserScoreTextField();
+		PlayerModel winner = match.getWinner(), loser = match.getLoser();
+
+		winnerImageView.setImage(UIHandler.buildImage("Winner.png", 30, 30).getImage());
+		winnerScoreTextField.setText("" + winner.getNumericScore());
+
+		loserImageView.setImage(UIHandler.buildImage("Loser.png", 30, 30).getImage());
+		UIHandler.addAudioToImageView(loserImageView, "AllStar.mp3");
+		loserScoreTextField.setText("" + loser.getNumericScore());
 	}
 }

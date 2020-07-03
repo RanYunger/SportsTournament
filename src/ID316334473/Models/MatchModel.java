@@ -8,6 +8,7 @@ public abstract class MatchModel {
 
 	// Fields
 	protected boolean turn; // False = player 0, True = player 1
+	protected boolean isOver;
 	protected PlayerModel player0, player1, winner, loser;
 
 	// Properties (Getters and Setters)
@@ -21,6 +22,14 @@ public abstract class MatchModel {
 
 	protected void toggleTurn() {
 		setTurn(!turn);
+	}
+
+	public boolean isOver() {
+		return isOver;
+	}
+
+	protected void setIsOver(boolean hasEnded) {
+		this.isOver = hasEnded;
 	}
 
 	public PlayerModel[] getPlayers() {
@@ -49,8 +58,11 @@ public abstract class MatchModel {
 
 	public void setWinner(PlayerModel winner) {
 		this.winner = winner;
-		if (winner != null)
+
+		if (winner != null) {
 			setLoser(winner.equals(player0) ? player1 : player0);
+			setIsOver(true);
+		}
 	}
 
 	public PlayerModel getLoser() {
@@ -72,6 +84,7 @@ public abstract class MatchModel {
 	// Constructors
 	public MatchModel(PlayerModel player0, PlayerModel player1) {
 		setTurn(false); // Player 0 begins
+		setIsOver(false);
 		setPlayer0(player0);
 		setPlayer1(player1);
 		setWinner(null);

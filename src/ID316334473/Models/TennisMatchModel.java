@@ -2,29 +2,25 @@ package ID316334473.Models;
 
 import java.util.Arrays;
 
-import javafx.beans.property.SimpleIntegerProperty;
+import ID316334473.UIHandler;
 
 public class TennisMatchModel extends MatchModel {
 	// Constants
-	public static final int MIN_SETS = 3, MAX_SETS = 5;
-	public static final int MIN_WINS = MIN_SETS;
+	public static final int WIN = 1;
+	public static final int MIN_SETS = 2, MAX_SETS = 4; // Zero-based
+	public static final int MIN_WINS = 3;
 
 	// Fields
-	private SimpleIntegerProperty currentSet;
 	private int[] player0Sets, player1Sets;
-	private int player0Wins, player1Wins;
+	private int currentSet;
 
 	// Properties (Getters and Setters)
-	public SimpleIntegerProperty getObservableCurrentSet() {
+	public int getCurrentSet() {
 		return currentSet;
 	}
 
-	public int getNumericCurrentSet() {
-		return currentSet.get();
-	}
-
 	public void setCurrentSet(int currentSet) {
-		this.currentSet = new SimpleIntegerProperty(currentSet);
+		this.currentSet = currentSet;
 	}
 
 	public int[] getPlayer0Sets() {
@@ -45,36 +41,20 @@ public class TennisMatchModel extends MatchModel {
 		Arrays.setAll(this.player1Sets, p -> NO_SCORE);
 	}
 
-	public int getPlayer0Wins() {
-		return player0Wins;
-	}
-
-	public void setPlayer0Wins(int player0Wins) {
-		this.player0Wins = player0Wins;
-	}
-
-	public int getPlayer1Wins() {
-		return player1Wins;
-	}
-
-	public void setPlayer1Wins(int player1Wins) {
-		this.player1Wins = player1Wins;
-	}
-
 	public int[] getCurrentPlayerSets() {
 		return getCurrentPlayer().equals(player0) ? player0Sets : player1Sets;
 	}
 
 	public int[] getOtherPlayerSets() {
-		return getCurrentPlayer().equals(player0) ? player1Sets : player0Sets;
+		return getCurrentPlayerSets().equals(player0Sets) ? player1Sets : player0Sets;
 	}
 
 	public int getCurrentPlayerWins() {
-		return getCurrentPlayer().equals(player0) ? player0Wins : player1Wins;
+		return getCurrentPlayer().equals(player0) ? player0.getNumericScore() : player1.getNumericScore();
 	}
 
 	public int getOtherPlayerWins() {
-		return getCurrentPlayer().equals(player0) ? player1Wins : player0Wins;
+		return getCurrentPlayer().equals(player0) ? player1.getNumericScore() : player0.getNumericScore();
 	}
 
 	// Constructors
@@ -82,10 +62,8 @@ public class TennisMatchModel extends MatchModel {
 		super(player0, player1);
 
 		setCurrentSet(TIE);
-		setPlayer0Sets(new int[MAX_SETS]);
-		setPlayer1Sets(new int[MAX_SETS]);
-		setPlayer0Wins(TIE);
-		setPlayer1Wins(TIE);
+		setPlayer0Sets(new int[MAX_SETS + 1]);
+		setPlayer1Sets(new int[MAX_SETS + 1]);
 	}
 
 	// Methods
@@ -93,25 +71,34 @@ public class TennisMatchModel extends MatchModel {
 	public PlayerModel addScore(int score) {
 		PlayerModel currentPlayer = getCurrentPlayer(), otherPlayer = getOtherPlayer();
 		int[] currentPlayerSets = getCurrentPlayerSets(), otherPlayerSets = getOtherPlayerSets();
-		int currentPlayerWins = getCurrentPlayerWins(), otherPlayerWins = getOtherPlayerWins(),
-				currentSet = getNumericCurrentSet();
+		int currentPlayerWins = getCurrentPlayerWins(), otherPlayerWins = getOtherPlayerWins();
 
 		// Checking whether the match could end
 		currentPlayerSets[currentSet] = score;
-		if (otherPlayerSets[currentSet] != NO_SCORE) { // Both players have played the same
-														// amount of sets
-			currentPlayerWins = currentPlayerSets[currentSet] > otherPlayerSets[currentSet] ? ++currentPlayerWins
-					: currentPlayerWins;
-			otherPlayerWins = currentPlayerSets[currentSet] < otherPlayerSets[currentSet] ? ++otherPlayerWins
-					: otherPlayerWins;
-			if (((currentSet == MIN_SETS) || (currentSet == MAX_SETS))
-					&& (Math.abs(currentPlayerWins - otherPlayerWins) == MIN_WINS)) {
+		if (otherPlayerSets[currentSet] != NO_SCORE) { // Both players have played the current set
+			currentPlayerWins += currentPlayerSets[currentSet] > otherPlayerSets[currentSet] ? WIN : TIE;
+			otherPlayerWins += currentPlayerSets[currentSet] < otherPlayerSets[currentSet] ? WIN : TIE;
+
+			currentPlayer.setscore(currentPlayerWins);
+			otherPlayer.setscore(otherPlayerWins);
+
+			// Conditions to end the match
+			if ((currentSet == MIN_SETS) && (Math.abs(currentPlayerWins - otherPlayerWins) == MIN_WINS)) {
 				setWinner(Integer.compare(currentPlayerWins, otherPlayerWins) > TIE ? currentPlayer : otherPlayer);
+
+				UIHandler.showSuccess(winner.getTextualName() + " wins!", false);
+				UIHandler.playAudio("FlawlessVictory.mp3");
+
+				return winner;
+			} else if ((currentSet == MAX_SETS) && (currentPlayerWins != otherPlayerWins)) {
+				setWinner(Integer.compare(currentPlayerWins, otherPlayerWins) > TIE ? currentPlayer : otherPlayer);
+
+				UIHandler.showSuccess(winner.getTextualName() + " wins!", false);
 
 				return winner;
 			}
 
-			currentSet++;
+			++currentSet;
 		}
 
 		toggleTurn();

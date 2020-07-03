@@ -2,6 +2,7 @@ package ID316334473.Views;
 
 import ID316334473.UIHandler;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
@@ -26,20 +27,28 @@ public abstract class MatchView extends WindowView {
 		this.matchHBox = matchHBox;
 	}
 
+	public ImageView getPlayer0TurnImageView() {
+		return (ImageView) matchHBox.getChildren().get(0);
+	}
+
 	public TextField getPlayer0NameTextField() {
-		return (TextField) matchHBox.getChildren().get(0);
-	}
-
-	public TextField getPlayer1NameTextField() {
-		return (TextField) matchHBox.getChildren().get(4);
-	}
-
-	public TextField getPlayer0ScoreTextField() {
 		return (TextField) matchHBox.getChildren().get(1);
 	}
 
+	public TextField getPlayer0ScoreTextField() {
+		return (TextField) matchHBox.getChildren().get(2);
+	}
+
 	public TextField getPlayer1ScoreTextField() {
-		return (TextField) matchHBox.getChildren().get(3);
+		return (TextField) matchHBox.getChildren().get(4);
+	}
+
+	public TextField getPlayer1NameTextField() {
+		return (TextField) matchHBox.getChildren().get(5);
+	}
+
+	public ImageView getPlayer1TurnImageView() {
+		return (ImageView) matchHBox.getChildren().get(6);
 	}
 
 	// Constructors

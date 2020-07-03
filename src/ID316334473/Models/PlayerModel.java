@@ -2,6 +2,7 @@ package ID316334473.Models;
 
 import ID316334473.UIHandler;
 import ID316334473.Models.TournamentModel.GameType;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -12,7 +13,7 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 	private SimpleIntegerProperty ID;
 	private SimpleStringProperty name;
 	private GameType game;
-	private SimpleIntegerProperty score;
+	private ReadOnlyIntegerProperty score;
 
 	// Properties (Getters and Setters)
 	public SimpleIntegerProperty getObservableID() {
@@ -51,7 +52,7 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 		this.game = game;
 	}
 
-	public SimpleIntegerProperty getObservableScore() {
+	public ReadOnlyIntegerProperty getObservableScore() {
 		return score;
 	}
 
@@ -59,7 +60,7 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 		return score.get();
 	}
 
-	private void setscore(int score) {
+	public void setscore(int score) {
 		if (score < 0)
 			UIHandler.showError("Participant's ID must contain exactly 9 digits.");
 		this.score = new SimpleIntegerProperty(score);

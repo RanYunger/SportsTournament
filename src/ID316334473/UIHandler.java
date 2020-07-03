@@ -95,7 +95,8 @@ public class UIHandler {
 			mediaPlayer.play();
 	}
 
-	private static void showAlert(AlertType alertType, String title, String header, String message, String audio) {
+	private static void showAlert(AlertType alertType, String title, String header, String message, String audio,
+			boolean showAndWait) {
 		Alert alert = new Alert(alertType);
 		alert.initOwner(mainView.getStage());
 		alert.setX(alert.getOwner().getX() + alert.getOwner().getWidth() - alert.getWidth());
@@ -110,25 +111,29 @@ public class UIHandler {
 			alert.getDialogPane().setExpandableContent(new ScrollPane(textArea));
 		}
 
-		playAudio(audio);
+		if (!audio.isBlank())
+			playAudio(audio);
 
-		alert.showAndWait();
+		if (showAndWait)
+			alert.showAndWait();
+		else
+			alert.show();
 	}
 
-	public static void showSuccess(String message) {
-		showAlert(AlertType.INFORMATION, "Success", message, "", "Yayyy.mp3");
+	public static void showSuccess(String message, boolean hasAudio) {
+		showAlert(AlertType.INFORMATION, "Success", message, "", hasAudio ? "Yayyy.mp3" : "", hasAudio);
 	}
 
 	public static void showWarning(String message) {
-		showAlert(AlertType.WARNING, "Warning", message, "", "UhOh.mp3");
+		showAlert(AlertType.WARNING, "Warning", message, "", "UhOh.mp3", true);
 	}
 
 	public static void showError(String message) {
-		showAlert(AlertType.ERROR, "Error", message, "", "Awww.mp3");
+		showAlert(AlertType.ERROR, "Error", message, "", "Awww.mp3", true);
 	}
 
 	public static void showError(String header, String message) {
-		showAlert(AlertType.ERROR, "Error", header, message, "Awww.mp3");
+		showAlert(AlertType.ERROR, "Error", header, message, "Awww.mp3", true);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -164,6 +169,7 @@ public class UIHandler {
 	public static HBox buildMatchHBox(MatchModel matchModel) {
 		HBox matchHBox = new HBox();
 		TextField[] playerNamesTextFields = new TextField[2], playerScoresTextFields = new TextField[2];
+		ImageView playerTurnsImageViews[] = new ImageView[2];
 		ImageView vsImageView;
 		PlayerModel player0 = matchModel.getPlayer0(), player1 = matchModel.getPlayer1();
 
@@ -182,10 +188,17 @@ public class UIHandler {
 			playerScoresTextFields[i].setEditable(false);
 			playerScoresTextFields[i].setAlignment(Pos.CENTER);
 			playerScoresTextFields[i].setMaxWidth(50);
+
+			playerTurnsImageViews[i] = buildImage(player0.getGame() + ".png", 30, 30);
+			playerTurnsImageViews[i].setVisible(i == 0);
 		}
 
-		matchHBox.getChildren().addAll(playerNamesTextFields[0], playerScoresTextFields[0], vsImageView,
-				playerScoresTextFields[1], playerNamesTextFields[1]);
+		matchHBox.getChildren().addAll(playerTurnsImageViews[0], playerNamesTextFields[0], playerScoresTextFields[0],
+				vsImageView, playerScoresTextFields[1], playerNamesTextFields[1], playerTurnsImageViews[1]);
+		HBox.setMargin(vsImageView, new Insets(0, 10, 0, 10));
+		for (Node child : matchHBox.getChildren()) {
+			child.setFocusTraversable(false);
+		}
 
 		return matchHBox;
 	}
