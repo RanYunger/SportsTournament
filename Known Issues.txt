@@ -1,4 +1,3 @@
-0. Fix "Round1.mp3" not playing problem (should work) + find a better Lisa image
 1. Design + complete each MatchView
-2. Sort players in PlayersView by their score (?)
+2. Improve all Show methods in UIHandler
 3. Design TrophiesView

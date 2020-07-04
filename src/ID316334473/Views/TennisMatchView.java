@@ -73,6 +73,7 @@ public class TennisMatchView extends MatchView {
 			playerSetScoresTextFields[i].setAlignment(Pos.CENTER);
 			playerSetScoresTextFields[i].setMaxWidth(50);
 		}
+		playerSetScoresTextFields[1].setFocusTraversable(false); // Player 0 opens the match
 
 		playerSetScoreTextFieldsVBox.getChildren().addAll(playerSetScoresTextFields[0], playerSetScoresTextFields[1]);
 		VBox.setMargin(playerSetScoresTextFields[0], new Insets(0, 0, 70, 0));

@@ -17,17 +17,17 @@ public class MainView extends WindowView {
 
 	// Fields
 	private HBox optionsHBox;
-	private VBox playersVBox, championshipsVBox, trophiesVBox;
-	private ImageView playersImageView, championshipsImageView, trophiesImageView;
-	private Label playersLabel, championshipsLabel, trophiesLabel;
+	private VBox playersVBox, tournamentsVBox, trophiesVBox;
+	private ImageView playersImageView, tournamentsImageView, trophiesImageView;
+	private Label playersLabel, tournamentsLabel, trophiesLabel;
 
 	// Properties (Getters and Setters)
 	public ImageView getPlayersImageView() {
 		return playersImageView;
 	}
 
-	public ImageView getChampionshipsImageView() {
-		return championshipsImageView;
+	public ImageView getTournamentsImageView() {
+		return tournamentsImageView;
 	}
 
 	public ImageView getTrophiesImageView() {
@@ -49,23 +49,23 @@ public class MainView extends WindowView {
 
 		optionsHBox = new HBox();
 		playersVBox = new VBox();
-		championshipsVBox = new VBox();
+		tournamentsVBox = new VBox();
 		trophiesVBox = new VBox();
 		playersImageView = UIHandler.buildImage("Players.png", 350, 300);
-		championshipsImageView = UIHandler.buildImage("Championships.png", 350, 300);
+		tournamentsImageView = UIHandler.buildImage("Tournaments.png", 350, 300);
 		trophiesImageView = UIHandler.buildImage("Trophies.png", 350, 300);
 		playersLabel = new Label("Players");
-		championshipsLabel = new Label("Championships");
+		tournamentsLabel = new Label("Tournaments");
 		trophiesLabel = new Label("Trophies");
 
 		optionsHBox.setAlignment(Pos.CENTER);
 		playersVBox.setAlignment(Pos.CENTER_LEFT);
-		championshipsVBox.setAlignment(Pos.CENTER);
+		tournamentsVBox.setAlignment(Pos.CENTER);
 		trophiesVBox.setAlignment(Pos.CENTER_RIGHT);
 		playersLabel.setFont(new Font(viewFontSize));
 		playersLabel.setTextFill(Color.WHITE);
-		championshipsLabel.setFont(new Font(viewFontSize));
-		championshipsLabel.setTextFill(Color.WHITE);
+		tournamentsLabel.setFont(new Font(viewFontSize));
+		tournamentsLabel.setTextFill(Color.WHITE);
 		trophiesLabel.setFont(new Font(viewFontSize));
 		trophiesLabel.setTextFill(Color.WHITE);
 
@@ -73,17 +73,17 @@ public class MainView extends WindowView {
 		VBox.setMargin(playersImageView, new Insets(0, 0, 10, 0));
 		VBox.setMargin(playersLabel, new Insets(10, 0, 0, 125));
 
-		championshipsVBox.getChildren().addAll(championshipsImageView, championshipsLabel);
-		VBox.setMargin(championshipsImageView, new Insets(0, 0, 10, 0));
-		VBox.setMargin(championshipsLabel, new Insets(10, 0, 0, 0));
+		tournamentsVBox.getChildren().addAll(tournamentsImageView, tournamentsLabel);
+		VBox.setMargin(tournamentsImageView, new Insets(0, 0, 10, 0));
+		VBox.setMargin(tournamentsLabel, new Insets(10, 0, 0, 0));
 
 		trophiesVBox.getChildren().addAll(trophiesImageView, trophiesLabel);
 		VBox.setMargin(trophiesImageView, new Insets(0, 0, 10, 0));
 		VBox.setMargin(trophiesLabel, new Insets(10, 125, 0, 0));
 
-		optionsHBox.getChildren().addAll(playersVBox, championshipsVBox, trophiesVBox);
+		optionsHBox.getChildren().addAll(playersVBox, tournamentsVBox, trophiesVBox);
 		HBox.setMargin(playersVBox, new Insets(0, 50, 0, 0));
-		HBox.setMargin(championshipsVBox, new Insets(0, 50, 0, 50));
+		HBox.setMargin(tournamentsVBox, new Insets(0, 50, 0, 50));
 		HBox.setMargin(trophiesVBox, new Insets(0, 0, 0, 50));
 
 		stage.setScene(new Scene(
@@ -99,7 +99,7 @@ public class MainView extends WindowView {
 		super.addEffects();
 
 		UIHandler.addCursorEffectsToNode(playersImageView);
-		UIHandler.addCursorEffectsToNode(championshipsImageView);
+		UIHandler.addCursorEffectsToNode(tournamentsImageView);
 		UIHandler.addCursorEffectsToNode(trophiesImageView);
 	}
 

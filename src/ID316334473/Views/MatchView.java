@@ -66,5 +66,9 @@ public abstract class MatchView extends WindowView {
 	@Override
 	protected void addEffects() {
 		super.addEffects();
+
+		homeImageView.setVisible(false); // User won't be able to jump back to MainView from here
+
+		UIHandler.playAudio("Round1.mp3");
 	}
 }

@@ -129,6 +129,8 @@ public class AddPlayerView extends WindowView {
 	@Override
 	protected void addEffects() {
 		super.addEffects();
+
+		homeImageView.setVisible(false); // User won't be able to jump back to MainView from here
 	}
 
 	@Override

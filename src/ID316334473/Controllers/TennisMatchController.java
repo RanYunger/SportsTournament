@@ -62,7 +62,10 @@ public class TennisMatchController extends WindowController {
 					UIHandler.playAudio("Hit.mp3");
 					tennisMatch.addScore(Integer.parseInt(player0SetScoreTextField.getText()));
 
+					player0SetScoreTextField.setFocusTraversable(false);
+					player1SetScoreTextField.setFocusTraversable(true);
 					player1SetScoreTextField.requestFocus();
+
 					player0TurnImageView.setVisible(false);
 					player1TurnImageView.setVisible(true);
 
@@ -78,12 +81,17 @@ public class TennisMatchController extends WindowController {
 					UIHandler.playAudio("Hit.mp3");
 					tennisMatch.addScore(Integer.parseInt(player1SetScoreTextField.getText()));
 
+					player0SetScoreTextField.setFocusTraversable(true);
+					player1SetScoreTextField.setFocusTraversable(false);
 					player0SetScoreTextField.requestFocus();
+
 					player0TurnImageView.setVisible(true);
 					player1TurnImageView.setVisible(false);
 
-					tennisMatchView.getPlayer0ScoreTextField().setText("" + tennisMatch.getPlayer0().getNumericScore());
-					tennisMatchView.getPlayer1ScoreTextField().setText("" + tennisMatch.getPlayer1().getNumericScore());
+					tennisMatchView.getPlayer0ScoreTextField()
+							.setText("" + tennisMatch.getPlayer0().getNumericMatchScore());
+					tennisMatchView.getPlayer1ScoreTextField()
+							.setText("" + tennisMatch.getPlayer1().getNumericMatchScore());
 
 					player0SetScoreTextField.clear();
 					player1SetScoreTextField.clear();
@@ -93,7 +101,7 @@ public class TennisMatchController extends WindowController {
 						player0TurnImageView.setVisible(false);
 						player1TurnImageView.setVisible(false);
 
-						parentView.declareMatchResults();
+						parentView.updateScene();
 						tennisMatchView.close();
 					}
 

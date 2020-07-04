@@ -2,6 +2,7 @@ package ID316334473.Views;
 
 import ID316334473.UIHandler;
 import ID316334473.Controllers.TournamentBracketController;
+import ID316334473.Models.MatchModel;
 import ID316334473.Models.PlayerModel;
 import ID316334473.Models.TournamentModel.GameType;
 import javafx.collections.ObservableList;
@@ -31,6 +32,11 @@ public class TournamentView extends WindowView {
 
 	public void setPlayers(ObservableList<PlayerModel> players) {
 		this.players = players;
+	}
+
+	public boolean isTournamentComplete() {
+		MatchModel finalMatch = tournamentBracketView.getFinalsBracketView().getMatch();
+		return finalMatch == null ? false : finalMatch.isOver();
 	}
 
 	public TournamentBracketView getTournamentBracketView() {

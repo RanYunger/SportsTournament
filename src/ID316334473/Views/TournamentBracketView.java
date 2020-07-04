@@ -23,7 +23,7 @@ public class TournamentBracketView extends View {
 	private HBox hBox;
 	private VBox quarterFinalsVBox, quarterFinalsArrowsVBox, semiFinalsVBox, finalsVBox, finalsArrowVBox;
 	private ImageView quarterFinalsTopArrowImageView, quarterFinalsBottomArrowImageView, finalsArrowImageView;
-	private MatchBracketView[] quarterFinalsBracketViews, semiFinalsBracketViews;
+	private ArrayList<MatchBracketView> quarterFinalsBracketViews, semiFinalsBracketViews;
 	private MatchBracketView finalsBracketView;
 	private ObservableList<PlayerModel> tournamentPlayers;
 
@@ -36,19 +36,19 @@ public class TournamentBracketView extends View {
 		this.tournamentPlayers = tournamentPlayers;
 	}
 
-	public MatchBracketView[] getQuarterFinalsBracketViews() {
+	public ArrayList<MatchBracketView> getQuarterFinalsBracketViews() {
 		return quarterFinalsBracketViews;
 	}
 
-	private void setQuarterFinalsBracketViews(MatchBracketView[] quarterFinals) {
+	private void setQuarterFinalsBracketViews(ArrayList<MatchBracketView> quarterFinals) {
 		this.quarterFinalsBracketViews = quarterFinals;
 	}
 
-	public MatchBracketView[] getSemiFinalsBracketViews() {
+	public ArrayList<MatchBracketView> getSemiFinalsBracketViews() {
 		return semiFinalsBracketViews;
 	}
 
-	private void setSemiFinalsBracketViews(MatchBracketView[] semiFinals) {
+	private void setSemiFinalsBracketViews(ArrayList<MatchBracketView> semiFinals) {
 		this.semiFinalsBracketViews = semiFinals;
 	}
 
@@ -63,12 +63,12 @@ public class TournamentBracketView extends View {
 	// Constructors
 	public TournamentBracketView(ObservableList<PlayerModel> tournamentPlayers) {
 		setTournamentPlayers(tournamentPlayers);
-		setQuarterFinalsBracketViews(new MatchBracketView[tournamentPlayers.size() / 2]);
-		setSemiFinalsBracketViews(new MatchBracketView[quarterFinalsBracketViews.length / 2]);
-		setFinalsBracketView(new MatchBracketView(null));
+		setQuarterFinalsBracketViews(new ArrayList<MatchBracketView>(tournamentPlayers.size() / 2));
+		setSemiFinalsBracketViews(new ArrayList<MatchBracketView>(tournamentPlayers.size() / 4));
+		setFinalsBracketView(new MatchBracketView(null, null));
 
-		initQuarterFinals();
 		initSemiFinals();
+		initQuarterFinals();
 
 		buildScene();
 	}
@@ -93,13 +93,13 @@ public class TournamentBracketView extends View {
 		finalsVBox.setAlignment(Pos.CENTER);
 		finalsArrowVBox.setAlignment(Pos.CENTER);
 
-		for (int i = 0; i < quarterFinalsBracketViews.length; i++) {
-			quarterFinalsVBox.getChildren().add(quarterFinalsBracketViews[i].asNode());
-			VBox.setMargin(quarterFinalsBracketViews[i].asNode(), new Insets(40, 0, 40, 0));
+		for (int i = 0; i < quarterFinalsBracketViews.size(); i++) {
+			quarterFinalsVBox.getChildren().add(quarterFinalsBracketViews.get(i).asNode());
+			VBox.setMargin(quarterFinalsBracketViews.get(i).asNode(), new Insets(30, 0, 30, 0));
 		}
-		for (int i = 0; i < semiFinalsBracketViews.length; i++) {
-			semiFinalsVBox.getChildren().add(semiFinalsBracketViews[i].asNode());
-			VBox.setMargin(semiFinalsBracketViews[i].asNode(), new Insets(120, 0, 120, 0));
+		for (int i = 0; i < semiFinalsBracketViews.size(); i++) {
+			semiFinalsVBox.getChildren().add(semiFinalsBracketViews.get(i).asNode());
+			VBox.setMargin(semiFinalsBracketViews.get(i).asNode(), new Insets(110, 0, 110, 0));
 		}
 		finalsVBox.getChildren().add(finalsBracketView.asNode());
 		VBox.setMargin(finalsBracketView.asNode(), new Insets(40, 0, 40, 0));
@@ -120,7 +120,7 @@ public class TournamentBracketView extends View {
 		PlayerModel currentPlayer0, currentPlayer1;
 		MatchModel match = null;
 
-		for (int i = 0; i < tournamentPlayers.size(); i = i + 2) {
+		for (int i = 0; i < tournamentPlayers.size(); i += 2) {
 			currentPlayer0 = tournamentPlayers.get(i);
 			currentPlayer1 = tournamentPlayers.get(i + 1);
 			switch (currentPlayer0.getGame()) {
@@ -134,21 +134,30 @@ public class TournamentBracketView extends View {
 				match = new FootballMatchModel(currentPlayer0, currentPlayer1);
 				break;
 			}
-			matches.add(new MatchBracketView(match));
+
+			matches.add(
+					new MatchBracketView(match, i < 4 ? semiFinalsBracketViews.get(0) : semiFinalsBracketViews.get(1)));
 		}
 
-		for (int i = 0; i < matches.size(); i++)
-			quarterFinalsBracketViews[i] = matches.get(i);
+		for (int i = 0; i < matches.size(); i += 2) {
+			matches.get(i).setTwinMatchBracketView(matches.get(i + 1));
+			matches.get(i + 1).setTwinMatchBracketView(matches.get(i));
+		}
+
+		quarterFinalsBracketViews.addAll(matches);
 	}
 
 	private void initSemiFinals() {
-		for (int i = 0; i < semiFinalsBracketViews.length; i++)
-			semiFinalsBracketViews[i] = new MatchBracketView(null);
+		for (int i = 0; i < 2; i++)
+			semiFinalsBracketViews.add(new MatchBracketView(null, finalsBracketView));
+
+		semiFinalsBracketViews.get(0).setTwinMatchBracketView(semiFinalsBracketViews.get(1));
+		semiFinalsBracketViews.get(1).setTwinMatchBracketView(semiFinalsBracketViews.get(0));
 	}
 
 	@Override
 	protected void addEffects() {
-		// TODO: COMPLETE
+		// TODO: COMPELTE
 	}
 
 	@Override

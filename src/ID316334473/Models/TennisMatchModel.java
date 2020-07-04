@@ -19,7 +19,7 @@ public class TennisMatchModel extends MatchModel {
 		return currentSet;
 	}
 
-	public void setCurrentSet(int currentSet) {
+	private void setCurrentSet(int currentSet) {
 		this.currentSet = currentSet;
 	}
 
@@ -27,7 +27,7 @@ public class TennisMatchModel extends MatchModel {
 		return player0Sets;
 	}
 
-	public void setPlayer0Sets(int[] player0Sets) {
+	private void setPlayer0Sets(int[] player0Sets) {
 		this.player0Sets = player0Sets;
 		Arrays.setAll(this.player0Sets, p -> NO_SCORE);
 	}
@@ -36,7 +36,7 @@ public class TennisMatchModel extends MatchModel {
 		return player1Sets;
 	}
 
-	public void setPlayer1Sets(int[] player1Sets) {
+	private void setPlayer1Sets(int[] player1Sets) {
 		this.player1Sets = player1Sets;
 		Arrays.setAll(this.player1Sets, p -> NO_SCORE);
 	}
@@ -50,11 +50,11 @@ public class TennisMatchModel extends MatchModel {
 	}
 
 	public int getCurrentPlayerWins() {
-		return getCurrentPlayer().equals(player0) ? player0.getNumericScore() : player1.getNumericScore();
+		return getCurrentPlayer().equals(player0) ? player0.getNumericMatchScore() : player1.getNumericMatchScore();
 	}
 
 	public int getOtherPlayerWins() {
-		return getCurrentPlayer().equals(player0) ? player1.getNumericScore() : player0.getNumericScore();
+		return getCurrentPlayer().equals(player0) ? player1.getNumericMatchScore() : player0.getNumericMatchScore();
 	}
 
 	// Constructors
@@ -73,17 +73,21 @@ public class TennisMatchModel extends MatchModel {
 		int[] currentPlayerSets = getCurrentPlayerSets(), otherPlayerSets = getOtherPlayerSets();
 		int currentPlayerWins = getCurrentPlayerWins(), otherPlayerWins = getOtherPlayerWins();
 
-		// Checking whether the match could end
+		// Validations
+		if (currentSet > MAX_SETS)
+			return null;
+
 		currentPlayerSets[currentSet] = score;
+		currentPlayer.accumulateScore(score);
 		if (otherPlayerSets[currentSet] != NO_SCORE) { // Both players have played the current set
 			currentPlayerWins += currentPlayerSets[currentSet] > otherPlayerSets[currentSet] ? WIN : TIE;
 			otherPlayerWins += currentPlayerSets[currentSet] < otherPlayerSets[currentSet] ? WIN : TIE;
 
-			currentPlayer.setscore(currentPlayerWins);
-			otherPlayer.setscore(otherPlayerWins);
+			currentPlayer.setMatchscore(currentPlayerWins);
+			otherPlayer.setMatchscore(otherPlayerWins);
 
 			// Conditions to end the match
-			if ((currentSet == MIN_SETS) && (Math.abs(currentPlayerWins - otherPlayerWins) == MIN_WINS)) {
+			if (Math.abs(currentPlayerWins - otherPlayerWins) == MIN_WINS) {
 				setWinner(Integer.compare(currentPlayerWins, otherPlayerWins) > TIE ? currentPlayer : otherPlayer);
 
 				UIHandler.showSuccess(winner.getTextualName() + " wins!", false);
@@ -94,11 +98,14 @@ public class TennisMatchModel extends MatchModel {
 				setWinner(Integer.compare(currentPlayerWins, otherPlayerWins) > TIE ? currentPlayer : otherPlayer);
 
 				UIHandler.showSuccess(winner.getTextualName() + " wins!", false);
+				UIHandler.playAudio("Whistle.mp3");
 
 				return winner;
 			}
 
 			++currentSet;
+			UIHandler.playAudio(
+					currentSet == MAX_SETS ? "FinalRound.mp3" : String.format("Round%d.mp3", currentSet + 1));
 		}
 
 		toggleTurn();

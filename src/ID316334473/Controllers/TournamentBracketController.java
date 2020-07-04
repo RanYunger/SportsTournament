@@ -1,5 +1,7 @@
 package ID316334473.Controllers;
 
+import java.util.ArrayList;
+
 import ID316334473.Views.MatchBracketView;
 import ID316334473.Views.TournamentBracketView;
 import ID316334473.Views.View;
@@ -8,7 +10,7 @@ public class TournamentBracketController extends Controller {
 	// Constants
 
 	// Fields
-	private MatchBracketController[] quarterFinalsBracketControllers, semiFinalsBracketControllers;
+	private ArrayList<MatchBracketController> quarterFinalsBracketControllers, semiFinalsBracketControllers;
 	private MatchBracketController finalsBracketController;
 
 	// Properties (Getters and Setters)
@@ -16,19 +18,19 @@ public class TournamentBracketController extends Controller {
 		return (TournamentBracketView) getView();
 	}
 
-	public MatchBracketController[] getQuarterFinalsBracketControllers() {
+	public ArrayList<MatchBracketController> getQuarterFinalsBracketControllers() {
 		return quarterFinalsBracketControllers;
 	}
 
-	public void setQuarterFinalsBracketControllers(MatchBracketController[] quarterFinalsBracketControllers) {
+	public void setQuarterFinalsBracketControllers(ArrayList<MatchBracketController> quarterFinalsBracketControllers) {
 		this.quarterFinalsBracketControllers = quarterFinalsBracketControllers;
 	}
 
-	public MatchBracketController[] getSemiFinalsBracketControllers() {
+	public ArrayList<MatchBracketController> getSemiFinalsBracketControllers() {
 		return semiFinalsBracketControllers;
 	}
 
-	public void setSemiFinalsBracketControllers(MatchBracketController[] semiFinalsBracketControllers) {
+	public void setSemiFinalsBracketControllers(ArrayList<MatchBracketController> semiFinalsBracketControllers) {
 		this.semiFinalsBracketControllers = semiFinalsBracketControllers;
 	}
 
@@ -41,23 +43,23 @@ public class TournamentBracketController extends Controller {
 	}
 
 	// Constructors
-	public TournamentBracketController(View view, MatchBracketView[] quarterFinalsBracketViews,
-			MatchBracketView[] semiFinalsBracketViews, MatchBracketView finalsBracketView) {
+	public TournamentBracketController(View view, ArrayList<MatchBracketView> quarterFinalsBracketViews,
+			ArrayList<MatchBracketView> semiFinalsBracketViews, MatchBracketView finalsBracketView) {
 		super(view);
 
-		setQuarterFinalsBracketControllers(new MatchBracketController[quarterFinalsBracketViews.length]);
-		setSemiFinalsBracketControllers(new MatchBracketController[semiFinalsBracketViews.length]);
+		setQuarterFinalsBracketControllers(new ArrayList<MatchBracketController>(quarterFinalsBracketViews.size()));
+		setSemiFinalsBracketControllers(new ArrayList<MatchBracketController>(semiFinalsBracketViews.size()));
 		setFinalsBracketController(new MatchBracketController(finalsBracketView));
 
 		initQuarterAndSemiFinalsControllers(quarterFinalsBracketViews, semiFinalsBracketViews);
 	}
 
 	// Methods
-	private void initQuarterAndSemiFinalsControllers(MatchBracketView[] quarterFinalsBracketViews,
-			MatchBracketView[] semiFinalsBracketViews) {
-		for (int i = 0; i < quarterFinalsBracketViews.length; i++)
-			quarterFinalsBracketControllers[i] = new MatchBracketController(quarterFinalsBracketViews[i]);
-		for (int i = 0; i < semiFinalsBracketViews.length; i++)
-			semiFinalsBracketControllers[i] = new MatchBracketController(semiFinalsBracketViews[i]);
+	private void initQuarterAndSemiFinalsControllers(ArrayList<MatchBracketView> quarterFinalsBracketViews,
+			ArrayList<MatchBracketView> semiFinalsBracketViews) {
+		for (int i = 0; i < quarterFinalsBracketViews.size(); i++)
+			quarterFinalsBracketControllers.add(new MatchBracketController(quarterFinalsBracketViews.get(i)));
+		for (int i = 0; i < semiFinalsBracketViews.size(); i++)
+			semiFinalsBracketControllers.add(new MatchBracketController(semiFinalsBracketViews.get(i)));
 	}
 }

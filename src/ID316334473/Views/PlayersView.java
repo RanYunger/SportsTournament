@@ -1,5 +1,7 @@
 package ID316334473.Views;
 
+import java.util.Collections;
+
 import ID316334473.SearchHandler;
 import ID316334473.UIHandler;
 import ID316334473.Models.BasketballPlayerModel;
@@ -148,41 +150,55 @@ public class PlayersView extends WindowView {
 	}
 
 	public void initPlayers() {
-		tennisPlayers = FXCollections.observableArrayList();
-		tennisPlayers.add(new TennisPlayerModel(123456771, "Shahar Pe'er"));
-		tennisPlayers.add(new TennisPlayerModel(123456772, "Serena Williams"));
-		tennisPlayers.add(new TennisPlayerModel(123456773, "Maria Sharapova"));
-		tennisPlayers.add(new TennisPlayerModel(123456774, "Roger Federer"));
-		tennisPlayers.add(new TennisPlayerModel(123456775, "Jimmy Connors"));
-		tennisPlayers.add(new TennisPlayerModel(123456776, "Rafael Nadal"));
-		tennisPlayers.add(new TennisPlayerModel(123456777, "Boris Becker"));
-		tennisPlayers.add(new TennisPlayerModel(123456778, "John Doe")); // For debugging purposes, will be deleted
+		tennisPlayers = SearchHandler.getTennisPlayers();
+		basketballPlayers = SearchHandler.getBaketballPlayers();
+		footballPlayers = SearchHandler.getFootballPlayers();
 
-		basketballPlayers = FXCollections.observableArrayList();
-		basketballPlayers.add(new BasketballPlayerModel(123456781, "Lebron James"));
-		basketballPlayers.add(new BasketballPlayerModel(123456782, "Shaquille O'Neal"));
-		basketballPlayers.add(new BasketballPlayerModel(123456783, "Michael Jordan"));
-		basketballPlayers.add(new BasketballPlayerModel(123456784, "Kareem Abdul-Jabbar"));
-		basketballPlayers.add(new BasketballPlayerModel(123456785, "Stephen curry"));
-		basketballPlayers.add(new BasketballPlayerModel(123456786, "Kevin Durant"));
-		basketballPlayers.add(new BasketballPlayerModel(123456787, "Magic Johnson"));
+		if (tennisPlayers == null) {
+			tennisPlayers = FXCollections.observableArrayList();
+			tennisPlayers.add(new TennisPlayerModel(123456771, "Shahar Pe'er"));
+			tennisPlayers.add(new TennisPlayerModel(123456772, "Serena Williams"));
+			tennisPlayers.add(new TennisPlayerModel(123456773, "Maria Sharapova"));
+			tennisPlayers.add(new TennisPlayerModel(123456774, "Roger Federer"));
+			tennisPlayers.add(new TennisPlayerModel(123456775, "Jimmy Connors"));
+			tennisPlayers.add(new TennisPlayerModel(123456776, "Rafael Nadal"));
+			tennisPlayers.add(new TennisPlayerModel(123456777, "Boris Becker"));
+			tennisPlayers.add(new TennisPlayerModel(123456778, "John Doe")); // For debugging purposes, will be deleted
 
-		footballPlayers = FXCollections.observableArrayList();
-		footballPlayers.add(new FootballPlayerModel(123456791, "Ronaldinio"));
-		footballPlayers.add(new FootballPlayerModel(123456792, "Lionel Messi"));
-		footballPlayers.add(new FootballPlayerModel(123456793, "Christiano Ronaldo"));
-		footballPlayers.add(new FootballPlayerModel(123456794, "Neymar"));
-		footballPlayers.add(new FootballPlayerModel(123456795, "Diego Maradona"));
-		footballPlayers.add(new FootballPlayerModel(123456796, "Zinedine Zidane"));
-		footballPlayers.add(new FootballPlayerModel(123456797, "Robert Lawandowski"));
+			SearchHandler.setTennisPlayers(tennisPlayers);
+		}
+
+		if (basketballPlayers == null) {
+			basketballPlayers = FXCollections.observableArrayList();
+			basketballPlayers.add(new BasketballPlayerModel(123456781, "Lebron James"));
+			basketballPlayers.add(new BasketballPlayerModel(123456782, "Shaquille O'Neal"));
+			basketballPlayers.add(new BasketballPlayerModel(123456783, "Michael Jordan"));
+			basketballPlayers.add(new BasketballPlayerModel(123456784, "Kareem Abdul-Jabbar"));
+			basketballPlayers.add(new BasketballPlayerModel(123456785, "Stephen curry"));
+			basketballPlayers.add(new BasketballPlayerModel(123456786, "Kevin Durant"));
+			basketballPlayers.add(new BasketballPlayerModel(123456787, "Magic Johnson"));
+
+			SearchHandler.setBaketballPlayers(basketballPlayers);
+		}
+
+		if (footballPlayers == null) {
+			footballPlayers = FXCollections.observableArrayList();
+			footballPlayers.add(new FootballPlayerModel(123456791, "Ronaldinio"));
+			footballPlayers.add(new FootballPlayerModel(123456792, "Lionel Messi"));
+			footballPlayers.add(new FootballPlayerModel(123456793, "Christiano Ronaldo"));
+			footballPlayers.add(new FootballPlayerModel(123456794, "Neymar"));
+			footballPlayers.add(new FootballPlayerModel(123456795, "Diego Maradona"));
+			footballPlayers.add(new FootballPlayerModel(123456796, "Zinedine Zidane"));
+			footballPlayers.add(new FootballPlayerModel(123456797, "Robert Lawandowski"));
+
+			SearchHandler.setFootballPlayers(footballPlayers);
+		}
 
 		tennisPlayersTableView.setItems(tennisPlayers);
 		basketballPlayersTableView.setItems(basketballPlayers);
 		footballPlayersTableView.setItems(footballPlayers);
 
-		SearchHandler.setTennisPlayers(tennisPlayers);
-		SearchHandler.setBaketballPlayers(basketballPlayers);
-		SearchHandler.setFootballPlayers(footballPlayers);
+		sortAllPlayers();
 	}
 
 	public void addPlayer(PlayerModel player) {
@@ -205,5 +221,18 @@ public class PlayersView extends WindowView {
 		addTennisPlayerButton.setDisable(disabled);
 		addBasketballPlayerButton.setDisable(disabled);
 		addFootballPlayerButton.setDisable(disabled);
+	}
+
+	private void sortAllPlayers() {
+		tennisPlayers.sort((p1, p2) -> Integer.compare(p1.getNumericTournamentScore(), p2.getNumericTournamentScore()));
+		basketballPlayers
+				.sort((p1, p2) -> Integer.compare(p1.getNumericTournamentScore(), p2.getNumericTournamentScore()));
+		footballPlayers
+				.sort((p1, p2) -> Integer.compare(p1.getNumericTournamentScore(), p2.getNumericTournamentScore()));
+
+		// Reversing the sorted collections (Sort will be: biggest -> smallest)
+		Collections.reverse(tennisPlayers);
+		Collections.reverse(basketballPlayers);
+		Collections.reverse(footballPlayers);
 	}
 }

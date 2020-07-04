@@ -1,6 +1,7 @@
 package ID316334473;
 
 import java.io.File;
+import java.util.Optional;
 
 import ID316334473.Controllers.MainController;
 import ID316334473.Models.MatchModel;
@@ -12,6 +13,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -20,7 +22,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -95,8 +96,8 @@ public class UIHandler {
 			mediaPlayer.play();
 	}
 
-	private static void showAlert(AlertType alertType, String title, String header, String message, String audio,
-			boolean showAndWait) {
+	private static Optional<ButtonType> showAlert(AlertType alertType, String title, String header, String message,
+			String audioFileName, boolean showAndWait) {
 		Alert alert = new Alert(alertType);
 		alert.initOwner(mainView.getStage());
 		alert.setX(alert.getOwner().getX() + alert.getOwner().getWidth() - alert.getWidth());
@@ -105,19 +106,21 @@ public class UIHandler {
 		alert.setTitle(title);
 		alert.setHeaderText(header);
 
-		if (message != null && !message.isBlank()) {
+		if ((message != null) && (!message.isBlank())) {
 			TextArea textArea = new TextArea(message);
 			textArea.setEditable(false);
 			alert.getDialogPane().setExpandableContent(new ScrollPane(textArea));
 		}
 
-		if (!audio.isBlank())
-			playAudio(audio);
+		if (!audioFileName.isBlank())
+			playAudio(audioFileName);
 
 		if (showAndWait)
-			alert.showAndWait();
+			return alert.showAndWait();
 		else
 			alert.show();
+
+		return null;
 	}
 
 	public static void showSuccess(String message, boolean hasAudio) {
@@ -151,7 +154,7 @@ public class UIHandler {
 		playerNameTableColumn.setMinWidth(178);
 
 		playerScoreTableColumn = new TableColumn<PlayerModel, Number>("Score");
-		playerScoreTableColumn.setCellValueFactory(cell -> cell.getValue().getObservableScore());
+		playerScoreTableColumn.setCellValueFactory(cell -> cell.getValue().getObservableTournamentScore());
 		playerScoreTableColumn.setMinWidth(160);
 
 		tableView.getColumns().addAll(playerIDTableColumn, playerNameTableColumn, playerScoreTableColumn);
@@ -175,8 +178,8 @@ public class UIHandler {
 
 		playerNamesTextFields[0] = new TextField(player0.getTextualName());
 		playerNamesTextFields[1] = new TextField(player1.getTextualName());
-		playerScoresTextFields[0] = new TextField("" + player0.getNumericScore());
-		playerScoresTextFields[1] = new TextField("" + player1.getNumericScore());
+		playerScoresTextFields[0] = new TextField("" + player0.getNumericMatchScore());
+		playerScoresTextFields[1] = new TextField("" + player1.getNumericMatchScore());
 		vsImageView = UIHandler.buildImage("Vs.png", 30, 34);
 
 		matchHBox.setAlignment(Pos.CENTER);
@@ -210,7 +213,7 @@ public class UIHandler {
 	}
 
 	public static void setIcon(Stage stage) {
-		stage.getIcons().add(UIHandler.buildImage("Championships.png", 0, 0).getImage());
+		stage.getIcons().add(UIHandler.buildImage("Tournaments.png", 0, 0).getImage());
 	}
 
 	public static StackPane buildBackground(String backgroundImageName, Node node, double width, double height,
@@ -240,8 +243,6 @@ public class UIHandler {
 		stackPane.getChildren().addAll(audioImageView, homeImageView);
 		StackPane.setMargin(audioImageView, new Insets(height, width * 0.95, height * 1.9, 10));
 		StackPane.setMargin(homeImageView, new Insets(height, 10, height * 1.9, width * 0.95));
-		if (node instanceof GridPane) // Preventing the user from jumping back to MainView from AddPlayerView
-			homeImageView.setVisible(false);
 		StackPane.setMargin(topVBox, new Insets(height * 0.92, 0, height * 1.8, 0));
 		StackPane.setMargin(bottomLabel, new Insets(height * 0.92, 0, height * 0.08, 0));
 

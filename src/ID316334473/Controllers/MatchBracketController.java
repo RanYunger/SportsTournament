@@ -35,6 +35,14 @@ public class MatchBracketController extends Controller {
 				MatchModel match = matchBracketView.getMatch();
 				GameType game = match.getPlayer0().getGame();
 
+				// Validations
+				if ((matchBracketView.getNextMatchBracketView() != null)
+						&& (matchBracketView.getTwinMatchBracketView().getMatch() == null)) {
+					UIHandler.showError("You can't play this game yet!");
+
+					return;
+				}
+
 				switch (game) {
 				case Tennis:
 					matchBracketView.getPlayButton().setDisable(true);
@@ -42,7 +50,6 @@ public class MatchBracketController extends Controller {
 					TennisMatchView tennisMatchView = new TennisMatchView(matchBracketView, (TennisMatchModel) match);
 					TennisMatchController tennisMatchController = new TennisMatchController(tennisMatchView);
 
-					UIHandler.playAudio("Round1.mp3");
 					tennisMatchController.addEventHandlersToGeneralButtons();
 					break;
 				case Basketball:
@@ -53,7 +60,6 @@ public class MatchBracketController extends Controller {
 					BasketballMatchController basketballMatchController = new BasketballMatchController(
 							basketballMatchView);
 
-					UIHandler.playAudio("Round1.mp3");
 					basketballMatchController.addEventHandlersToGeneralButtons();
 					break;
 				case Football:
@@ -63,7 +69,6 @@ public class MatchBracketController extends Controller {
 							(FootballMatchModel) match);
 					FootballMatchController footballMatchController = new FootballMatchController(footballMatchView);
 
-					UIHandler.playAudio("Round1.mp3");
 					footballMatchController.addEventHandlersToGeneralButtons();
 					break;
 				}

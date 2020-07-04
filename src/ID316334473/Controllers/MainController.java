@@ -30,38 +30,38 @@ public class MainController extends WindowController {
 
 				PlayersView playersView = new PlayersView();
 				PlayersController playersController = new PlayersController(playersView);
-				
+
 				mainView.close();
 				playersController.addEventHandlersToGeneralButtons();
 			}
 		};
-		EventHandler<MouseEvent> championshipsImageViewEventHandler = new EventHandler<MouseEvent>() {
+		EventHandler<MouseEvent> tournamentsImageViewEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				UIHandler.playAudio("Whistle.mp3");
 
-				TournamentsView championshipsView = new TournamentsView();
-				TournamentsController championshipsController = new TournamentsController(championshipsView);
+				TournamentsView tournamentsView = new TournamentsView();
+				TournamentsController tournamentsController = new TournamentsController(tournamentsView);
 
 				mainView.close();
-				championshipsController.addEventHandlersToGeneralButtons();
+				tournamentsController.addEventHandlersToGeneralButtons();
 			}
 		};
 		EventHandler<MouseEvent> trophiesImageViewEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				UIHandler.playAudio("Cheers.mp3");
-				
+
 				TrophiesView trophiesView = new TrophiesView();
 				TrophiesController trophiesController = new TrophiesController(trophiesView);
-				
+
 				mainView.close();
 				trophiesController.addEventHandlersToGeneralButtons();
 			}
 		};
 
 		mainView.getPlayersImageView().setOnMouseClicked(playersImageViewEventHandler);
-		mainView.getChampionshipsImageView().setOnMouseClicked(championshipsImageViewEventHandler);
+		mainView.getTournamentsImageView().setOnMouseClicked(tournamentsImageViewEventHandler);
 		mainView.getTrophiesImageView().setOnMouseClicked(trophiesImageViewEventHandler);
 	}
 

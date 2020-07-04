@@ -2,18 +2,18 @@ package ID316334473.Models;
 
 import ID316334473.UIHandler;
 import ID316334473.Models.TournamentModel.GameType;
-import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public abstract class PlayerModel implements Comparable<PlayerModel> {
 	// Constants
+	public static final int NO_SCORE = 0, ID_LENGTH = 9;
 
 	// Fields
 	private SimpleIntegerProperty ID;
 	private SimpleStringProperty name;
 	private GameType game;
-	private ReadOnlyIntegerProperty score;
+	private SimpleIntegerProperty matchScore, tournamentScore;
 
 	// Properties (Getters and Setters)
 	public SimpleIntegerProperty getObservableID() {
@@ -25,8 +25,8 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 	}
 
 	private void setID(int ID) {
-		if (String.valueOf(ID).length() != 9)
-			UIHandler.showError("Participant's ID must contain exactly 9 digits.");
+		if (String.valueOf(ID).length() != ID_LENGTH)
+			UIHandler.showError("Player's ID must contain exactly 9 digits.");
 		this.ID = new SimpleIntegerProperty(ID);
 	}
 
@@ -52,18 +52,32 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 		this.game = game;
 	}
 
-	public ReadOnlyIntegerProperty getObservableScore() {
-		return score;
+	public SimpleIntegerProperty getObservableMatchScore() {
+		return matchScore;
 	}
 
-	public int getNumericScore() {
-		return score.get();
+	public int getNumericMatchScore() {
+		return matchScore.get();
 	}
 
-	public void setscore(int score) {
-		if (score < 0)
-			UIHandler.showError("Participant's ID must contain exactly 9 digits.");
-		this.score = new SimpleIntegerProperty(score);
+	public void setMatchscore(int matchScore) {
+		if (matchScore < NO_SCORE)
+			UIHandler.showError("Player's score must be a non-negative number.");
+		this.matchScore = new SimpleIntegerProperty(matchScore);
+	}
+
+	public SimpleIntegerProperty getObservableTournamentScore() {
+		return tournamentScore;
+	}
+
+	public int getNumericTournamentScore() {
+		return tournamentScore.get();
+	}
+
+	public void setTournamentScore(int tournamentScore) {
+		if (tournamentScore < NO_SCORE)
+			UIHandler.showError("Player's score must be a non-negative number.");
+		this.tournamentScore = new SimpleIntegerProperty(tournamentScore);
 	}
 
 	// Constructors
@@ -71,10 +85,15 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 		setID(ID);
 		setName(name);
 		setGame(game);
-		setscore(0);
+		setMatchscore(NO_SCORE);
+		setTournamentScore(NO_SCORE);
 	}
 
 	// Methods
+	public void accumulateScore(int addedScore) {
+		setTournamentScore(getNumericTournamentScore() + addedScore);
+	}
+
 	@Override
 	public int compareTo(PlayerModel other) {
 		return Integer.compare(getNumericID(), other.getNumericID());
@@ -96,15 +115,20 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 			return false;
 		if (game != other.game)
 			return false;
+		if (matchScore == null) {
+			if (other.matchScore != null)
+				return false;
+		} else if (!matchScore.equals(other.matchScore))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (score == null) {
-			if (other.score != null)
+		if (tournamentScore == null) {
+			if (other.tournamentScore != null)
 				return false;
-		} else if (!score.equals(other.score))
+		} else if (!tournamentScore.equals(other.tournamentScore))
 			return false;
 		return true;
 	}

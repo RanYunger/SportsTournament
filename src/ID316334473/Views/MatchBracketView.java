@@ -1,12 +1,14 @@
 package ID316334473.Views;
 
+import java.util.ArrayList;
+
 import ID316334473.UIHandler;
 import ID316334473.Models.BasketballMatchModel;
+import ID316334473.Models.FootballMatchModel;
 import ID316334473.Models.MatchModel;
 import ID316334473.Models.PlayerModel;
 import ID316334473.Models.TennisMatchModel;
 import ID316334473.Models.TournamentModel.GameType;
-import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -22,10 +24,10 @@ public class MatchBracketView extends View {
 	// Fields
 	private HBox hBox;
 	private VBox playerStatusesVBox, playerNamesVBox, playerScoresVBox;
-	private ImageView[] playerStatusesImageViews;
-	private TextField[] playerNamesTextFields, playerScoresTextFields;
+	private ArrayList<ImageView> playerStatusesImageViews;
+	private ArrayList<TextField> playerNamesTextFields, playerScoresTextFields;
 	private Button playButton;
-	private Bounds bounds;
+	private MatchBracketView twinMatchBracketView, nextMatchBracketView;
 	private MatchModel match;
 
 	// Properties (Getters and Setters)
@@ -33,54 +35,56 @@ public class MatchBracketView extends View {
 		return match;
 	}
 
-	private void setMatch(MatchModel match) {
+	public void setMatch(MatchModel match) {
 		this.match = match;
 	}
 
+	public MatchBracketView getTwinMatchBracketView() {
+		return twinMatchBracketView;
+	}
+
+	public void setTwinMatchBracketView(MatchBracketView twinMatchBracketView) {
+		this.twinMatchBracketView = twinMatchBracketView;
+	}
+
+	public MatchBracketView getNextMatchBracketView() {
+		return nextMatchBracketView;
+	}
+
+	private void setNextMatchBracketView(MatchBracketView nextMatchBracketView) {
+		this.nextMatchBracketView = nextMatchBracketView;
+	}
+
 	public ImageView getWinnerImageView() {
-		return match.getWinner().equals(match.getPlayer0()) ? playerStatusesImageViews[0] : playerStatusesImageViews[1];
+		return match.getWinner().equals(match.getPlayer0()) ? playerStatusesImageViews.get(0)
+				: playerStatusesImageViews.get(1);
 	}
 
 	public ImageView getLoserImageView() {
-		return getWinnerImageView().equals(playerStatusesImageViews[0]) ? playerStatusesImageViews[1]
-				: playerStatusesImageViews[0];
-	}
-
-	public TextField getWinnerNameTextField() {
-		return match.getWinner().equals(match.getPlayer0()) ? playerNamesTextFields[0] : playerNamesTextFields[1];
-	}
-
-	public TextField getLoserNameTextField() {
-		return getWinnerNameTextField().equals(playerNamesTextFields[0]) ? playerNamesTextFields[1]
-				: playerNamesTextFields[0];
+		return getWinnerImageView().equals(playerStatusesImageViews.get(0)) ? playerStatusesImageViews.get(1)
+				: playerStatusesImageViews.get(0);
 	}
 
 	public TextField getWinnerScoreTextField() {
-		return match.getWinner().equals(match.getPlayer0()) ? playerScoresTextFields[0] : playerScoresTextFields[1];
+		return match.getWinner().equals(match.getPlayer0()) ? playerScoresTextFields.get(0)
+				: playerScoresTextFields.get(1);
 	}
 
 	public TextField getLoserScoreTextField() {
-		return getWinnerScoreTextField().equals(playerScoresTextFields[0]) ? playerScoresTextFields[1]
-				: playerScoresTextFields[0];
+		return getWinnerScoreTextField().equals(playerScoresTextFields.get(0)) ? playerScoresTextFields.get(1)
+				: playerScoresTextFields.get(0);
 	}
 
 	public Button getPlayButton() {
 		return playButton;
 	}
 
-	public Bounds getBounds() {
-		return bounds;
-	}
-
-	public void setBounds(Bounds bounds) {
-		this.bounds = bounds;
-	}
-
 	// Constructors
-	public MatchBracketView(MatchModel match) {
+	public MatchBracketView(MatchModel match, MatchBracketView nextMatchBracketView) {
 		super();
 
 		setMatch(match);
+		setNextMatchBracketView(nextMatchBracketView);
 
 		buildScene();
 		addEffects();
@@ -90,45 +94,45 @@ public class MatchBracketView extends View {
 	@Override
 	protected void buildScene() {
 		int length = 2;
-		double fontSize = 15;
+		double fontSize = 15, height = 40;
 
 		hBox = new HBox();
 		playerStatusesVBox = new VBox();
 		playerNamesVBox = new VBox();
 		playerScoresVBox = new VBox();
-		playerStatusesImageViews = new ImageView[length];
-		playerNamesTextFields = new TextField[length];
-		playerScoresTextFields = new TextField[length];
+		playerStatusesImageViews = new ArrayList<ImageView>(length);
+		playerNamesTextFields = new ArrayList<TextField>(length);
+		playerScoresTextFields = new ArrayList<TextField>(length);
 		playButton = new Button("Play!");
 
 		for (int i = 0; i < length; i++) {
-			playerStatusesImageViews[i] = UIHandler.buildImage(match == null ? "Question.png" : getGame(match) + ".png",
-					30, 30);
-			playerNamesTextFields[i] = new TextField(match == null ? "-" : match.getPlayers()[i].getTextualName());
-			playerScoresTextFields[i] = new TextField("-");
+			playerStatusesImageViews.add(UIHandler.buildImage("Question.png", height, height));
+			playerNamesTextFields.add(new TextField("-"));
+			playerScoresTextFields.add(new TextField("-"));
 
-			playerNamesTextFields[i].setEditable(false);
-			playerNamesTextFields[i].setAlignment(Pos.CENTER);
-			playerNamesTextFields[i].setFont(new Font(fontSize));
-			playerNamesTextFields[i].setMinWidth(150);
+			playerNamesTextFields.get(i).setEditable(false);
+			playerNamesTextFields.get(i).setAlignment(Pos.CENTER);
+			playerNamesTextFields.get(i).setFont(new Font(fontSize));
+			playerNamesTextFields.get(i).setMinHeight(height);
+			playerNamesTextFields.get(i).setMinWidth(150);
 
-			playerScoresTextFields[i].setEditable(false);
-			playerScoresTextFields[i].setAlignment(Pos.CENTER);
-			playerScoresTextFields[i].setFont(new Font(fontSize));
-			playerScoresTextFields[i].setMaxWidth(50);
+			playerScoresTextFields.get(i).setEditable(false);
+			playerScoresTextFields.get(i).setAlignment(Pos.CENTER);
+			playerScoresTextFields.get(i).setFont(new Font(fontSize));
+			playerScoresTextFields.get(i).setMinHeight(height);
+			playerScoresTextFields.get(i).setMaxWidth(50);
 		}
-		playButton.setMinHeight(61);
-		playButton.setVisible(match != null); // visible only if the match could begin
+		playButton.setMinHeight(78);
+		playButton.setDisable(match == null);
 
-		playerStatusesVBox.getChildren().addAll(playerStatusesImageViews[0], playerStatusesImageViews[1]);
-		playerNamesVBox.getChildren().addAll(playerNamesTextFields[0], playerNamesTextFields[1]);
-		playerScoresVBox.getChildren().addAll(playerScoresTextFields[0], playerScoresTextFields[1]);
+		playerStatusesVBox.getChildren().addAll(playerStatusesImageViews.get(0), playerStatusesImageViews.get(1));
+		playerNamesVBox.getChildren().addAll(playerNamesTextFields.get(0), playerNamesTextFields.get(1));
+		playerScoresVBox.getChildren().addAll(playerScoresTextFields.get(0), playerScoresTextFields.get(1));
 
 		hBox.getChildren().addAll(playerStatusesVBox, playerNamesVBox, playerScoresVBox, playButton);
 
-//		Bounds temp = hBox.localToScene(hBox.getBoundsInLocal());
-
-		setBounds(hBox.localToScene(hBox.getBoundsInLocal()));
+		if (match != null)
+			updateScene();
 	}
 
 	@Override
@@ -150,16 +154,66 @@ public class MatchBracketView extends View {
 		return GameType.Football.name();
 	}
 
-	public void declareMatchResults() {
-		ImageView winnerImageView = getWinnerImageView(), loserImageView = getLoserImageView();
-		TextField winnerScoreTextField = getWinnerScoreTextField(), loserScoreTextField = getLoserScoreTextField();
-		PlayerModel winner = match.getWinner(), loser = match.getLoser();
+	private void tryAdvance() {
+		MatchModel twinMatch;
+		PlayerModel winner0, winner1;
 
-		winnerImageView.setImage(UIHandler.buildImage("Winner.png", 30, 30).getImage());
-		winnerScoreTextField.setText("" + winner.getNumericScore());
+		if (nextMatchBracketView == null) { // final match
+			if (match.isOver()) {
+				UIHandler.showSuccess(
+						String.format("%s is the tournament's winner!", match.getWinner().getTextualName()), false);
+				UIHandler.playAudio("Tada.mp3");
+			}
+		} else if (twinMatchBracketView != null) {
+			twinMatch = twinMatchBracketView.getMatch();
+			if ((match.isOver()) && (twinMatch.isOver())) {
+				winner0 = match.getWinner();
+				winner1 = twinMatch.getWinner();
 
-		loserImageView.setImage(UIHandler.buildImage("Loser.png", 30, 30).getImage());
-		UIHandler.addAudioToImageView(loserImageView, "AllStar.mp3");
-		loserScoreTextField.setText("" + loser.getNumericScore());
+				switch (winner0.getGame()) {
+				case Tennis:
+					nextMatchBracketView.setMatch(new TennisMatchModel(winner0, winner1));
+					break;
+				case Basketball:
+					nextMatchBracketView.setMatch(new BasketballMatchModel(winner0, winner1));
+					break;
+				case Football:
+					nextMatchBracketView.setMatch(new FootballMatchModel(winner0, winner1));
+					break;
+				}
+				nextMatchBracketView.updateScene();
+			}
+		}
+	}
+
+	public void updateScene() {
+		double imageHeight = 40;
+		ImageView loserImageView;
+		PlayerModel winner, loser;
+
+		if (match.isOver()) {
+			winner = match.getWinner();
+			loser = match.getLoser();
+			getWinnerImageView().setImage(UIHandler.buildImage("Winner.png", imageHeight, imageHeight).getImage());
+			getWinnerScoreTextField().setText("" + winner.getNumericMatchScore());
+
+			loserImageView = getLoserImageView();
+			loserImageView.setImage(UIHandler.buildImage("Loser.png", imageHeight, imageHeight).getImage());
+			UIHandler.addAudioToImageView(loserImageView, "AllStar.mp3");
+			getLoserScoreTextField().setText("" + loser.getNumericMatchScore());
+			playButton.setDisable(true);
+
+			winner.setMatchscore(PlayerModel.NO_SCORE);
+			loser.setMatchscore(PlayerModel.NO_SCORE);
+
+			tryAdvance();
+		} else {
+			playerNamesTextFields.get(0).setText(match.getPlayer0().getTextualName());
+			playerNamesTextFields.get(1).setText(match.getPlayer1().getTextualName());
+			for (ImageView playerStatusImageView : playerStatusesImageViews)
+				playerStatusImageView
+						.setImage(UIHandler.buildImage(getGame(match) + ".png", imageHeight, imageHeight).getImage());
+			playButton.setDisable(false);
+		}
 	}
 }
