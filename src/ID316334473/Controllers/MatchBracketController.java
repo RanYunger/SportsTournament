@@ -38,7 +38,7 @@ public class MatchBracketController extends Controller {
 				// Validations
 				if ((matchBracketView.getNextMatchBracketView() != null)
 						&& (matchBracketView.getTwinMatchBracketView().getMatch() == null)) {
-					UIHandler.showError("You can't play this game yet!");
+					UIHandler.showError("You can't play this match yet!");
 
 					return;
 				}

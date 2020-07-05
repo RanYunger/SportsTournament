@@ -1,5 +1,6 @@
 package ID316334473.Controllers;
 
+import ID316334473.SearchHandler;
 import ID316334473.UIHandler;
 import ID316334473.Views.MainView;
 import ID316334473.Views.PlayersView;
@@ -50,7 +51,14 @@ public class MainController extends WindowController {
 		EventHandler<MouseEvent> trophiesImageViewEventHandler = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				UIHandler.playAudio("Cheers.mp3");
+				if ((SearchHandler.getTennisFinalTrio().isEmpty()) || (SearchHandler.getBasketballFinalTrio().isEmpty())
+						|| (SearchHandler.getFootballFinalTrio().isEmpty())) {
+					UIHandler.showError("The hall of fame could be entered only after all tournaments are complete.");
+
+					return;
+				}
+
+				UIHandler.playAudio("WeAreTheChampions.mp3");
 
 				TrophiesView trophiesView = new TrophiesView();
 				TrophiesController trophiesController = new TrophiesController(trophiesView);

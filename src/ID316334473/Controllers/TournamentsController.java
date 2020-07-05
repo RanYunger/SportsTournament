@@ -41,6 +41,8 @@ public class TournamentsController extends WindowController {
 					TournamentController tournamentController = new TournamentController(tournamentView);
 
 					UIHandler.playAudio("Hit.mp3");
+
+					SearchHandler.getTennisFinalTrio().clear();
 					tournamentController.addEventHandlersToGeneralButtons();
 					tournamentsView.close();
 				}
@@ -60,6 +62,8 @@ public class TournamentsController extends WindowController {
 					TournamentController tournamentController = new TournamentController(tournamentView);
 
 					UIHandler.playAudio("Bounce.mp3");
+
+					SearchHandler.getBasketballFinalTrio().clear();
 					tournamentController.addEventHandlersToGeneralButtons();
 					tournamentsView.close();
 				}
@@ -80,6 +84,8 @@ public class TournamentsController extends WindowController {
 					TournamentController tournamentController = new TournamentController(tournamentView);
 
 					UIHandler.playAudio("Kick.mp3");
+
+					SearchHandler.getFootballFinalTrio().clear();
 					tournamentController.addEventHandlersToGeneralButtons();
 					tournamentsView.close();
 				}

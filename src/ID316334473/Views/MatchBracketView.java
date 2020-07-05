@@ -2,6 +2,7 @@ package ID316334473.Views;
 
 import java.util.ArrayList;
 
+import ID316334473.SearchHandler;
 import ID316334473.UIHandler;
 import ID316334473.Models.BasketballMatchModel;
 import ID316334473.Models.FootballMatchModel;
@@ -9,6 +10,7 @@ import ID316334473.Models.MatchModel;
 import ID316334473.Models.PlayerModel;
 import ID316334473.Models.TennisMatchModel;
 import ID316334473.Models.TournamentModel.GameType;
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -28,6 +30,7 @@ public class MatchBracketView extends View {
 	private ArrayList<TextField> playerNamesTextFields, playerScoresTextFields;
 	private Button playButton;
 	private MatchBracketView twinMatchBracketView, nextMatchBracketView;
+	private TournamentBracketView parentView;
 	private MatchModel match;
 
 	// Properties (Getters and Setters)
@@ -55,22 +58,42 @@ public class MatchBracketView extends View {
 		this.nextMatchBracketView = nextMatchBracketView;
 	}
 
+	public TournamentBracketView getParentView() {
+		return parentView;
+	}
+
+	private void setParentView(TournamentBracketView parentView) {
+		this.parentView = parentView;
+	}
+
 	public ImageView getWinnerImageView() {
+		if (!match.isOver())
+			return null;
+
 		return match.getWinner().equals(match.getPlayer0()) ? playerStatusesImageViews.get(0)
 				: playerStatusesImageViews.get(1);
 	}
 
 	public ImageView getLoserImageView() {
+		if (!match.isOver())
+			return null;
+
 		return getWinnerImageView().equals(playerStatusesImageViews.get(0)) ? playerStatusesImageViews.get(1)
 				: playerStatusesImageViews.get(0);
 	}
 
 	public TextField getWinnerScoreTextField() {
+		if (!match.isOver())
+			return null;
+
 		return match.getWinner().equals(match.getPlayer0()) ? playerScoresTextFields.get(0)
 				: playerScoresTextFields.get(1);
 	}
 
 	public TextField getLoserScoreTextField() {
+		if (!match.isOver())
+			return null;
+
 		return getWinnerScoreTextField().equals(playerScoresTextFields.get(0)) ? playerScoresTextFields.get(1)
 				: playerScoresTextFields.get(0);
 	}
@@ -80,11 +103,12 @@ public class MatchBracketView extends View {
 	}
 
 	// Constructors
-	public MatchBracketView(MatchModel match, MatchBracketView nextMatchBracketView) {
+	public MatchBracketView(MatchModel match, MatchBracketView nextMatchBracketView, TournamentBracketView parentView) {
 		super();
 
 		setMatch(match);
 		setNextMatchBracketView(nextMatchBracketView);
+		setParentView(parentView);
 
 		buildScene();
 		addEffects();
@@ -160,8 +184,29 @@ public class MatchBracketView extends View {
 
 		if (nextMatchBracketView == null) { // final match
 			if (match.isOver()) {
-				UIHandler.showSuccess(
-						String.format("%s is the tournament's winner!", match.getWinner().getTextualName()), false);
+				winner0 = match.getWinner();
+				switch (winner0.getGame()) { // Sorts the players by their final tournament score
+				case Tennis: {
+					SearchHandler.setTennisPlayers(SearchHandler.getTennisPlayers());
+					SearchHandler.setTennisFinalTrio(
+							FXCollections.observableList(SearchHandler.getTennisPlayers().subList(0, 3)));
+				}
+					break;
+				case Basketball: {
+					SearchHandler.setBaketballPlayers(SearchHandler.getBaketballPlayers());
+					SearchHandler.setBasketballFinalTrio(
+							FXCollections.observableList(SearchHandler.getBaketballPlayers().subList(0, 3)));
+				}
+					break;
+				case Football: {
+					SearchHandler.setFootballPlayers(SearchHandler.getFootballPlayers());
+					SearchHandler.setFootballFinalTrio(
+							FXCollections.observableList(SearchHandler.getFootballPlayers().subList(0, 3)));
+				}
+					break;
+				}
+
+				UIHandler.showSuccess(String.format("%s is the tournament's winner!", winner0.getTextualName()), false);
 				UIHandler.playAudio("Tada.mp3");
 			}
 		} else if (twinMatchBracketView != null) {

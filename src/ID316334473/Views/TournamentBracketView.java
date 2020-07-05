@@ -65,12 +65,13 @@ public class TournamentBracketView extends View {
 		setTournamentPlayers(tournamentPlayers);
 		setQuarterFinalsBracketViews(new ArrayList<MatchBracketView>(tournamentPlayers.size() / 2));
 		setSemiFinalsBracketViews(new ArrayList<MatchBracketView>(tournamentPlayers.size() / 4));
-		setFinalsBracketView(new MatchBracketView(null, null));
+		setFinalsBracketView(new MatchBracketView(null, null, this));
 
 		initSemiFinals();
 		initQuarterFinals();
 
 		buildScene();
+		addEffects();
 	}
 
 	// Methods
@@ -135,8 +136,8 @@ public class TournamentBracketView extends View {
 				break;
 			}
 
-			matches.add(
-					new MatchBracketView(match, i < 4 ? semiFinalsBracketViews.get(0) : semiFinalsBracketViews.get(1)));
+			matches.add(new MatchBracketView(match,
+					i < 4 ? semiFinalsBracketViews.get(0) : semiFinalsBracketViews.get(1), this));
 		}
 
 		for (int i = 0; i < matches.size(); i += 2) {
@@ -149,7 +150,7 @@ public class TournamentBracketView extends View {
 
 	private void initSemiFinals() {
 		for (int i = 0; i < 2; i++)
-			semiFinalsBracketViews.add(new MatchBracketView(null, finalsBracketView));
+			semiFinalsBracketViews.add(new MatchBracketView(null, finalsBracketView, this));
 
 		semiFinalsBracketViews.get(0).setTwinMatchBracketView(semiFinalsBracketViews.get(1));
 		semiFinalsBracketViews.get(1).setTwinMatchBracketView(semiFinalsBracketViews.get(0));
@@ -157,7 +158,7 @@ public class TournamentBracketView extends View {
 
 	@Override
 	protected void addEffects() {
-		// TODO: COMPELTE
+		// TODO: COMPLETE
 	}
 
 	@Override

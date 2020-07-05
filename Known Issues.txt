@@ -1,3 +1,3 @@
-1. Design + complete each MatchView
-2. Improve all Show methods in UIHandler
-3. Design TrophiesView
+1. Save players + finalTrios to files (Create FileHandler)
+2. Fix issue when inserting number starting with zero as score (i.e.: 01, 06...)
+3. Improve all Show methods in UIHandler

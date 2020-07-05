@@ -87,11 +87,12 @@ public class TennisMatchModel extends MatchModel {
 			otherPlayer.setMatchscore(otherPlayerWins);
 
 			// Conditions to end the match
-			if (Math.abs(currentPlayerWins - otherPlayerWins) == MIN_WINS) {
+			if ((currentSet == MAX_SETS) || (Math.abs(currentPlayerWins - otherPlayerWins) == MIN_WINS)) {
 				setWinner(Integer.compare(currentPlayerWins, otherPlayerWins) > TIE ? currentPlayer : otherPlayer);
 
 				UIHandler.showSuccess(winner.getTextualName() + " wins!", false);
-				UIHandler.playAudio("FlawlessVictory.mp3");
+				UIHandler.playAudio(Math.abs(currentPlayerWins - otherPlayerWins) == MIN_WINS ? "FlawlessVictory.mp3"
+						: "Whistle.mp3");
 
 				return winner;
 			} else if ((currentSet == MAX_SETS) && (currentPlayerWins != otherPlayerWins)) {

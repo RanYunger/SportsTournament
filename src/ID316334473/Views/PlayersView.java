@@ -1,7 +1,5 @@
 package ID316334473.Views;
 
-import java.util.Collections;
-
 import ID316334473.SearchHandler;
 import ID316334473.UIHandler;
 import ID316334473.Models.BasketballPlayerModel;
@@ -200,8 +198,6 @@ public class PlayersView extends WindowView {
 		tennisPlayersTableView.setItems(tennisPlayers);
 		basketballPlayersTableView.setItems(basketballPlayers);
 		footballPlayersTableView.setItems(footballPlayers);
-
-		sortAllPlayers();
 	}
 
 	public void addPlayer(PlayerModel player) {
@@ -224,18 +220,5 @@ public class PlayersView extends WindowView {
 		addTennisPlayerButton.setDisable(disabled);
 		addBasketballPlayerButton.setDisable(disabled);
 		addFootballPlayerButton.setDisable(disabled);
-	}
-
-	private void sortAllPlayers() {
-		tennisPlayers.sort((p1, p2) -> Integer.compare(p1.getNumericTournamentScore(), p2.getNumericTournamentScore()));
-		basketballPlayers
-				.sort((p1, p2) -> Integer.compare(p1.getNumericTournamentScore(), p2.getNumericTournamentScore()));
-		footballPlayers
-				.sort((p1, p2) -> Integer.compare(p1.getNumericTournamentScore(), p2.getNumericTournamentScore()));
-
-		// Reversing the sorted collections (Sort will be: biggest -> smallest)
-		Collections.reverse(tennisPlayers);
-		Collections.reverse(basketballPlayers);
-		Collections.reverse(footballPlayers);
 	}
 }

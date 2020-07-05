@@ -15,9 +15,8 @@ public class SearchHandler {
 	// Constants
 
 	// Fields
-	private static ObservableList<PlayerModel> tennisPlayers;
-	private static ObservableList<PlayerModel> baketballPlayers;
-	private static ObservableList<PlayerModel> footballPlayers;
+	private static ObservableList<PlayerModel> tennisPlayers, basketballPlayers, footballPlayers;
+	private static ObservableList<PlayerModel> tennisFinalTrio, basketballFinalTrio, footballFinalTrio;
 
 	// Properties (Getters and Setters)
 	public static ObservableList<PlayerModel> getTennisPlayers() {
@@ -25,15 +24,26 @@ public class SearchHandler {
 	}
 
 	public static void setTennisPlayers(ObservableList<PlayerModel> tennisPlayers) {
+		tennisPlayers.sort((p1, p2) -> Integer.compare(p1.getNumericTournamentScore(), p2.getNumericTournamentScore()));
+
+		// Reversing the sorted collection (Sort will be: biggest -> smallest)
+		Collections.reverse(tennisPlayers);
+
 		SearchHandler.tennisPlayers = tennisPlayers;
 	}
 
 	public static ObservableList<PlayerModel> getBaketballPlayers() {
-		return baketballPlayers;
+		return basketballPlayers;
 	}
 
 	public static void setBaketballPlayers(ObservableList<PlayerModel> baketballPlayers) {
-		SearchHandler.baketballPlayers = baketballPlayers;
+		baketballPlayers
+				.sort((p1, p2) -> Integer.compare(p1.getNumericTournamentScore(), p2.getNumericTournamentScore()));
+
+		// Reversing the sorted collection (Sort will be: biggest -> smallest)
+		Collections.reverse(baketballPlayers);
+
+		SearchHandler.basketballPlayers = baketballPlayers;
 	}
 
 	public static ObservableList<PlayerModel> getFootballPlayers() {
@@ -41,7 +51,37 @@ public class SearchHandler {
 	}
 
 	public static void setFootballPlayers(ObservableList<PlayerModel> footballPlayers) {
+		footballPlayers
+				.sort((p1, p2) -> Integer.compare(p1.getNumericTournamentScore(), p2.getNumericTournamentScore()));
+
+		// Reversing the sorted collection (Sort will be: biggest -> smallest)
+		Collections.reverse(footballPlayers);
+
 		SearchHandler.footballPlayers = footballPlayers;
+	}
+
+	public static ObservableList<PlayerModel> getTennisFinalTrio() {
+		return tennisFinalTrio;
+	}
+
+	public static void setTennisFinalTrio(ObservableList<PlayerModel> tennisFinalTrio) {
+		SearchHandler.tennisFinalTrio = tennisFinalTrio;
+	}
+
+	public static ObservableList<PlayerModel> getBasketballFinalTrio() {
+		return basketballFinalTrio;
+	}
+
+	public static void setBasketballFinalTrio(ObservableList<PlayerModel> basketballFinalTrio) {
+		SearchHandler.basketballFinalTrio = basketballFinalTrio;
+	}
+
+	public static ObservableList<PlayerModel> getFootballFinalTrio() {
+		return footballFinalTrio;
+	}
+
+	public static void setFootballFinalTrio(ObservableList<PlayerModel> footballFinalTrio) {
+		SearchHandler.footballFinalTrio = footballFinalTrio;
 	}
 
 	// Methods
@@ -99,7 +139,7 @@ public class SearchHandler {
 			playersList = tennisPlayers;
 			break;
 		case Basketball:
-			playersList = baketballPlayers;
+			playersList = basketballPlayers;
 			break;
 		case Football:
 			playersList = footballPlayers;
