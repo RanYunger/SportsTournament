@@ -177,7 +177,8 @@ public class PlayersView extends WindowView {
 			basketballPlayers.add(new BasketballPlayerModel(123456785, "Stephen curry"));
 			basketballPlayers.add(new BasketballPlayerModel(123456786, "Kevin Durant"));
 			basketballPlayers.add(new BasketballPlayerModel(123456787, "Magic Johnson"));
-
+			basketballPlayers.add(new BasketballPlayerModel(123456778, "John Doe")); // For debugging purposes, will be
+																						// deleted
 			SearchHandler.setBaketballPlayers(basketballPlayers);
 		}
 
@@ -190,6 +191,8 @@ public class PlayersView extends WindowView {
 			footballPlayers.add(new FootballPlayerModel(123456795, "Diego Maradona"));
 			footballPlayers.add(new FootballPlayerModel(123456796, "Zinedine Zidane"));
 			footballPlayers.add(new FootballPlayerModel(123456797, "Robert Lawandowski"));
+			footballPlayers.add(new FootballPlayerModel(123456778, "John Doe")); // For debugging purposes, will be
+																					// deleted
 
 			SearchHandler.setFootballPlayers(footballPlayers);
 		}

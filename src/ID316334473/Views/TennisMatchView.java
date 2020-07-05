@@ -15,7 +15,6 @@ public class TennisMatchView extends MatchView {
 	// Constants
 
 	// Fields
-	private GridPane gridPane;
 	private VBox playerSetScoreTextFieldsVBox;
 	private TextField[] playerSetScoresTextFields;
 	private TennisMatchModel tennisMatch;
@@ -29,8 +28,8 @@ public class TennisMatchView extends MatchView {
 		this.tennisMatch = tennisMatch;
 	}
 
-	public void setPlayerSetScoresTextFields(TextField[] playerRoundScoresTextFields) {
-		this.playerSetScoresTextFields = playerRoundScoresTextFields;
+	public void setPlayerSetScoresTextFields(TextField[] playerSetScoresTextFields) {
+		this.playerSetScoresTextFields = playerSetScoresTextFields;
 	}
 
 	public TextField getPlayer0SetScoreTextField() {

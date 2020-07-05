@@ -2,27 +2,23 @@ package ID316334473.Models;
 
 import java.util.Arrays;
 
-import javafx.beans.property.SimpleIntegerProperty;
+import ID316334473.UIHandler;
 
 public class BasketballMatchModel extends MatchModel {
 	// Constants
-	public static final int MAX_QUARTERS = 4;
+	public static final int MAX_QUARTERS = 3; // Zero-based
 
 	// Fields
-	private SimpleIntegerProperty currentQuarter;
 	private int[] player0QuarterScores, player1QuarterScores;
+	private int currentQuarter;
 
 	// Properties (Getters and Setters)
-	public SimpleIntegerProperty getObservableCurrentQuarter() {
+	public int getCurrentQuarter() {
 		return currentQuarter;
 	}
 
-	public int getNumericCurrentQuarter() {
-		return currentQuarter.get();
-	}
-
 	public void setCurrentQuarter(int currentQuarter) {
-		this.currentQuarter = new SimpleIntegerProperty(currentQuarter);
+		this.currentQuarter = currentQuarter;
 	}
 
 	public int[] getPlayer0QuarterScores() {
@@ -51,33 +47,13 @@ public class BasketballMatchModel extends MatchModel {
 		return getCurrentPlayer().equals(player0) ? player1QuarterScores : player0QuarterScores;
 	}
 
-	public int getCurrentPlayerTotalScore() {
-		int sum = TIE;
-		int[] currentPlayerQuarterScores = getCurrentPlayerQuarterScores();
-
-		for (int i = TIE; i < currentPlayerQuarterScores.length; i++)
-			sum += currentPlayerQuarterScores[i] != NO_SCORE ? currentPlayerQuarterScores[i] : TIE;
-
-		return sum;
-	}
-
-	public int getOtherPlayerTotalScore() {
-		int sum = TIE;
-		int[] otherPlayerQuarterScores = getOtherPlayerQuarterScores();
-
-		for (int i = TIE; i < otherPlayerQuarterScores.length; i++)
-			sum += otherPlayerQuarterScores[i] != NO_SCORE ? otherPlayerQuarterScores[i] : TIE;
-
-		return sum;
-	}
-
 	// Constructors
 	public BasketballMatchModel(PlayerModel player0, PlayerModel player1) {
 		super(player0, player1);
 
 		setCurrentQuarter(TIE);
-		setPlayer0QuarterScores(new int[MAX_QUARTERS]);
-		setPlayer1QuarterScores(new int[MAX_QUARTERS]);
+		setPlayer0QuarterScores(new int[MAX_QUARTERS + 1]);
+		setPlayer1QuarterScores(new int[MAX_QUARTERS + 1]);
 	}
 
 	// Methods
@@ -86,27 +62,37 @@ public class BasketballMatchModel extends MatchModel {
 		PlayerModel currentPlayer = getCurrentPlayer(), otherPlayer = getOtherPlayer();
 		int[] currentPlayerQuarterScores = getCurrentPlayerQuarterScores(),
 				otherPlayerQuarterScores = getOtherPlayerQuarterScores();
-		int currentPlayerTotalScore = NO_SCORE, otherPlayerTotalScore = NO_SCORE,
-				currentQuarter = getNumericCurrentQuarter();
+		int currentPlayerMatchScore = NO_SCORE, otherPlayerMatchScore = NO_SCORE;
 
-		// Checking whether the match could end
+		// Validations
+		if (currentQuarter > MAX_QUARTERS)
+			return null;
+
 		currentPlayerQuarterScores[currentQuarter] = score;
-		if (otherPlayerQuarterScores[currentQuarter] != NO_SCORE) { // Both players have played the same
-																	// amount of quarters
-			if (currentQuarter == MAX_QUARTERS) {
-				currentPlayerTotalScore = getCurrentPlayerTotalScore();
-				otherPlayerTotalScore = getOtherPlayerTotalScore();
-				if (Math.abs(currentPlayerTotalScore - otherPlayerTotalScore) != TIE) {
-					setWinner(Integer.compare(currentPlayerTotalScore, otherPlayerTotalScore) > TIE ? currentPlayer
-							: otherPlayer);
+		currentPlayer.accumulateScore(score);
+		if (otherPlayerQuarterScores[currentQuarter] != NO_SCORE) { // Both players have played the current quarter
+			currentPlayer.setMatchscore(currentPlayer.getNumericMatchScore() + score);
+			otherPlayer.setMatchscore(otherPlayer.getNumericMatchScore() + otherPlayerQuarterScores[currentQuarter]);
 
-					return winner;
-				}
+			// Conditions to end the match
+			if (currentQuarter == MAX_QUARTERS) {
+				currentPlayerMatchScore = currentPlayer.getNumericMatchScore();
+				otherPlayerMatchScore = otherPlayer.getNumericMatchScore();
+
+				setWinner(Integer.compare(currentPlayerMatchScore, otherPlayerMatchScore) > TIE ? currentPlayer
+						: otherPlayer);
+
+				UIHandler.showSuccess(winner.getTextualName() + " wins!", false);
+				UIHandler.playAudio(loser.getNumericMatchScore() == TIE ? "FlawlessVictory.mp3" : "Whistle.mp3");
+
+				return winner;
 			}
 
 			currentQuarter++;
+			UIHandler.playAudio(currentQuarter == MAX_QUARTERS ? "FinalRound.mp3"
+					: String.format("Round%d.mp3", currentQuarter + 1));
 		}
-		
+
 		toggleTurn();
 
 		return null; // The match goes on
@@ -116,11 +102,13 @@ public class BasketballMatchModel extends MatchModel {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		BasketballMatchModel other = (BasketballMatchModel) obj;
+		if (currentQuarter != other.currentQuarter)
+			return false;
 		if (!Arrays.equals(player0QuarterScores, other.player0QuarterScores))
 			return false;
 		if (!Arrays.equals(player1QuarterScores, other.player1QuarterScores))

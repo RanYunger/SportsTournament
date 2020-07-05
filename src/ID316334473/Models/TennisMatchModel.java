@@ -117,15 +117,18 @@ public class TennisMatchModel extends MatchModel {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		TennisMatchModel other = (TennisMatchModel) obj;
+		if (currentSet != other.currentSet)
+			return false;
 		if (!Arrays.equals(player0Sets, other.player0Sets))
 			return false;
 		if (!Arrays.equals(player1Sets, other.player1Sets))
 			return false;
 		return true;
 	}
+
 }

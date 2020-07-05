@@ -1,51 +1,43 @@
 package ID316334473.Models;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import javafx.beans.property.SimpleIntegerProperty;
+import ID316334473.UIHandler;
 
 public class FootballMatchModel extends MatchModel {
 	// Constants
 	public static final int GOAL = 1;
-	public static final int MAX_HALVES = 3;
+	public static final int MAX_HALVES = 2; // Zero-based
+	public static final int MAX_PENALTY_KICKS = 9;
+	public static final int MIN_WARNING_BARRIER = 6;
 
 	// Fields
-	private SimpleIntegerProperty currentHalf, currentPenaltyKick;
-	private int[] player0Halves, player1Halves;
-	private ArrayList<Boolean> player0PenaltyKicks, player1PenaltyKicks;
+	private int[] player0Halves, player1Halves, player0PenaltyKicks, player1PenaltyKicks;
+	private int currentHalf, currentPenaltyKick;
 
 	// Properties (Getters and Setters)
-	public SimpleIntegerProperty getObservableCurrentHalf() {
+	public int getCurrentHalf() {
 		return currentHalf;
 	}
 
-	public int getNumericCurrentHalf() {
-		return currentHalf.get();
-	}
-
 	public void setCurrentHalf(int currentHalf) {
-		this.currentHalf = new SimpleIntegerProperty(currentHalf);
+		this.currentHalf = currentHalf;
 	}
 
-	public SimpleIntegerProperty getObservableCurrentPenaltyKick() {
+	public int getCurrentPenaltyKick() {
 		return currentPenaltyKick;
 	}
 
-	public int getNumericCurrentPenaltyKick() {
-		return currentPenaltyKick.get();
-	}
-
 	public void setCurrentPenaltyKick(int currentPenaltyKick) {
-		this.currentPenaltyKick = new SimpleIntegerProperty(currentPenaltyKick);
+		this.currentPenaltyKick = currentPenaltyKick;
 	}
 
 	public int[] getPlayer0Halves() {
 		return player0Halves;
 	}
 
-	public void setPlayer0Halves(int[] Player0Halves) {
-		this.player0Halves = Player0Halves;
+	public void setPlayer0Halves(int[] player0Halves) {
+		this.player0Halves = player0Halves;
 		Arrays.setAll(this.player0Halves, p -> NO_SCORE);
 	}
 
@@ -53,25 +45,29 @@ public class FootballMatchModel extends MatchModel {
 		return player1Halves;
 	}
 
-	public void setPlayer1Halves(int[] Player1Halves) {
-		this.player1Halves = Player1Halves;
+	public void setPlayer1Halves(int[] player1Halves) {
+		this.player1Halves = player1Halves;
 		Arrays.setAll(this.player1Halves, p -> NO_SCORE);
 	}
 
-	public ArrayList<Boolean> getPlayer0PenaltyKicks() {
+	public int[] getPlayer0PenaltyKicks() {
 		return player0PenaltyKicks;
 	}
 
-	public void setPlayer0PenaltyKicks(ArrayList<Boolean> Player0PenaltyKicks) {
-		this.player0PenaltyKicks = Player0PenaltyKicks;
+	public void setPlayer0PenaltyKicks(int[] player0PenaltyKicks) {
+		this.player0PenaltyKicks = player0PenaltyKicks;
+		Arrays.setAll(this.player0PenaltyKicks, p -> NO_SCORE);
+
 	}
 
-	public ArrayList<Boolean> getPlayer1PenaltyKicks() {
+	public int[] getPlayer1PenaltyKicks() {
 		return player1PenaltyKicks;
 	}
 
-	public void setPlayer1PenaltyKicks(ArrayList<Boolean> Player1PenaltyKicks) {
-		this.player1PenaltyKicks = Player1PenaltyKicks;
+	public void setPlayer1PenaltyKicks(int[] player1PenaltyKicks) {
+		this.player1PenaltyKicks = player1PenaltyKicks;
+		Arrays.setAll(this.player1PenaltyKicks, p -> NO_SCORE);
+
 	}
 
 	public int[] getCurrentPlayerHalves() {
@@ -82,60 +78,12 @@ public class FootballMatchModel extends MatchModel {
 		return getCurrentPlayer().equals(player0) ? player1Halves : player0Halves;
 	}
 
-	public ArrayList<Boolean> getCurrentPlayerPenaltyKicks() {
+	public int[] getCurrentPlayerPenaltyKicks() {
 		return getCurrentPlayer().equals(player0) ? player0PenaltyKicks : player1PenaltyKicks;
 	}
 
-	public ArrayList<Boolean> getOtherPlayerPenaltyKicks() {
+	public int[] getOtherPlayerPenaltyKicks() {
 		return getCurrentPlayer().equals(player0) ? player1PenaltyKicks : player0PenaltyKicks;
-	}
-
-	public int getCurrentPlayerTotalHalvesScore() {
-		int sum = TIE;
-		int[] currentPlayerHalves = getCurrentPlayerHalves();
-
-		for (int i = TIE; i < currentPlayerHalves.length; i++)
-			sum += currentPlayerHalves[i] != NO_SCORE ? currentPlayerHalves[i] : TIE;
-
-		return sum;
-	}
-
-	public int getCurrentPlayerTotalPenaltyKicksScore() {
-		int sum = TIE;
-		ArrayList<Boolean> currentPlayerPenaltyKicks = getCurrentPlayerPenaltyKicks();
-
-		for (int i = TIE; i < currentPlayerPenaltyKicks.size(); i++)
-			sum += currentPlayerPenaltyKicks.get(i) ? GOAL : TIE;
-
-		return sum;
-	}
-
-	public int getCurrentPlayerTotalScore() {
-		return getCurrentPlayerTotalHalvesScore() + getCurrentPlayerTotalPenaltyKicksScore();
-	}
-
-	public int getOtherPlayerTotalHalvesScore() {
-		int sum = TIE;
-		int[] otherPlayerHalves = getOtherPlayerHalves();
-
-		for (int i = TIE; i < otherPlayerHalves.length; i++)
-			sum += otherPlayerHalves[i] != NO_SCORE ? otherPlayerHalves[i] : TIE;
-
-		return sum;
-	}
-
-	public int getOtherPlayerTotalPenaltyKicksScore() {
-		int sum = TIE;
-		ArrayList<Boolean> otherPlayerPenaltyKicks = getOtherPlayerPenaltyKicks();
-
-		for (int i = TIE; i < otherPlayerPenaltyKicks.size(); i++)
-			sum += otherPlayerPenaltyKicks.get(i) ? GOAL : TIE;
-
-		return sum;
-	}
-
-	public int getOtherPlayerTotalScore() {
-		return getOtherPlayerTotalHalvesScore() + getOtherPlayerTotalPenaltyKicksScore();
 	}
 
 	// Constructors
@@ -144,10 +92,10 @@ public class FootballMatchModel extends MatchModel {
 
 		setCurrentHalf(TIE);
 		setCurrentPenaltyKick(TIE);
-		setPlayer0Halves(new int[MAX_HALVES]);
-		setPlayer1Halves(new int[MAX_HALVES]);
-		setPlayer0PenaltyKicks(new ArrayList<Boolean>());
-		setPlayer1PenaltyKicks(new ArrayList<Boolean>());
+		setPlayer0Halves(new int[MAX_HALVES + 1]);
+		setPlayer1Halves(new int[MAX_HALVES + 1]);
+		setPlayer0PenaltyKicks(new int[MAX_PENALTY_KICKS + 1]);
+		setPlayer1PenaltyKicks(new int[MAX_PENALTY_KICKS + 1]);
 	}
 
 	// Methods
@@ -155,52 +103,99 @@ public class FootballMatchModel extends MatchModel {
 	public PlayerModel addScore(int score) {
 		PlayerModel currentPlayer = getCurrentPlayer(), otherPlayer = getOtherPlayer();
 		int[] currentPlayerHalves = getCurrentPlayerHalves(), otherPlayerHalves = getOtherPlayerHalves();
-		int currentPlayerTotalHalvesScore = NO_SCORE, otherPlayerTotalHalvesScore = NO_SCORE,
-				currentHalf = getNumericCurrentHalf();
+		int currentPlayerMatchScore = NO_SCORE, otherPlayerMatchScore = NO_SCORE;
 
-		// Checking whether the match could end
-		if (currentHalf < MAX_HALVES) {
-			currentPlayerHalves[currentHalf] = score;
-			if (otherPlayerHalves[currentHalf] != NO_SCORE) { // Both players have played the same amount of halves
-				currentPlayerTotalHalvesScore = getCurrentPlayerTotalHalvesScore();
-				otherPlayerTotalHalvesScore = getOtherPlayerTotalHalvesScore();
-				if (Math.abs(currentPlayerTotalHalvesScore - otherPlayerTotalHalvesScore) != TIE) {
-					setWinner(Integer.compare(currentPlayerTotalHalvesScore, otherPlayerTotalHalvesScore) > TIE
-							? currentPlayer
+		// Validations
+		if (currentHalf > MAX_HALVES)
+			return addPenaltyKick(score > TIE);
+
+		currentPlayerHalves[currentHalf] = score;
+		currentPlayer.accumulateScore(score);
+		if (otherPlayerHalves[currentHalf] != NO_SCORE) { // Both players have played the same amount of halves
+			currentPlayer.setMatchscore(currentPlayer.getNumericMatchScore() + score);
+			otherPlayer.setMatchscore(otherPlayer.getNumericMatchScore() + otherPlayerHalves[currentHalf]);
+
+			if (currentHalf > TIE) { // After at least 2 halves
+				currentPlayerMatchScore = currentPlayer.getNumericMatchScore();
+				otherPlayerMatchScore = otherPlayer.getNumericMatchScore();
+				// Conditions to end the match
+				if (Math.abs(currentPlayerMatchScore - otherPlayerMatchScore) != TIE) {
+					setWinner(Integer.compare(currentPlayerMatchScore, otherPlayerMatchScore) > TIE ? currentPlayer
 							: otherPlayer);
+
+					UIHandler.showSuccess(winner.getTextualName() + " wins!", false);
+					UIHandler.playAudio(loser.getNumericMatchScore() == TIE ? "FlawlessVictory.mp3" : "Whistle.mp3");
 
 					return winner;
 				}
 			}
 
 			currentHalf++;
+			if (currentHalf <= MAX_HALVES)
+				UIHandler.playAudio(
+						currentHalf == MAX_HALVES ? "FinalRound.mp3" : String.format("Round%d.mp3", currentHalf + 1));
+			else // penalty kicks
+			{
+				UIHandler.showWarning(
+						"We've entered the penalty kicks rounds. Each non-negative score will be counted as a single goal!",
+						false);
+				UIHandler.playAudio("Round1.mp3");
+			}
 		}
-		
+
 		toggleTurn();
 
 		return null; // The match goes on
 	}
 
-	public PlayerModel addPenaltyKick(boolean isGoal) {
+	private PlayerModel addPenaltyKick(boolean isGoal) {
 		PlayerModel currentPlayer = getCurrentPlayer(), otherPlayer = getOtherPlayer();
-		ArrayList<Boolean> currentPlayerPenaltyKicks = getCurrentPlayerPenaltyKicks(),
+		int[] currentPlayerPenaltyKicks = getCurrentPlayerPenaltyKicks(),
 				otherPlayerPenaltyKicks = getOtherPlayerPenaltyKicks();
-		int currentPlayerTotalPenaltyKicksScore = NO_SCORE, otherPlayerTotalPenaltyKicksScore = NO_SCORE,
-				currentPenaltyKick = getNumericCurrentPenaltyKick();
+		int currentPlayerMatchScore = NO_SCORE, otherPlayerMatchScore = NO_SCORE;
 
-		// Checking whether the match could end
-		currentPlayerPenaltyKicks.add(isGoal);
-		if (Math.abs(otherPlayerPenaltyKicks.size() - currentPenaltyKick) == TIE) { // Both players have played the same
-																					// amount of kicks
-			currentPlayerTotalPenaltyKicksScore = getCurrentPlayerTotalPenaltyKicksScore();
-			otherPlayerTotalPenaltyKicksScore = getOtherPlayerTotalPenaltyKicksScore();
-			if (Math.abs(currentPlayerTotalPenaltyKicksScore - otherPlayerTotalPenaltyKicksScore) != TIE)
-				return Integer.compare(currentPlayerTotalPenaltyKicksScore, otherPlayerTotalPenaltyKicksScore) > TIE
-						? currentPlayer
-						: otherPlayer;
+		// Validations
+		if (currentPenaltyKick > MAX_PENALTY_KICKS)
+			return null;
 
+		currentPlayerPenaltyKicks[currentPenaltyKick] = isGoal ? GOAL : TIE;
+		currentPlayer.accumulateScore(currentPlayerPenaltyKicks[currentPenaltyKick]);
+		if (otherPlayerPenaltyKicks[currentPenaltyKick] != NO_SCORE) { // Both players have played the same amount of
+																		// penalty kicks
+			currentPlayer.setMatchscore(
+					currentPlayer.getNumericMatchScore() + currentPlayerPenaltyKicks[currentPenaltyKick]);
+			otherPlayer.setMatchscore(otherPlayer.getNumericMatchScore() + otherPlayerPenaltyKicks[currentPenaltyKick]);
+
+			currentPlayerMatchScore = currentPlayer.getNumericMatchScore();
+			otherPlayerMatchScore = otherPlayer.getNumericMatchScore();
+
+			// Conditions to end the match
+			if ((currentPenaltyKick == MAX_PENALTY_KICKS)
+					|| (Math.abs(currentPlayerMatchScore - otherPlayerMatchScore) != TIE)) {
+				setWinner(Integer.compare(currentPlayerMatchScore, otherPlayerMatchScore) > TIE ? currentPlayer
+						: otherPlayer);
+
+				UIHandler.showSuccess(winner.getTextualName() + " wins!", false);
+				if (Math.abs(currentPlayerMatchScore - otherPlayerMatchScore) == TIE)
+					UIHandler.playAudio("Impressive.mp3");
+				else
+					UIHandler.playAudio(loser.getNumericMatchScore() == TIE ? "FlawlessVictory.mp3" : "Whistle.mp3");
+
+				return winner;
+			}
+
+			// Urges the user to end match soon
 			currentPenaltyKick++;
+			if ((currentPenaltyKick > MIN_WARNING_BARRIER) && (currentPenaltyKick < MAX_PENALTY_KICKS))
+				UIHandler.showWarning(
+						String.format("The match will end in %d rounds!", (MAX_PENALTY_KICKS + 1) - currentPenaltyKick),
+						false);
+			if (currentPenaltyKick <= MAX_PENALTY_KICKS)
+				UIHandler.playAudio(currentPenaltyKick == MAX_PENALTY_KICKS ? "FinalRound.mp3"
+						: String.format("Round%d.mp3", currentPenaltyKick + 1));
 		}
+
+		toggleTurn();
 
 		return null; // The match goes on
 	}

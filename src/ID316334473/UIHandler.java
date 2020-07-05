@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -127,8 +128,8 @@ public class UIHandler {
 		showAlert(AlertType.INFORMATION, "Success", message, "", hasAudio ? "Yayyy.mp3" : "", hasAudio);
 	}
 
-	public static void showWarning(String message) {
-		showAlert(AlertType.WARNING, "Warning", message, "", "UhOh.mp3", true);
+	public static void showWarning(String message, boolean hasAudio) {
+		showAlert(AlertType.WARNING, "Warning", message, "", hasAudio ? "UhOh.mp3" : "", true);
 	}
 
 	public static void showError(String message) {
@@ -174,6 +175,7 @@ public class UIHandler {
 		TextField[] playerNamesTextFields = new TextField[2], playerScoresTextFields = new TextField[2];
 		ImageView playerTurnsImageViews[] = new ImageView[2];
 		ImageView vsImageView;
+		Tooltip instructionsTooltip = new Tooltip("Press TAB to pass turn");
 		PlayerModel player0 = matchModel.getPlayer0(), player1 = matchModel.getPlayer1();
 
 		playerNamesTextFields[0] = new TextField(player0.getTextualName());
@@ -187,14 +189,19 @@ public class UIHandler {
 			playerNamesTextFields[i].setEditable(false);
 			playerNamesTextFields[i].setAlignment(Pos.CENTER);
 			playerNamesTextFields[i].setMinWidth(150);
+			Tooltip.install(playerNamesTextFields[i], instructionsTooltip);
 
 			playerScoresTextFields[i].setEditable(false);
 			playerScoresTextFields[i].setAlignment(Pos.CENTER);
 			playerScoresTextFields[i].setMaxWidth(50);
+			Tooltip.install(playerScoresTextFields[i], instructionsTooltip);
 
 			playerTurnsImageViews[i] = buildImage(player0.getGame() + ".png", 30, 30);
 			playerTurnsImageViews[i].setVisible(i == 0);
+			Tooltip.install(playerTurnsImageViews[i], instructionsTooltip);
 		}
+
+		Tooltip.install(vsImageView, instructionsTooltip);
 
 		matchHBox.getChildren().addAll(playerTurnsImageViews[0], playerNamesTextFields[0], playerScoresTextFields[0],
 				vsImageView, playerScoresTextFields[1], playerNamesTextFields[1], playerTurnsImageViews[1]);
@@ -222,9 +229,9 @@ public class UIHandler {
 				audioImageView = buildImage(isAudioOn ? "AudioOn.png" : "AudioOff.png", 30, 30),
 				homeImageView = buildImage("Home.png", 30, 30);
 		VBox topVBox = new VBox();
-		Label creatorLabel = new Label("From one of the creators of \"Corona Elections\":");
-		Label topLabel = new Label("Sports Tournaments");
-		Label bottomLabel = new Label("The only app to manage sports-related stuff");
+		Label creatorLabel = new Label("From one of the creators of \"Corona Elections\":"),
+				topLabel = new Label("Sports Tournaments"),
+				bottomLabel = new Label("The only app to manage sports-related stuff");
 		StackPane stackPane = new StackPane();
 
 		topVBox.setAlignment(Pos.CENTER);

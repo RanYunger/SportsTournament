@@ -35,7 +35,7 @@ public class TournamentsController extends WindowController {
 
 				// Validations
 				if ((tennisPlayers == null) || (tennisPlayers.size() < TournamentModel.MAX_PARTICIPANTS))
-					UIHandler.showWarning("Make sure to have exactly 8 tennis players!");
+					UIHandler.showWarning("Make sure to have exactly 8 tennis players!", true);
 				else {
 					TournamentView tournamentView = new TournamentView(GameType.Tennis, tennisPlayers);
 					TournamentController tournamentController = new TournamentController(tournamentView);
@@ -54,7 +54,7 @@ public class TournamentsController extends WindowController {
 
 				// Validations
 				if ((basketballPlayers == null) || (basketballPlayers.size() < TournamentModel.MAX_PARTICIPANTS))
-					UIHandler.showWarning("Make sure to have exactly 8 basketball players!");
+					UIHandler.showWarning("Make sure to have exactly 8 basketball players!", true);
 				else {
 					TournamentView tournamentView = new TournamentView(GameType.Basketball, basketballPlayers);
 					TournamentController tournamentController = new TournamentController(tournamentView);
@@ -73,7 +73,7 @@ public class TournamentsController extends WindowController {
 
 				// Validations
 				if ((footballPlayers == null) || (footballPlayers.size() < TournamentModel.MAX_PARTICIPANTS))
-					UIHandler.showWarning("Make sure to have exactly 8 football players!");
+					UIHandler.showWarning("Make sure to have exactly 8 football players!", true);
 				else {
 					TournamentView tournamentView = new TournamentView(GameType.Football,
 							SearchHandler.getFootballPlayers());

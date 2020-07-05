@@ -40,7 +40,7 @@ public class TennisMatchController extends WindowController {
 				if (!newText.matches("\\d*")) {
 					player0SetScoreTextField.setText(newText.replaceAll("[^\\d]", ""));
 				}
-				if (newText.length() > 2) // Score in a tennis match must be smaller than 100
+				if (newText.length() > 2) // Score in a match must be smaller than 100
 					player0SetScoreTextField.setText(oldText);
 			}
 		};
@@ -50,7 +50,7 @@ public class TennisMatchController extends WindowController {
 				if (!newText.matches("\\d*")) {
 					player1SetScoreTextField.setText(newText.replaceAll("[^\\d]", ""));
 				}
-				if (newText.length() > 2) // Score in a tennis match must be smaller than 100
+				if (newText.length() > 2) // Score in a match must be smaller than 100
 					player1SetScoreTextField.setText(oldText);
 			}
 		};

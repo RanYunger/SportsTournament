@@ -194,6 +194,7 @@ public class MatchBracketView extends View {
 		if (match.isOver()) {
 			winner = match.getWinner();
 			loser = match.getLoser();
+
 			getWinnerImageView().setImage(UIHandler.buildImage("Winner.png", imageHeight, imageHeight).getImage());
 			getWinnerScoreTextField().setText("" + winner.getNumericMatchScore());
 
@@ -207,7 +208,9 @@ public class MatchBracketView extends View {
 			loser.setMatchscore(PlayerModel.NO_SCORE);
 
 			tryAdvance();
-		} else {
+		} else
+
+		{
 			playerNamesTextFields.get(0).setText(match.getPlayer0().getTextualName());
 			playerNamesTextFields.get(1).setText(match.getPlayer1().getTextualName());
 			for (ImageView playerStatusImageView : playerStatusesImageViews)
