@@ -10,8 +10,8 @@ public class FootballPlayerModel extends PlayerModel {
 	// Properties (Getters and Setters)
 
 	// Constructors
-	public FootballPlayerModel(int ID, String name) {
-		super(ID, name, GameType.Football);
+	public FootballPlayerModel(int ID, String name, Gender gender) {
+		super(ID, name, gender, GameType.Football);
 	}
 
 	// Methods

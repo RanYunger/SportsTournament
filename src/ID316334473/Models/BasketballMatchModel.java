@@ -3,6 +3,7 @@ package ID316334473.Models;
 import java.util.Arrays;
 
 import ID316334473.UIHandler;
+import ID316334473.Models.PlayerModel.Gender;
 
 public class BasketballMatchModel extends MatchModel {
 	// Constants
@@ -70,6 +71,9 @@ public class BasketballMatchModel extends MatchModel {
 
 		currentPlayerQuarterScores[currentQuarter] = score;
 		currentPlayer.accumulateScore(score);
+
+		if ((getOtherPlayerQuarterScores()[currentQuarter] == NO_SCORE) && (currentQuarter == MAX_QUARTERS))
+			UIHandler.playAudio(otherPlayer.getGender() == Gender.Male ? "FinishHim.mp3" : "FinishHer.mp3");
 		if (otherPlayerQuarterScores[currentQuarter] != NO_SCORE) { // Both players have played the current quarter
 			currentPlayer.setMatchscore(currentPlayer.getNumericMatchScore() + score);
 			otherPlayer.setMatchscore(otherPlayer.getNumericMatchScore() + otherPlayerQuarterScores[currentQuarter]);

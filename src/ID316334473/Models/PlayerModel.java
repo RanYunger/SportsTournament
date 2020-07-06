@@ -9,9 +9,14 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 	// Constants
 	public static final int NO_SCORE = 0, ID_LENGTH = 9;
 
+	public enum Gender {
+		Male, Female
+	}
+
 	// Fields
 	private SimpleIntegerProperty ID;
 	private SimpleStringProperty name;
+	private Gender gender;
 	private GameType game;
 	private SimpleIntegerProperty matchScore, tournamentScore;
 
@@ -42,6 +47,14 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 		if (name.isBlank())
 			UIHandler.showError("CitizenModel's name must contain at least 1 letter.");
 		this.name = new SimpleStringProperty(name);
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	private void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
 	public GameType getGame() {
@@ -81,9 +94,10 @@ public abstract class PlayerModel implements Comparable<PlayerModel> {
 	}
 
 	// Constructors
-	public PlayerModel(int ID, String name, GameType game) {
+	public PlayerModel(int ID, String name, Gender gender, GameType game) {
 		setID(ID);
 		setName(name);
+		setGender(gender);
 		setGame(game);
 		setMatchscore(NO_SCORE);
 		setTournamentScore(NO_SCORE);

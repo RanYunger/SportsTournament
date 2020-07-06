@@ -3,6 +3,7 @@ package ID316334473.Models;
 import java.util.Arrays;
 
 import ID316334473.UIHandler;
+import ID316334473.Models.PlayerModel.Gender;
 
 public class FootballMatchModel extends MatchModel {
 	// Constants
@@ -111,6 +112,9 @@ public class FootballMatchModel extends MatchModel {
 
 		currentPlayerHalves[currentHalf] = score;
 		currentPlayer.accumulateScore(score);
+
+		if ((getOtherPlayerHalves()[currentHalf] == NO_SCORE) && (currentHalf > TIE))
+			UIHandler.playAudio(otherPlayer.getGender() == Gender.Male ? "FinishHim.mp3" : "FinishHer.mp3");
 		if (otherPlayerHalves[currentHalf] != NO_SCORE) { // Both players have played the same amount of halves
 			currentPlayer.setMatchscore(currentPlayer.getNumericMatchScore() + score);
 			otherPlayer.setMatchscore(otherPlayer.getNumericMatchScore() + otherPlayerHalves[currentHalf]);

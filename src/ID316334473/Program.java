@@ -24,12 +24,13 @@ public class Program extends Application {
 		MainView mainView = new MainView();
 		MainController mainController = new MainController(mainView);
 
-		mainController.addEventHandlersToGeneralButtons();
-		UIHandler.setMainView(mainView);
-		UIHandler.setMainController(mainController);
-
 		SearchHandler.setTennisFinalTrio(FXCollections.observableList(new ArrayList<PlayerModel>()));
 		SearchHandler.setBasketballFinalTrio(FXCollections.observableList(new ArrayList<PlayerModel>()));
 		SearchHandler.setFootballFinalTrio(FXCollections.observableList(new ArrayList<PlayerModel>()));
+
+		UIHandler.playAudio("WeWillRockYou.mp3");
+		mainController.addEventHandlersToGeneralButtons();
+		UIHandler.setMainView(mainView);
+		UIHandler.setMainController(mainController);
 	}
 }

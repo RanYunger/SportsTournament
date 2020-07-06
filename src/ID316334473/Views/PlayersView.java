@@ -5,6 +5,7 @@ import ID316334473.UIHandler;
 import ID316334473.Models.BasketballPlayerModel;
 import ID316334473.Models.FootballPlayerModel;
 import ID316334473.Models.PlayerModel;
+import ID316334473.Models.PlayerModel.Gender;
 import ID316334473.Models.TennisPlayerModel;
 import ID316334473.Models.TournamentModel.GameType;
 import javafx.collections.FXCollections;
@@ -154,43 +155,39 @@ public class PlayersView extends WindowView {
 
 		if (tennisPlayers == null) {
 			tennisPlayers = FXCollections.observableArrayList();
-			tennisPlayers.add(new TennisPlayerModel(123456771, "Shahar Pe'er"));
-			tennisPlayers.add(new TennisPlayerModel(123456772, "Serena Williams"));
-			tennisPlayers.add(new TennisPlayerModel(123456773, "Maria Sharapova"));
-			tennisPlayers.add(new TennisPlayerModel(123456774, "Roger Federer"));
-			tennisPlayers.add(new TennisPlayerModel(123456775, "Jimmy Connors"));
-			tennisPlayers.add(new TennisPlayerModel(123456776, "Rafael Nadal"));
-			tennisPlayers.add(new TennisPlayerModel(123456777, "Boris Becker"));
-			tennisPlayers.add(new TennisPlayerModel(123456778, "John Doe")); // For debugging purposes, will be deleted
+			tennisPlayers.add(new TennisPlayerModel(123456771, "Shahar Pe'er", Gender.Female));
+			tennisPlayers.add(new TennisPlayerModel(123456772, "Serena Williams", Gender.Female));
+			tennisPlayers.add(new TennisPlayerModel(123456773, "Maria Sharapova", Gender.Female));
+			tennisPlayers.add(new TennisPlayerModel(123456774, "Roger Federer", Gender.Male));
+			tennisPlayers.add(new TennisPlayerModel(123456775, "Jimmy Connors", Gender.Male));
+			tennisPlayers.add(new TennisPlayerModel(123456776, "Rafael Nadal", Gender.Male));
+			tennisPlayers.add(new TennisPlayerModel(123456777, "Boris Becker", Gender.Male));
 
 			SearchHandler.setTennisPlayers(tennisPlayers);
 		}
 
 		if (basketballPlayers == null) {
 			basketballPlayers = FXCollections.observableArrayList();
-			basketballPlayers.add(new BasketballPlayerModel(123456781, "Lebron James"));
-			basketballPlayers.add(new BasketballPlayerModel(123456782, "Shaquille O'Neal"));
-			basketballPlayers.add(new BasketballPlayerModel(123456783, "Michael Jordan"));
-			basketballPlayers.add(new BasketballPlayerModel(123456784, "Kareem Abdul-Jabbar"));
-			basketballPlayers.add(new BasketballPlayerModel(123456785, "Stephen curry"));
-			basketballPlayers.add(new BasketballPlayerModel(123456786, "Kevin Durant"));
-			basketballPlayers.add(new BasketballPlayerModel(123456787, "Magic Johnson"));
-			basketballPlayers.add(new BasketballPlayerModel(123456778, "John Doe")); // For debugging purposes, will be
-																						// deleted
+			basketballPlayers.add(new BasketballPlayerModel(123456781, "Lebron James", Gender.Male));
+			basketballPlayers.add(new BasketballPlayerModel(123456782, "Shaquille O'Neal", Gender.Male));
+			basketballPlayers.add(new BasketballPlayerModel(123456783, "Michael Jordan", Gender.Male));
+			basketballPlayers.add(new BasketballPlayerModel(123456784, "Kareem Abdul-Jabbar", Gender.Male));
+			basketballPlayers.add(new BasketballPlayerModel(123456785, "Stephen curry", Gender.Male));
+			basketballPlayers.add(new BasketballPlayerModel(123456786, "Kevin Durant", Gender.Male));
+			basketballPlayers.add(new BasketballPlayerModel(123456787, "Magic Johnson", Gender.Male));
+
 			SearchHandler.setBaketballPlayers(basketballPlayers);
 		}
 
 		if (footballPlayers == null) {
 			footballPlayers = FXCollections.observableArrayList();
-			footballPlayers.add(new FootballPlayerModel(123456791, "Ronaldinio"));
-			footballPlayers.add(new FootballPlayerModel(123456792, "Lionel Messi"));
-			footballPlayers.add(new FootballPlayerModel(123456793, "Christiano Ronaldo"));
-			footballPlayers.add(new FootballPlayerModel(123456794, "Neymar"));
-			footballPlayers.add(new FootballPlayerModel(123456795, "Diego Maradona"));
-			footballPlayers.add(new FootballPlayerModel(123456796, "Zinedine Zidane"));
-			footballPlayers.add(new FootballPlayerModel(123456797, "Robert Lawandowski"));
-			footballPlayers.add(new FootballPlayerModel(123456778, "John Doe")); // For debugging purposes, will be
-																					// deleted
+			footballPlayers.add(new FootballPlayerModel(123456791, "Ronaldinio", Gender.Male));
+			footballPlayers.add(new FootballPlayerModel(123456792, "Lionel Messi", Gender.Male));
+			footballPlayers.add(new FootballPlayerModel(123456793, "Christiano Ronaldo", Gender.Male));
+			footballPlayers.add(new FootballPlayerModel(123456794, "Neymar", Gender.Male));
+			footballPlayers.add(new FootballPlayerModel(123456795, "Diego Maradona", Gender.Male));
+			footballPlayers.add(new FootballPlayerModel(123456796, "Zinedine Zidane", Gender.Male));
+			footballPlayers.add(new FootballPlayerModel(123456797, "Robert Lawandowski", Gender.Male));
 
 			SearchHandler.setFootballPlayers(footballPlayers);
 		}

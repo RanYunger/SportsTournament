@@ -83,6 +83,7 @@ public class UIHandler {
 		addCursorEffectsToNode(imageView);
 	}
 
+	@SuppressWarnings("static-access")
 	public static void playAudio(String audioFileName) {
 		String path = String.format("%s\\bin\\%s", System.getProperty("user.dir"), audioFileName);
 
@@ -92,6 +93,8 @@ public class UIHandler {
 
 		media = new Media(new File(path).toURI().toString());
 		mediaPlayer = new MediaPlayer(media);
+
+		mediaPlayer.setCycleCount(audioFileName.equals("WeWillRockYou.mp3") ? mediaPlayer.INDEFINITE : 0);
 
 		if (isAudioOn)
 			mediaPlayer.play();
@@ -230,7 +233,7 @@ public class UIHandler {
 				homeImageView = buildImage("Home.png", 30, 30);
 		VBox topVBox = new VBox();
 		Label creatorLabel = new Label("From one of the creators of \"Corona Elections\":"),
-				topLabel = new Label("Sports Tournaments"),
+				topLabel = new Label("Sports Tournaments™"),
 				bottomLabel = new Label("The only app to manage sports-related stuff");
 		StackPane stackPane = new StackPane();
 

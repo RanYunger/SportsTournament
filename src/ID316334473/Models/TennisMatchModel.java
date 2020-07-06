@@ -3,6 +3,7 @@ package ID316334473.Models;
 import java.util.Arrays;
 
 import ID316334473.UIHandler;
+import ID316334473.Models.PlayerModel.Gender;
 
 public class TennisMatchModel extends MatchModel {
 	// Constants
@@ -79,6 +80,9 @@ public class TennisMatchModel extends MatchModel {
 
 		currentPlayerSets[currentSet] = score;
 		currentPlayer.accumulateScore(score);
+
+		if (checkForFinishingMove())
+			UIHandler.playAudio(otherPlayer.getGender() == Gender.Male ? "FinishHim.mp3" : "FinishHer.mp3");
 		if (otherPlayerSets[currentSet] != NO_SCORE) { // Both players have played the current set
 			currentPlayerWins += currentPlayerSets[currentSet] > otherPlayerSets[currentSet] ? WIN : TIE;
 			otherPlayerWins += currentPlayerSets[currentSet] < otherPlayerSets[currentSet] ? WIN : TIE;
@@ -112,6 +116,17 @@ public class TennisMatchModel extends MatchModel {
 		toggleTurn();
 
 		return null; // The match goes on
+	}
+
+	private boolean checkForFinishingMove() {
+		int[] otherPlayerSets = getOtherPlayerSets();
+		int currentPlayerWins = getCurrentPlayerWins(), otherPlayerWins = getOtherPlayerWins();
+
+		// Validations
+		if (otherPlayerSets[currentSet] != NO_SCORE)
+			return false;
+
+		return (currentSet == MAX_SETS) || (Math.abs(currentPlayerWins - otherPlayerWins) == MIN_SETS);
 	}
 
 	@Override
