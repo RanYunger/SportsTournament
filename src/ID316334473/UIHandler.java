@@ -1,7 +1,6 @@
 package ID316334473;
 
 import java.io.File;
-import java.util.Optional;
 
 import ID316334473.Controllers.MainController;
 import ID316334473.Models.MatchModel;
@@ -13,7 +12,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -100,7 +98,7 @@ public class UIHandler {
 			mediaPlayer.play();
 	}
 
-	private static Optional<ButtonType> showAlert(AlertType alertType, String title, String header, String message,
+	private static void showAlert(AlertType alertType, String title, String header, String message,
 			String audioFileName, boolean showAndWait) {
 		Alert alert = new Alert(alertType);
 		alert.initOwner(mainView.getStage());
@@ -120,11 +118,9 @@ public class UIHandler {
 			playAudio(audioFileName);
 
 		if (showAndWait)
-			return alert.showAndWait();
+			alert.showAndWait();
 		else
 			alert.show();
-
-		return null;
 	}
 
 	public static void showSuccess(String message, boolean hasAudio) {

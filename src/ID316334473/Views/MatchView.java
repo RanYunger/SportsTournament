@@ -1,6 +1,7 @@
 package ID316334473.Views;
 
 import ID316334473.UIHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -12,6 +13,7 @@ public abstract class MatchView extends WindowView {
 	// Fields
 	protected GridPane gridPane;
 	protected HBox matchHBox;
+	protected Label instructionsLabel;
 	private MatchBracketView parentView;
 
 	// Properties (Getters and Setters)

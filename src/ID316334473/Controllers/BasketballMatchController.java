@@ -64,6 +64,8 @@ public class BasketballMatchController extends WindowController {
 
 					player0QuarterScoreTextField.setFocusTraversable(false);
 					player1QuarterScoreTextField.setFocusTraversable(true);
+					player0QuarterScoreTextField.setDisable(true);
+					player1QuarterScoreTextField.setDisable(false);
 					player1QuarterScoreTextField.requestFocus();
 
 					player0TurnImageView.setVisible(false);
@@ -83,6 +85,8 @@ public class BasketballMatchController extends WindowController {
 
 					player0QuarterScoreTextField.setFocusTraversable(true);
 					player1QuarterScoreTextField.setFocusTraversable(false);
+					player0QuarterScoreTextField.setDisable(false);
+					player1QuarterScoreTextField.setDisable(true);
 					player0QuarterScoreTextField.requestFocus();
 
 					player0TurnImageView.setVisible(true);

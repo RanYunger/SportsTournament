@@ -135,15 +135,15 @@ public class TrophiesView extends WindowView {
 
 		tennisFinalTrioNamesHBox.getChildren().addAll(tennisFinalTrioNameLabels);
 		HBox.setMargin(tennisFinalTrioNameLabels[0], new Insets(0, 10, 0, 0));
-		HBox.setMargin(tennisFinalTrioNameLabels[1], new Insets(0, 30, 0, 30));
+		HBox.setMargin(tennisFinalTrioNameLabels[1], new Insets(0, 50, 0, 50));
 		HBox.setMargin(tennisFinalTrioNameLabels[2], new Insets(0, 0, 0, 10));
 		basketballFinalTrioNamesHBox.getChildren().addAll(basketballFinalTrioNameLabels);
 		HBox.setMargin(basketballFinalTrioNameLabels[0], new Insets(0, 10, 0, 0));
-		HBox.setMargin(basketballFinalTrioNameLabels[1], new Insets(0, 30, 0, 30));
+		HBox.setMargin(basketballFinalTrioNameLabels[1], new Insets(0, 50, 0, 50));
 		HBox.setMargin(basketballFinalTrioNameLabels[2], new Insets(0, 0, 0, 10));
 		footballFinalTrioNamesHBox.getChildren().addAll(footballFinalTrioNameLabels);
 		HBox.setMargin(footballFinalTrioNameLabels[0], new Insets(0, 10, 0, 0));
-		HBox.setMargin(footballFinalTrioNameLabels[1], new Insets(0, 30, 0, 30));
+		HBox.setMargin(footballFinalTrioNameLabels[1], new Insets(0, 50, 0, 50));
 		HBox.setMargin(footballFinalTrioNameLabels[2], new Insets(0, 0, 0, 10));
 
 		tennisFinalTrioVBox.getChildren().addAll(gameImageViews[0], trophiesImageViews[0], tennisFinalTrioNamesHBox);
@@ -157,7 +157,7 @@ public class TrophiesView extends WindowView {
 
 		optionsHBox.getChildren().addAll(tennisFinalTrioVBox, basketballFinalTrioVBox, footballFinalTrioVBox);
 		HBox.setMargin(tennisFinalTrioVBox, new Insets(0, 10, 0, 0));
-		HBox.setMargin(basketballFinalTrioVBox, new Insets(0, 30, 0, 30));
+		HBox.setMargin(basketballFinalTrioVBox, new Insets(0, 70, 0, 70));
 		HBox.setMargin(footballFinalTrioVBox, new Insets(0, 0, 0, 10));
 
 		stage.setScene(new Scene(

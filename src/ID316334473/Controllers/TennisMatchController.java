@@ -64,6 +64,8 @@ public class TennisMatchController extends WindowController {
 
 					player0SetScoreTextField.setFocusTraversable(false);
 					player1SetScoreTextField.setFocusTraversable(true);
+					player0SetScoreTextField.setDisable(true);
+					player1SetScoreTextField.setDisable(false);
 					player1SetScoreTextField.requestFocus();
 
 					player0TurnImageView.setVisible(false);
@@ -83,6 +85,8 @@ public class TennisMatchController extends WindowController {
 
 					player0SetScoreTextField.setFocusTraversable(true);
 					player1SetScoreTextField.setFocusTraversable(false);
+					player0SetScoreTextField.setDisable(false);
+					player1SetScoreTextField.setDisable(true);
 					player0SetScoreTextField.requestFocus();
 
 					player0TurnImageView.setVisible(true);

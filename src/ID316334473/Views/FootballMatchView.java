@@ -6,10 +6,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class FootballMatchView extends MatchView {
 	// Constants
@@ -58,6 +61,7 @@ public class FootballMatchView extends MatchView {
 
 		gridPane = new GridPane();
 		playerHalfScoreTextFieldsVBox = new VBox();
+		instructionsLabel = new Label("Press TAB to pass the turn");
 
 		gridPane.getRowConstraints().add(new RowConstraints());
 		gridPane.getRowConstraints().get(0).setPercentHeight(30);
@@ -66,18 +70,25 @@ public class FootballMatchView extends MatchView {
 
 		gridPane.setAlignment(Pos.CENTER);
 		playerHalfScoreTextFieldsVBox.setAlignment(Pos.CENTER);
+		instructionsLabel.setAlignment(Pos.CENTER);
+		instructionsLabel.setTextFill(Color.GOLD);
+		instructionsLabel.setFont(new Font(backgroundFontSize));
 
 		for (int i = 0; i < playerHalfScoresTextFields.length; i++) {
 			playerHalfScoresTextFields[i] = new TextField();
 			playerHalfScoresTextFields[i].setAlignment(Pos.CENTER);
 			playerHalfScoresTextFields[i].setMaxWidth(50);
 		}
-		playerHalfScoresTextFields[1].setFocusTraversable(false); // Player 0 opens the match
 
-		playerHalfScoreTextFieldsVBox.getChildren().addAll(playerHalfScoresTextFields[0],
+		// Player 0 opens the match
+		playerHalfScoresTextFields[1].setDisable(true);
+		playerHalfScoresTextFields[1].setFocusTraversable(false);
+
+		playerHalfScoreTextFieldsVBox.getChildren().addAll(playerHalfScoresTextFields[0], instructionsLabel,
 				playerHalfScoresTextFields[1]);
-		VBox.setMargin(playerHalfScoresTextFields[0], new Insets(0, 0, 70, 0));
-		VBox.setMargin(playerHalfScoresTextFields[1], new Insets(70, 0, 70, 0));
+		VBox.setMargin(playerHalfScoresTextFields[0], new Insets(0, 0, 50, 0));
+		VBox.setMargin(instructionsLabel, new Insets(20, 0, 20, 0));
+		VBox.setMargin(playerHalfScoresTextFields[1], new Insets(50, 0, 50, 0));
 
 		gridPane.add(matchHBox, 0, 0);
 		gridPane.add(playerHalfScoreTextFieldsVBox, 0, 1);

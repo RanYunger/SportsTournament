@@ -138,8 +138,8 @@ public class AddPlayerView extends WindowView {
 
 		playerGenderHBox.getChildren().addAll(playerGenderLabel, maleRadioButton, femaleRadioButton);
 		HBox.setMargin(playerGenderLabel, new Insets(10, 10, 0, 10));
-		HBox.setMargin(maleRadioButton, new Insets(10, 10, 0, 10));
-		HBox.setMargin(femaleRadioButton, new Insets(10, 10, 0, 10));
+		HBox.setMargin(maleRadioButton, new Insets(17, 10, 0, 10));
+		HBox.setMargin(femaleRadioButton, new Insets(17, 10, 0, 10));
 
 		vBox.getChildren().addAll(headerLabel, playerIDHBox, playerNameHBox, playerGenderHBox, submitButton);
 		VBox.setMargin(headerLabel, new Insets(0, 0, 10, 0));

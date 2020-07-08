@@ -62,6 +62,8 @@ public class FootballMatchController extends WindowController {
 
 					player0HalfScoreTextField.setFocusTraversable(false);
 					player1HalfScoreTextField.setFocusTraversable(true);
+					player0HalfScoreTextField.setDisable(true);
+					player1HalfScoreTextField.setDisable(false);
 					player1HalfScoreTextField.requestFocus();
 
 					player0TurnImageView.setVisible(false);
@@ -81,6 +83,8 @@ public class FootballMatchController extends WindowController {
 
 					player0HalfScoreTextField.setFocusTraversable(true);
 					player1HalfScoreTextField.setFocusTraversable(false);
+					player0HalfScoreTextField.setDisable(false);
+					player1HalfScoreTextField.setDisable(true);
 					player0HalfScoreTextField.requestFocus();
 
 					player0TurnImageView.setVisible(true);

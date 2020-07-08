@@ -3,10 +3,7 @@ package ID316334473;
 import java.util.Collections;
 import java.util.List;
 
-import ID316334473.Models.BasketballPlayerModel;
-import ID316334473.Models.FootballPlayerModel;
 import ID316334473.Models.PlayerModel;
-import ID316334473.Models.TennisPlayerModel;
 import ID316334473.Models.TournamentModel.GameType;
 import javafx.collections.ObservableList;
 
@@ -90,42 +87,19 @@ public class SearchHandler {
 	}
 
 	private static <T, U> T binarySearch(List<T> array, U key, int start, int end) {
+		int mid = (start + end) / 2, playerID = -1;
+		T element;
+
 		if (start <= end) {
-			int mid = (start + end) / 2;
+			element = array.get(mid);
+			playerID = ((PlayerModel) array.get(mid)).getNumericID();
+			if (playerID == (int) key)
+				return element;
 
-			T element = array.get(mid);
-			if (array.get(0) instanceof TennisPlayerModel) {
-				int ballotID = ((TennisPlayerModel) array.get(mid)).getNumericID();
-				if (ballotID == (int) key)
-					return element;
+			if (playerID > (int) key)
+				return binarySearch(array, key, start, mid - 1);
 
-				if (ballotID > (int) key)
-					return binarySearch(array, key, start, mid - 1);
-
-				return binarySearch(array, key, mid + 1, end);
-			}
-
-			if (array.get(0) instanceof BasketballPlayerModel) {
-				int citizenID = ((BasketballPlayerModel) array.get(mid)).getNumericID();
-				if (citizenID == (int) key)
-					return element;
-
-				if (citizenID > (int) key)
-					return binarySearch(array, key, start, mid - 1);
-
-				return binarySearch(array, key, mid + 1, end);
-			}
-
-			if (array.get(0) instanceof FootballPlayerModel) {
-				String partyName = ((FootballPlayerModel) array.get(mid)).getTextualName();
-				if (partyName.equals((String) key))
-					return element;
-
-				if (partyName.compareTo((String) key) > 0)
-					return binarySearch(array, key, start, mid - 1);
-
-				return binarySearch(array, key, mid + 1, end);
-			}
+			return binarySearch(array, key, mid + 1, end);
 		}
 
 		return null;
