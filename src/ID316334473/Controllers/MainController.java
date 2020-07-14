@@ -53,7 +53,8 @@ public class MainController extends WindowController {
 			public void handle(MouseEvent event) {
 				if ((SearchHandler.getTennisFinalTrio().isEmpty()) || (SearchHandler.getBasketballFinalTrio().isEmpty())
 						|| (SearchHandler.getFootballFinalTrio().isEmpty())) {
-					UIHandler.showError("The hall of fame could be entered only after all tournaments are complete.");
+					UIHandler.showWarning("Make sure to complete all tournaments before entering the hall of fame!",
+							true);
 
 					return;
 				}

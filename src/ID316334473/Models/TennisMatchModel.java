@@ -80,6 +80,13 @@ public class TennisMatchModel extends MatchModel {
 
 		currentPlayerSets[currentSet] = score;
 		currentPlayer.accumulateScore(score);
+		if (currentPlayerSets[currentSet] == otherPlayerSets[currentSet]) {
+			currentPlayerSets[currentSet] = NO_SCORE;
+			otherPlayerSets[currentSet] = NO_SCORE;
+			toggleTurn();
+
+			return null; // The set goes on
+		}
 
 		if (checkForFinishingMove())
 			UIHandler.playAudio(otherPlayer.getGender() == Gender.Male ? "FinishHim.mp3" : "FinishHer.mp3");
@@ -112,7 +119,6 @@ public class TennisMatchModel extends MatchModel {
 			UIHandler.playAudio(
 					currentSet == MAX_SETS ? "FinalRound.mp3" : String.format("Round%d.mp3", currentSet + 1));
 		}
-
 		toggleTurn();
 
 		return null; // The match goes on

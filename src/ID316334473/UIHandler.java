@@ -128,7 +128,7 @@ public class UIHandler {
 	}
 
 	public static void showWarning(String message, boolean hasAudio) {
-		showAlert(AlertType.WARNING, "Warning", message, "", hasAudio ? "UhOh.mp3" : "", true);
+		showAlert(AlertType.WARNING, "Warning", message, "", hasAudio ? "UhOh.mp3" : "", hasAudio);
 	}
 
 	public static void showError(String message) {
@@ -224,17 +224,17 @@ public class UIHandler {
 
 	public static StackPane buildBackground(String backgroundImageName, Node node, double width, double height,
 			double fontSize) {
+		double imageHeight = 30;
 		ImageView backgroundImage = buildImage(backgroundImageName, width, height),
-				audioImageView = buildImage(isAudioOn ? "AudioOn.png" : "AudioOff.png", 30, 30),
-				homeImageView = buildImage("Home.png", 30, 30);
+				audioImageView = buildImage(isAudioOn ? "AudioOn.png" : "AudioOff.png", imageHeight, imageHeight),
+				homeImageView = buildImage("Home.png", imageHeight, imageHeight);
 		VBox topVBox = new VBox();
-		Label creatorLabel = new Label("From one of the creators of \"Corona Elections\":"),
-				topLabel = new Label("Sports Tournaments™"),
-				bottomLabel = new Label("The only app to manage sports-related stuff");
+		Label creatorLabel = new Label("Ran Yunger's"), topLabel = new Label("Sports Tournaments™"),
+				bottomLabel = new Label("The only application to manage sports-related stuff");
 		StackPane stackPane = new StackPane();
 
 		topVBox.setAlignment(Pos.CENTER);
-		creatorLabel.setFont(new Font(15));
+		creatorLabel.setFont(new Font(20));
 		creatorLabel.setTextFill(Color.WHITE);
 		topLabel.setFont(new Font(fontSize));
 		topLabel.setTextFill(Color.WHITE);

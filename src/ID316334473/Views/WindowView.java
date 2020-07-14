@@ -12,7 +12,7 @@ public abstract class WindowView extends View {
 	// Constants
 
 	// Fields
-	protected ImageView audioImageView, homeImageView;
+	protected ImageView audioImageView, homeImageView, infoImageView;
 
 	// Properties (Getters and Setters)
 	public ImageView getAudioImageView() {
@@ -29,6 +29,14 @@ public abstract class WindowView extends View {
 
 	protected void setHomeImageView(ImageView homeImageView) {
 		this.homeImageView = homeImageView;
+	}
+
+	public ImageView getInfoImageView() {
+		return infoImageView;
+	}
+
+	protected void setInfoImageView(ImageView infoImageView) {
+		this.infoImageView = infoImageView;
 	}
 
 	// Constructors
@@ -58,6 +66,9 @@ public abstract class WindowView extends View {
 					UIHandler.addAudioToImageView(audioImageView, "Sparkle.mp3");
 				} else if (imageViewNode.getImage().getUrl().contains("Home")) {
 					setHomeImageView(imageViewNode);
+					UIHandler.addAudioToImageView(imageViewNode, "Sparkle.mp3");
+				} else if (imageViewNode.getImage().getUrl().contains("Info")) {
+					setInfoImageView(imageViewNode);
 					UIHandler.addAudioToImageView(imageViewNode, "Sparkle.mp3");
 				}
 			}

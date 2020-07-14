@@ -71,6 +71,14 @@ public class BasketballMatchModel extends MatchModel {
 
 		currentPlayerQuarterScores[currentQuarter] = score;
 		currentPlayer.accumulateScore(score);
+		if ((currentQuarter == MAX_QUARTERS)
+				&& (currentPlayerQuarterScores[currentQuarter] == otherPlayerQuarterScores[currentQuarter])) {
+			currentPlayerQuarterScores[currentQuarter] = NO_SCORE;
+			otherPlayerQuarterScores[currentQuarter] = NO_SCORE;
+			toggleTurn();
+
+			return null; // The quarter goes on
+		}
 
 		if ((getOtherPlayerQuarterScores()[currentQuarter] == NO_SCORE) && (currentQuarter == MAX_QUARTERS))
 			UIHandler.playAudio(otherPlayer.getGender() == Gender.Male ? "FinishHim.mp3" : "FinishHer.mp3");

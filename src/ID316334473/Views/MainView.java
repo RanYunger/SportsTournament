@@ -17,9 +17,9 @@ public class MainView extends WindowView {
 
 	// Fields
 	private HBox optionsHBox;
-	private VBox playersVBox, tournamentsVBox, trophiesVBox;
+	private VBox playersVBox, tournamentsVBox, hallOfFameVBox;
 	private ImageView playersImageView, tournamentsImageView, trophiesImageView;
-	private Label playersLabel, tournamentsLabel, trophiesLabel;
+	private Label playersLabel, tournamentsLabel, hallOfFameLabel;
 
 	// Properties (Getters and Setters)
 	public ImageView getPlayersImageView() {
@@ -50,24 +50,24 @@ public class MainView extends WindowView {
 		optionsHBox = new HBox();
 		playersVBox = new VBox();
 		tournamentsVBox = new VBox();
-		trophiesVBox = new VBox();
+		hallOfFameVBox = new VBox();
 		playersImageView = UIHandler.buildImage("Players.png", 350, 300);
 		tournamentsImageView = UIHandler.buildImage("Tournaments.png", 350, 300);
 		trophiesImageView = UIHandler.buildImage("Trophies.png", 350, 300);
 		playersLabel = new Label("Players");
 		tournamentsLabel = new Label("Tournaments");
-		trophiesLabel = new Label("Trophies");
+		hallOfFameLabel = new Label("Hall of Fame");
 
 		optionsHBox.setAlignment(Pos.CENTER);
 		playersVBox.setAlignment(Pos.CENTER_LEFT);
 		tournamentsVBox.setAlignment(Pos.CENTER);
-		trophiesVBox.setAlignment(Pos.CENTER_RIGHT);
+		hallOfFameVBox.setAlignment(Pos.CENTER_RIGHT);
 		playersLabel.setFont(new Font(viewFontSize));
 		playersLabel.setTextFill(Color.WHITE);
 		tournamentsLabel.setFont(new Font(viewFontSize));
 		tournamentsLabel.setTextFill(Color.WHITE);
-		trophiesLabel.setFont(new Font(viewFontSize));
-		trophiesLabel.setTextFill(Color.WHITE);
+		hallOfFameLabel.setFont(new Font(viewFontSize));
+		hallOfFameLabel.setTextFill(Color.WHITE);
 
 		playersVBox.getChildren().addAll(playersImageView, playersLabel);
 		VBox.setMargin(playersImageView, new Insets(0, 0, 10, 0));
@@ -77,14 +77,14 @@ public class MainView extends WindowView {
 		VBox.setMargin(tournamentsImageView, new Insets(0, 0, 10, 0));
 		VBox.setMargin(tournamentsLabel, new Insets(10, 0, 0, 0));
 
-		trophiesVBox.getChildren().addAll(trophiesImageView, trophiesLabel);
+		hallOfFameVBox.getChildren().addAll(trophiesImageView, hallOfFameLabel);
 		VBox.setMargin(trophiesImageView, new Insets(0, 0, 10, 0));
-		VBox.setMargin(trophiesLabel, new Insets(10, 125, 0, 0));
+		VBox.setMargin(hallOfFameLabel, new Insets(10, 95, 0, 0));
 
-		optionsHBox.getChildren().addAll(playersVBox, tournamentsVBox, trophiesVBox);
+		optionsHBox.getChildren().addAll(playersVBox, tournamentsVBox, hallOfFameVBox);
 		HBox.setMargin(playersVBox, new Insets(0, 50, 0, 0));
 		HBox.setMargin(tournamentsVBox, new Insets(0, 50, 0, 50));
-		HBox.setMargin(trophiesVBox, new Insets(0, 0, 0, 50));
+		HBox.setMargin(hallOfFameVBox, new Insets(0, 0, 0, 50));
 
 		stage.setScene(new Scene(
 				UIHandler.buildBackground("Arena.jpg", optionsHBox, sceneWidth, sceneHeight, backgroundFontSize),

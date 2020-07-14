@@ -70,6 +70,7 @@ public abstract class MatchView extends WindowView {
 		super.addEffects();
 
 		homeImageView.setVisible(false); // User won't be able to jump back to MainView from here
+		audioImageView.setVisible(false); // Crucial for announcing the rounds
 
 		UIHandler.playAudio("Round1.mp3");
 	}

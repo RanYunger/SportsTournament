@@ -141,8 +141,10 @@ public class FootballMatchModel extends MatchModel {
 			else // penalty kicks
 			{
 				UIHandler.showWarning(
-						"We've entered the penalty kicks rounds. Each non-negative score will be counted as a single goal!",
-						false);
+						"We've entered the penalty kicks rounds. You've got 10 rounds to finish the match,"
+								+ "\r\nand each non-negative score will be counted as a single goal!"
+								+ "\r\nIf after 10 rounds no winner is determined, he'll be determined arbitrarily!",
+						true);
 				UIHandler.playAudio("Round1.mp3");
 			}
 		}
@@ -193,7 +195,7 @@ public class FootballMatchModel extends MatchModel {
 			if ((currentPenaltyKick > MIN_WARNING_BARRIER) && (currentPenaltyKick < MAX_PENALTY_KICKS))
 				UIHandler.showWarning(
 						String.format("The match will end in %d rounds!", (MAX_PENALTY_KICKS + 1) - currentPenaltyKick),
-						false);
+						true);
 			if (currentPenaltyKick <= MAX_PENALTY_KICKS)
 				UIHandler.playAudio(currentPenaltyKick == MAX_PENALTY_KICKS ? "FinalRound.mp3"
 						: String.format("Round%d.mp3", currentPenaltyKick + 1));
