@@ -1,1 +1,0 @@
-3. Improve all Show methods in UIHandler

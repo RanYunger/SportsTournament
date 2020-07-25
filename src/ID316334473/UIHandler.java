@@ -18,7 +18,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -101,6 +100,7 @@ public class UIHandler {
 	private static void showAlert(AlertType alertType, String title, String header, String message,
 			String audioFileName, boolean showAndWait) {
 		Alert alert = new Alert(alertType);
+
 		alert.initOwner(mainView.getStage());
 		alert.setX(alert.getOwner().getX() + alert.getOwner().getWidth() - alert.getWidth());
 		alert.setY(alert.getOwner().getY() + alert.getOwner().getHeight() - alert.getHeight());
@@ -174,7 +174,6 @@ public class UIHandler {
 		TextField[] playerNamesTextFields = new TextField[2], playerScoresTextFields = new TextField[2];
 		ImageView playerTurnsImageViews[] = new ImageView[2];
 		ImageView vsImageView;
-		Tooltip instructionsTooltip = new Tooltip("Press TAB to pass turn");
 		PlayerModel player0 = matchModel.getPlayer0(), player1 = matchModel.getPlayer1();
 
 		playerNamesTextFields[0] = new TextField(player0.getTextualName());
@@ -188,19 +187,14 @@ public class UIHandler {
 			playerNamesTextFields[i].setEditable(false);
 			playerNamesTextFields[i].setAlignment(Pos.CENTER);
 			playerNamesTextFields[i].setMinWidth(150);
-			Tooltip.install(playerNamesTextFields[i], instructionsTooltip);
 
 			playerScoresTextFields[i].setEditable(false);
 			playerScoresTextFields[i].setAlignment(Pos.CENTER);
 			playerScoresTextFields[i].setMaxWidth(50);
-			Tooltip.install(playerScoresTextFields[i], instructionsTooltip);
 
 			playerTurnsImageViews[i] = buildImage(player0.getGame() + ".png", 30, 30);
 			playerTurnsImageViews[i].setVisible(i == 0);
-			Tooltip.install(playerTurnsImageViews[i], instructionsTooltip);
 		}
-
-		Tooltip.install(vsImageView, instructionsTooltip);
 
 		matchHBox.getChildren().addAll(playerTurnsImageViews[0], playerNamesTextFields[0], playerScoresTextFields[0],
 				vsImageView, playerScoresTextFields[1], playerNamesTextFields[1], playerTurnsImageViews[1]);
